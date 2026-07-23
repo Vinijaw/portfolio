@@ -1,0 +1,490 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>João Vinícius — Product Designer</title>
+  <meta name="description" content="Portfólio de João Vinícius, Product Designer com experiência em produtos B2B e B2C." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a href="#top" class="logo">João<span>Vinícius</span></a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav">
+        <a href="#top">Início</a>
+        <a href="#cases">Cases</a>
+        <a href="#experiencia">Experiência</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===================== HERO / APRESENTAÇÃO ===================== -->
+    <section class="hero container">
+      <div class="hero__bg" aria-hidden="true">
+        <svg viewBox="0 0 1120 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="heroGrayA" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#ffffff"/>
+              <stop offset="1" stop-color="#dde2e6"/>
+            </linearGradient>
+            <linearGradient id="heroGrayB" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#e6e9ec"/>
+              <stop offset="1" stop-color="#b6bdc3"/>
+            </linearGradient>
+            <linearGradient id="heroGrayC" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0" stop-color="#f6f8f8"/>
+              <stop offset="1" stop-color="#ffffff"/>
+            </linearGradient>
+          </defs>
+
+          <!-- linhas de fundo, atravessando toda a dobra -->
+          <g class="shape" style="--depth:0.1; transform-origin:560px 290px">
+            <circle cx="440" cy="370" r="250" fill="none" stroke="#e8eaec" stroke-width="1.5" opacity="0.4"/>
+          </g>
+          <g class="shape" style="--depth:0.12; transform-origin:560px 300px">
+            <line x1="-30" y1="520" x2="1150" y2="70" stroke="#dfe3e6" stroke-width="1.5" opacity="0.4"/>
+          </g>
+          <g class="shape" style="--depth:0.12; transform-origin:560px 420px">
+            <line x1="-30" y1="670" x2="980" y2="120" stroke="#dfe3e6" stroke-width="1" opacity="0.3"/>
+          </g>
+          <g class="shape" style="--depth:0.15; transform-origin:400px 130px">
+            <line x1="150" y1="-20" x2="680" y2="300" stroke="#e8eaec" stroke-width="1" opacity="0.28"/>
+          </g>
+
+          <!-- canto superior esquerdo -->
+          <g class="shape" style="--depth:0.18; transform-origin:20px 10px">
+            <circle cx="20" cy="10" r="80" fill="none" stroke="#e2e5e8" stroke-width="2" opacity="0.35"/>
+          </g>
+
+          <!-- formas soltas perto do texto, bem discretas -->
+          <g class="shape" style="--depth:0.3; transform-origin:190px 560px">
+            <polygon points="150,520 230,520 150,600" fill="none" stroke="#dde2e6" stroke-width="1.5" opacity="0.4"/>
+          </g>
+          <g class="shape" style="--depth:0.5; transform-origin:90px 610px">
+            <line x1="82" y1="610" x2="98" y2="610" stroke="#c7ccd1" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+            <line x1="90" y1="602" x2="90" y2="618" stroke="#c7ccd1" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          </g>
+          <g class="shape" style="--depth:0.45; transform-origin:540px 560px">
+            <circle cx="540" cy="560" r="6" fill="#9aa3aa" opacity="0.35"/>
+          </g>
+          <g class="shape" style="--depth:0.28; transform-origin:330px 90px">
+            <path d="M298,90 a32,32 0 0 1 64,0 z" fill="#eef1f3" opacity="0.55"/>
+          </g>
+
+          <!-- cluster principal, à direita -->
+          <g class="shape" style="--depth:0.25; transform-origin:797px 143px">
+            <polygon points="750,-10 990,220 610,220" fill="url(#heroGrayA)" opacity="0.55"/>
+          </g>
+
+          <g class="shape" style="--depth:0.35; transform-origin:900px 230px">
+            <circle cx="900" cy="230" r="130" fill="none" stroke="url(#heroGrayB)" stroke-width="36" opacity="0.5"/>
+          </g>
+          <g class="shape" style="--depth:0.5; transform-origin:900px 230px">
+            <path d="M 900 100 A 130 130 0 0 1 1030 230" fill="none" stroke="#a7afb6" stroke-width="36" opacity="0.5" stroke-linecap="round"/>
+          </g>
+
+          <g class="shape" style="--depth:0.45; transform-origin:661px 394px">
+            <polygon points="616,350 750,350 616,482" fill="url(#heroGrayC)" stroke="#dde2e6" stroke-width="1" opacity="0.7"/>
+          </g>
+
+          <g class="shape" style="--depth:0.55; transform-origin:790px 540px">
+            <circle cx="790" cy="540" r="50" fill="none" stroke="#d7dce0" stroke-width="14" opacity="0.55"/>
+          </g>
+
+          <g class="shape" style="--depth:0.6; transform-origin:870px 380px">
+            <path d="M850,360 a36,36 0 0 1 36,36 a36,36 0 0 1 -36,-36 z" fill="#9aa3aa" opacity="0.3"/>
+          </g>
+          <g class="shape" style="--depth:0.65; transform-origin:700px 560px">
+            <path d="M688,548 a22,22 0 0 1 22,22 a22,22 0 0 1 -22,-22 z" fill="#9aa3aa" opacity="0.32"/>
+          </g>
+
+          <g class="shape" style="--depth:0.7; transform-origin:760px 490px">
+            <circle cx="760" cy="490" r="8" fill="#7c848b" opacity="0.5"/>
+          </g>
+
+          <g class="shape" style="--depth:0.4; transform-origin:830px 440px">
+            <line x1="900" y1="390" x2="760" y2="490" stroke="#c7ccd1" stroke-width="1.5" stroke-dasharray="4 5" opacity="0.5"/>
+          </g>
+
+          <g class="shape" style="--depth:0.8; transform-origin:1010px 500px">
+            <line x1="1002" y1="500" x2="1018" y2="500" stroke="#b6bdc3" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+            <line x1="1010" y1="492" x2="1010" y2="508" stroke="#b6bdc3" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="hero__content">
+        <p class="tag">Olá, eu sou o João Vinícius</p>
+
+        <h1 class="hero__title">
+          Product Designer
+        </h1>
+
+        <p class="hero__lead">
+          Atuo em todo o ciclo de design, desde a pesquisa inicial e análise de dados até a entrega de
+          protótipos de alta fidelidade.
+        </p>
+
+        <p class="hero__lead">
+          Valorizo a troca de conhecimento e ambientes de trabalho colaborativos onde o design é
+          essencial no processo de criação.
+        </p>
+
+        <div class="hero__actions">
+          <a href="#cases" class="btn btn--primary">Ver meus cases</a>
+          <a href="#contato" class="btn btn--ghost">Falar comigo</a>
+        </div>
+      </div>
+
+      <div class="hero__media">
+        <div class="hero__photo">
+          <img src="assets/images/fotos/joao-vinicius.jpg" alt="Foto de João Vinícius" class="hero__photo-img" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EMPRESAS (CARDS / CARROSSEL) ===================== -->
+    <section class="logos" aria-label="Empresas em que já trabalhei">
+      <div class="container">
+        <ul class="logos__grid">
+          <li class="logos__item"><img src="assets/images/marcas/clientes/toro.png" alt="Toro" /></li>
+          <li class="logos__item"><img src="assets/images/marcas/clientes/rec-mais.png" alt="Rec+" /></li>
+          <li class="logos__item"><img src="assets/images/marcas/clientes/santander.png" alt="Santander" /></li>
+          <li class="logos__item"><img src="assets/images/marcas/clientes/marfrig.png" alt="Marfrig" /></li>
+          <li class="logos__item"><img src="assets/images/marcas/clientes/ymonetize.png" alt="Ymonetize" /></li>
+          <li class="logos__item"><img src="assets/images/marcas/clientes/price-survey.png" alt="Price Survey" /></li>
+          <li class="logos__item"><img src="assets/images/marcas/clientes/petrobras.png" alt="Petrobras" /></li>
+        </ul>
+
+        <div class="logos__marquee">
+          <div class="logos__track">
+            <ul class="logos__marquee-list">
+              <li class="logos__item"><img src="assets/images/marcas/clientes/toro.png" alt="Toro" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/rec-mais.png" alt="Rec+" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/santander.png" alt="Santander" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/marfrig.png" alt="Marfrig" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/ymonetize.png" alt="Ymonetize" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/price-survey.png" alt="Price Survey" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/petrobras.png" alt="Petrobras" /></li>
+            </ul>
+            <ul class="logos__marquee-list" aria-hidden="true">
+              <li class="logos__item"><img src="assets/images/marcas/clientes/toro.png" alt="" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/rec-mais.png" alt="" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/santander.png" alt="" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/marfrig.png" alt="" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/ymonetize.png" alt="" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/price-survey.png" alt="" /></li>
+              <li class="logos__item"><img src="assets/images/marcas/clientes/petrobras.png" alt="" /></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CASES ===================== -->
+    <section class="section section--dark" id="cases">
+      <div class="container">
+        <p class="section__tag section__tag--light">Projetos</p>
+        <h2 class="section__title section__title--display">
+          Cases <span class="dot">•</span> <em>Selecionados</em>
+        </h2>
+
+        <div class="cases__grid">
+
+          <article class="case-card">
+            <div class="case-card__thumb" aria-hidden="true">Case 01</div>
+            <p class="case-card__category">Plataforma operacional</p>
+            <h3 class="case-card__title">Redesign de plataforma de gestão interna</h3>
+            <p class="case-card__desc">
+              Centralização de operações e redução de dependências técnicas em um sistema usado
+              diariamente por times internos.
+            </p>
+            <a href="#" class="case-card__link">Ver case completo →</a>
+          </article>
+
+          <article class="case-card">
+            <div class="case-card__thumb" aria-hidden="true">Case 02</div>
+            <p class="case-card__category">Produto B2C</p>
+            <h3 class="case-card__title">Jornada de coleta e pagamento</h3>
+            <p class="case-card__desc">
+              Simplificação de um fluxo mobile de ponta a ponta, do registro da coleta até a
+              confirmação do pagamento.
+            </p>
+            <a href="#" class="case-card__link">Ver case completo →</a>
+          </article>
+
+          <article class="case-card">
+            <div class="case-card__thumb" aria-hidden="true">Case 03</div>
+            <p class="case-card__category">Dashboard / Analytics</p>
+            <h3 class="case-card__title">Painel de gerenciamento de assinaturas</h3>
+            <p class="case-card__desc">
+              Estrutura de navegação e filtros pensada para reduzir o tempo de busca por
+              documentos e assinaturas pendentes.
+            </p>
+            <a href="#" class="case-card__link">Ver case completo →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== EXPERIÊNCIA ===================== -->
+    <section class="section experience" id="experiencia">
+      <div class="container experience__layout">
+
+        <div class="experience__main">
+          <p class="section__tag">Trajetória</p>
+          <h2 class="section__title section__title--compact">
+            Experiência <em>profissional</em>
+          </h2>
+
+          <div class="timeline">
+
+            <div class="timeline__group">
+              <p class="timeline__company">
+                <span class="timeline__dot" aria-hidden="true"></span>
+                Santander Corretora
+              </p>
+
+              <div class="timeline__role">
+                <span class="timeline__icon" aria-hidden="true">
+                  <img src="assets/images/marcas/empresas/Santander-logo.svg" alt="" class="timeline__icon-img" />
+                </span>
+                <div>
+                  <h3 class="timeline__role-title">Product Designer</h3>
+                  <p class="timeline__role-meta">Efetivo · 2023 — Atual</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__group">
+              <p class="timeline__company">
+                <span class="timeline__dot" aria-hidden="true"></span>
+                Compass.uol
+              </p>
+
+              <div class="timeline__role">
+                <span class="timeline__icon" aria-hidden="true">
+                  <img src="assets/images/marcas/empresas/Compass-logo.svg" alt="" class="timeline__icon-img" />
+                </span>
+                <div>
+                  <h3 class="timeline__role-title">UI/UX Designer</h3>
+                  <p class="timeline__role-meta">Efetivo · 2022 — 2023</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__group">
+              <p class="timeline__company">
+                <span class="timeline__dot" aria-hidden="true"></span>
+                Jera
+              </p>
+
+              <div class="timeline__role">
+                <span class="timeline__icon" aria-hidden="true">
+                  <img src="assets/images/marcas/empresas/Jera-logo.svg" alt="" class="timeline__icon-img" />
+                </span>
+                <div>
+                  <h3 class="timeline__role-title">UI/UX Designer</h3>
+                  <p class="timeline__role-meta">Efetivo · 2020 — 2022</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <aside class="experience__aside">
+          <h3 class="section__title section__title--compact">
+            Formação &amp; <em>Certificações</em>
+          </h3>
+
+          <div class="timeline">
+
+            <div class="timeline__group">
+              <p class="timeline__company">
+                <span class="timeline__dot" aria-hidden="true"></span>
+                PUCRS
+              </p>
+
+              <div class="timeline__role">
+                <span class="timeline__icon" aria-hidden="true">
+                  <img src="assets/images/marcas/formacao/pucrs-logo.svg" alt="" class="timeline__icon-img" />
+                </span>
+                <div>
+                  <h3 class="timeline__role-title">User Experience Design and Beyond</h3>
+                  <p class="timeline__role-meta">2024 — Atual</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__group">
+              <p class="timeline__company">
+                <span class="timeline__dot" aria-hidden="true"></span>
+                Scrum.org
+              </p>
+
+              <div class="timeline__role">
+                <span class="timeline__icon" aria-hidden="true">
+                  <img src="assets/images/marcas/formacao/scrum.org-logo.png" alt="" class="timeline__icon-img" />
+                </span>
+                <div>
+                  <h3 class="timeline__role-title">Professional Scrum with User Experience I (PSU I)</h3>
+                  <p class="timeline__role-meta">2022</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="timeline__group">
+              <p class="timeline__company">
+                <span class="timeline__dot" aria-hidden="true"></span>
+                UFMS
+              </p>
+
+              <div class="timeline__role">
+                <span class="timeline__icon" aria-hidden="true">
+                  <img src="assets/images/marcas/formacao/ufms-logo.svg" alt="" class="timeline__icon-img" />
+                </span>
+                <div>
+                  <h3 class="timeline__role-title">Graduação em Engenharia de Software</h3>
+                  <p class="timeline__role-meta">2016 — 2021</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+
+      </div>
+    </section>
+
+    <!-- ===================== SOBRE ===================== -->
+    <section class="section about" id="sobre">
+      <div class="container about__layout">
+
+        <div class="about__sticky">
+          <p class="section__tag">Sobre</p>
+          <h2 class="section__title">
+            Designer de Produto <em>por paixão</em>,<br />
+            Engenheiro de Software <em>por formação</em>
+          </h2>
+
+          <p class="about__text">
+            Sempre fui fascinado por tecnologia e arte, por isso tive muita incerteza quanto ao
+            caminho que iria seguir, mas foi durante a minha primeira aula de Interação Humano
+            Computador que eu entendi que era possível trabalhar com algo que explorasse tanto a
+            minha criatividade quanto o raciocínio lógico, assim conheci e me encontrei no UX/UI
+            Design.
+          </p>
+          <p class="about__text">
+            Minha formação aliada a minha atuação como designer me fizeram ter um olhar atento na
+            viabilidade de implementação quanto a estética e usabilidade. Aplico todo meu
+            aprendizado nas minhas entregas e hoje estou me desenvolvendo cada vez mais como
+            designer de experiência.
+          </p>
+        </div>
+
+        <div class="about__cards">
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__header">
+              <span class="testimonial-card__quote-icon" aria-hidden="true">&ldquo;</span>
+              <span class="testimonial-card__category">/ DESIGN &amp; USABILITY</span>
+            </div>
+            <p class="testimonial-card__text">
+              "Seu visual é um dos melhores que já tive no time, adquiriu muita habilidade em
+              visão sistêmica, faz os questionamentos certos para entender de fato o problema e
+              pensa em soluções simples."
+            </p>
+            <div class="testimonial-card__author">
+              <img class="testimonial-card__avatar" src="assets/images/fotos/juliana-batista.jpg" alt="Juliana Batista" width="48" height="48" loading="lazy">
+              <div>
+                <p class="testimonial-card__name">Juliana Batista</p>
+                <p class="testimonial-card__role">DESIGN LEAD</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__header">
+              <span class="testimonial-card__quote-icon" aria-hidden="true">&ldquo;</span>
+              <span class="testimonial-card__category">/ DESIGN &amp; USABILITY</span>
+            </div>
+            <p class="testimonial-card__text">
+              "O João, sem dúvidas, é um dos melhores designers que temos no time. Todo o seu
+              conhecimento, prática, sabedoria e calma são pontos fortes que fazem toda a
+              diferença na equipe"
+            </p>
+            <div class="testimonial-card__author">
+              <img class="testimonial-card__avatar" src="assets/images/fotos/gabriela-colla.jpg" alt="Gabriela Colla" width="48" height="48" loading="lazy">
+              <div>
+                <p class="testimonial-card__name">Gabriela Colla</p>
+                <p class="testimonial-card__role">PRODUCT DESIGNER</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__header">
+              <span class="testimonial-card__quote-icon" aria-hidden="true">&ldquo;</span>
+              <span class="testimonial-card__category">/ DESIGN &amp; USABILITY</span>
+            </div>
+            <p class="testimonial-card__text">
+              "João traz grande inspiração aos demais com sua sensibilidade apurada em converter
+              o subjetivo na prática através do design."
+            </p>
+            <div class="testimonial-card__author">
+              <img class="testimonial-card__avatar" src="assets/images/fotos/hygor-garcia.jpg" alt="Hygor Garcia" width="48" height="48" loading="lazy">
+              <div>
+                <p class="testimonial-card__name">Hygor Garcia</p>
+                <p class="testimonial-card__role">AGILE MASTER</p>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== CONTATO / FOOTER ===================== -->
+  <footer class="footer" id="contato">
+    <div class="container">
+      <p class="section__tag section__tag--light">Contato</p>
+      <h2 class="footer__title">Vamos construir algo <em>incrível juntos</em>?</h2>
+
+      <div class="footer__actions">
+        <a href="mailto:joaoviniciusdarochasilva@gmail.com" class="btn btn--primary">
+          joaoviniciusdarochasilva@gmail.com
+        </a>
+        <a href="#" class="btn btn--ghost">LinkedIn ↗</a>
+      </div>
+
+      <p class="footer__copy">© 2026 João Vinícius. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
