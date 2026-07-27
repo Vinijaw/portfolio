@@ -30,6 +30,8 @@
         <a href="#cases">Cases</a>
         <a href="#experiencia">Experiência</a>
         <a href="#sobre">Sobre</a>
+        <a href="#playground">Playground</a>
+        <a href="#curiosidades">Curiosidades</a>
         <a href="#contato">Contato</a>
       </nav>
     </div>
@@ -515,6 +517,148 @@
                 <p class="testimonial-card__name">Hygor Garcia</p>
                 <p class="testimonial-card__role">AGILE MASTER</p>
               </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PLAYGROUND ===================== -->
+    <section class="section section--dark playground" id="playground">
+      <div class="container">
+        <p class="section__tag section__tag--light">Laboratório</p>
+        <h2 class="section__title section__title--display">
+          Playground <span class="dot">•</span> <em>Experimentos</em>
+        </h2>
+        <p class="playground__lead">
+          Microinterações, conceitos de interface e testes rápidos de UI — sem processo
+          detalhado, só o resultado visual.
+        </p>
+
+        <div class="playground__grid">
+          <button type="button" class="playground-block" data-playground-item="gerenciamento">
+            <img class="playground-block__media" src="assets/images/cases/Playground/Gerenciamento de assinaturas/gerenciamento-cover.jpg" alt="" loading="lazy" />
+            <span class="playground-block__footer">
+              <span class="playground-block__name">Gerenciamento de Assinaturas</span>
+              <span class="playground-block__category">Desktop</span>
+            </span>
+          </button>
+
+          <button type="button" class="playground-block" data-playground-item="zelia">
+            <img class="playground-block__media" src="assets/images/cases/Playground/Zélia/zelia-cover.jpg" alt="" loading="lazy" />
+            <span class="playground-block__footer">
+              <span class="playground-block__name">Zelia App</span>
+              <span class="playground-block__category">App</span>
+            </span>
+          </button>
+
+          <button type="button" class="playground-block" data-playground-item="orbit">
+            <img class="playground-block__media" src="assets/images/cases/Playground/Orbit/orbit-cover.jpg" alt="" loading="lazy" />
+            <span class="playground-block__footer">
+              <span class="playground-block__name">Orbit</span>
+              <span class="playground-block__category">Mobile</span>
+            </span>
+          </button>
+
+          <button type="button" class="playground-block" data-playground-item="genshin">
+            <img class="playground-block__media" src="assets/images/cases/Playground/Genshin/genshin-cover.jpg" alt="" loading="lazy" />
+            <span class="playground-block__footer">
+              <span class="playground-block__name">Assistente de Genshin Impact</span>
+              <span class="playground-block__category">App</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Modal / Lightbox "Split View": conteúdo é preenchido via JS (js/main.js) a partir de PLAYGROUND_ITEMS -->
+      <div class="playground-modal" id="playgroundModal" aria-hidden="true">
+        <div class="playground-modal__backdrop" data-playground-close></div>
+        <div class="playground-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="playgroundModalTitle">
+
+          <!-- Bloco A: mídia / carrossel -->
+          <div class="playground-modal__media">
+            <div class="playground-modal__glow" aria-hidden="true"></div>
+            <div class="playground-modal__carousel"></div>
+            <button type="button" class="playground-modal__nav playground-modal__nav--prev" aria-label="Mídia anterior">‹</button>
+            <button type="button" class="playground-modal__nav playground-modal__nav--next" aria-label="Próxima mídia">›</button>
+            <div class="playground-modal__dots"></div>
+          </div>
+
+          <!-- Bloco B: painel de informações (card independente) -->
+          <div class="playground-modal__info">
+            <div class="playground-modal__info-header">
+              <h3 class="playground-modal__title" id="playgroundModalTitle"></h3>
+              <div class="playground-modal__actions">
+                <a class="playground-modal__link" href="#" target="_blank" rel="noopener noreferrer" hidden>↗ Abrir protótipo</a>
+                <button type="button" class="playground-modal__icon-btn" data-playground-close aria-label="Fechar" title="Fechar">✕</button>
+              </div>
+            </div>
+            <hr class="playground-modal__divider" />
+            <div class="playground-modal__tags"></div>
+            <div class="playground-modal__desc"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CURIOSIDADES ===================== -->
+    <!-- Wireframe: só a estrutura/placeholder por enquanto, conteúdo real
+         (top músicas do Spotify, hobbies, fotos) entra depois. -->
+    <section class="section curiosities" id="curiosidades">
+      <div class="container">
+        <p class="section__tag">Curiosidades</p>
+        <h2 class="section__title">
+          Um pouco mais <em>sobre mim</em>
+        </h2>
+        <p class="curiosities__lead">
+          Fora do trabalho — o que ando ouvindo, o que faço nas horas vagas e alguns registros.
+        </p>
+
+        <div class="curiosities__grid">
+
+          <article class="curiosities__card">
+            <h3 class="curiosities__card-title">Top músicas — Spotify</h3>
+            <div class="curiosities__track">
+              <div class="curiosities__track-art" aria-hidden="true"></div>
+              <div class="curiosities__track-info">
+                <strong>Faixa placeholder 1</strong>
+                <span>Artista placeholder</span>
+              </div>
+            </div>
+            <div class="curiosities__track">
+              <div class="curiosities__track-art" aria-hidden="true"></div>
+              <div class="curiosities__track-info">
+                <strong>Faixa placeholder 2</strong>
+                <span>Artista placeholder</span>
+              </div>
+            </div>
+            <div class="curiosities__track">
+              <div class="curiosities__track-art" aria-hidden="true"></div>
+              <div class="curiosities__track-info">
+                <strong>Faixa placeholder 3</strong>
+                <span>Artista placeholder</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="curiosities__card">
+            <h3 class="curiosities__card-title">Hobbies</h3>
+            <div class="curiosities__hobbies">
+              <span class="curiosities__hobby">Hobby 1</span>
+              <span class="curiosities__hobby">Hobby 2</span>
+              <span class="curiosities__hobby">Hobby 3</span>
+              <span class="curiosities__hobby">Hobby 4</span>
+            </div>
+          </article>
+
+          <article class="curiosities__card">
+            <h3 class="curiosities__card-title">Fotos</h3>
+            <div class="curiosities__photos">
+              <div class="curiosities__photo" aria-hidden="true">Foto</div>
+              <div class="curiosities__photo" aria-hidden="true">Foto</div>
+              <div class="curiosities__photo" aria-hidden="true">Foto</div>
+              <div class="curiosities__photo" aria-hidden="true">Foto</div>
             </div>
           </article>
 

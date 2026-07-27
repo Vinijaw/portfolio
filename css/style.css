@@ -719,6 +719,533 @@ em {
 }
 
 /* ==========================================================================
+   PLAYGROUND
+   ========================================================================== */
+.playground__lead {
+  margin-top: 1rem;
+  max-width: 60ch;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* ---- Grid de blocos quadrados (1 por projeto) ---- */
+.playground__grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.playground-block {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  padding: 0;
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius);
+  background: var(--color-dark-alt);
+  cursor: pointer;
+  transform-origin: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.playground-block:hover,
+.playground-block:focus-visible {
+  transform: scale(1.06);
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.55);
+  z-index: 2;
+  outline: none;
+}
+
+.playground-block__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+}
+
+.playground-block:hover .playground-block__media,
+.playground-block:focus-visible .playground-block__media {
+  transform: scale(1.05);
+}
+
+.playground-block__footer {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.75rem;
+  height: 55%;
+  padding: 1rem;
+  background: linear-gradient(
+    to top,
+    rgba(4, 8, 11, 0.92) 0%,
+    rgba(4, 8, 11, 0.7) 25%,
+    rgba(4, 8, 11, 0.22) 65%,
+    transparent 100%
+  );
+}
+
+.playground-block__name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--color-text-on-dark);
+  text-align: left;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.playground-block__category {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.22);
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+}
+
+@media (max-width: 640px) {
+  .playground__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
+/* ---- Modal / Lightbox "Split View": mídia + card de informações,
+   como dois blocos independentes lado a lado (com gap entre eles). ---- */
+.playground-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.playground-modal.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.25s ease, visibility 0s linear 0s;
+}
+
+body.playground-modal-open {
+  overflow: hidden;
+}
+
+.playground-modal__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+}
+
+.playground-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: min(1600px, 94vw);
+  height: 88vh;
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 1.5rem;
+  opacity: 0;
+  transform: scale(0.97) translateY(6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.playground-modal.is-open .playground-modal__dialog {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---- Bloco A: mídia / carrossel ---- */
+.playground-modal__media {
+  position: relative;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border-on-dark);
+  background: var(--color-dark);
+}
+
+/* Fundo gradiente fixo por projeto — gerado 100% via CSS (paleta tirada do
+   "*_Bg.png" de referência de cada pasta), não muda ao trocar de tela. */
+.playground-modal__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.playground-modal__media[data-project="gerenciamento"] .playground-modal__glow {
+  background: radial-gradient(120% 90% at 50% 35%, #6fa3e0 0%, #2f5fa8 45%, #12294f 100%);
+}
+
+.playground-modal__media[data-project="orbit"] .playground-modal__glow {
+  background: radial-gradient(70% 60% at 15% 12%, #f2a077 0%, transparent 45%),
+    linear-gradient(150deg, #f0895e 0%, #e8703f 55%, #d1552c 100%);
+}
+
+.playground-modal__media[data-project="genshin"] .playground-modal__glow {
+  background: radial-gradient(45% 40% at 22% 30%, rgba(122, 47, 82, 0.55) 0%, transparent 70%),
+    radial-gradient(55% 50% at 38% 50%, rgba(90, 74, 138, 0.55) 0%, transparent 70%),
+    radial-gradient(50% 45% at 85% 15%, rgba(58, 92, 102, 0.4) 0%, transparent 70%),
+    linear-gradient(160deg, #1a2530 0%, #0e1b23 75%);
+}
+
+.playground-modal__media[data-project="zelia"] .playground-modal__glow {
+  background: radial-gradient(60% 50% at 75% 18%, rgba(217, 165, 68, 0.35) 0%, transparent 65%),
+    linear-gradient(165deg, #232323 0%, #0a0a0a 75%);
+}
+
+/* "Viewport" da trilha: recorta a mídia, o fundo gradiente fica atrás dela
+   (fora do carrossel) e por isso nunca se move junto com as telas. */
+.playground-modal__carousel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Trilha física: uma faixa com um quadro por tela, deslizada via translateX.
+   A largura/posição de cada tela é calculada no JS (renderCarousel/goToSlide)
+   de acordo com a quantidade de imagens do projeto. */
+.playground-modal__track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Cada quadro da trilha centraliza sua tela, que flutua por cima do fundo
+   com cantos arredondados + sombra (sem esticar pra preencher o quadro). */
+.playground-modal__slide {
+  flex-shrink: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+}
+
+.playground-modal__slide img,
+.playground-modal__slide video {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.55);
+}
+
+.playground-modal__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.playground-modal__nav:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.playground-modal__nav--prev {
+  left: 1rem;
+}
+
+.playground-modal__nav--next {
+  right: 1rem;
+}
+
+.playground-modal__dots {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 1rem;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.playground-modal__dot {
+  width: 7px;
+  height: 7px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  cursor: pointer;
+}
+
+.playground-modal__dot.is-active {
+  background: var(--color-accent);
+}
+
+/* ---- Bloco B: painel de informações (card independente) ---- */
+.playground-modal__info {
+  padding: 2rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  background: var(--color-dark-alt);
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius);
+}
+
+.playground-modal__info-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.playground-modal__divider {
+  width: 100%;
+  height: 1px;
+  border: none;
+  background: var(--color-border-on-dark);
+}
+
+.playground-modal__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--color-text-on-dark);
+}
+
+.playground-modal__actions {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.playground-modal__icon-btn {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-on-dark);
+  font-size: 0.95rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.playground-modal__icon-btn:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.playground-modal__link {
+  flex-shrink: 0;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-inline: 0.9rem;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 999px;
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.playground-modal__link:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+.playground-modal__link[hidden] {
+  display: none;
+}
+
+.playground-modal__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.playground-modal__tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--color-text-on-dark-muted);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+
+.playground-modal__desc {
+  color: var(--color-text-on-dark-muted);
+  line-height: 1.6;
+}
+
+.playground-modal__desc p + p {
+  margin-top: 1em;
+}
+
+.playground-modal__inline-link {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.playground-modal__inline-link:hover {
+  color: var(--color-text-on-dark);
+}
+
+@media (max-width: 780px) {
+  .playground-modal {
+    padding: 1rem;
+    align-items: flex-end;
+  }
+
+  .playground-modal__dialog {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    width: 100%;
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+
+  .playground-modal__media {
+    min-height: 240px;
+  }
+}
+
+/* ==========================================================================
+   CURIOSIDADES (wireframe — conteúdo real a definir)
+   ========================================================================== */
+.curiosities__lead {
+  margin-top: 1rem;
+  max-width: 60ch;
+  color: var(--color-text-muted);
+}
+
+.curiosities__grid {
+  margin-top: 3rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.75rem;
+}
+
+.curiosities__card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.75rem;
+}
+
+.curiosities__card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+
+.curiosities__track {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-block: 0.6rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.curiosities__track:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.curiosities__track-art {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  background: var(--color-bg-alt);
+}
+
+.curiosities__track-info strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.curiosities__track-info span {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.curiosities__hobbies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.curiosities__hobby {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+}
+
+.curiosities__photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+.curiosities__photo {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-alt);
+  border-radius: calc(var(--radius) - 4px);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+}
+
+/* ==========================================================================
    EXPERIÊNCIA
    ========================================================================== */
 .experience__layout {
@@ -919,6 +1446,7 @@ em {
   .hero,
   .about__layout,
   .cases__grid,
+  .curiosities__grid,
   .experience__layout {
     grid-template-columns: 1fr;
   }
