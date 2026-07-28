@@ -1,14 +1,10 @@
 const { spotifyFetch } = require("../lib/spotify");
 
-const VALID_RANGES = new Set(["short_term", "long_term"]);
-
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "public, max-age=60, stale-while-revalidate=300");
 
-  const range = VALID_RANGES.has(req.query.range) ? req.query.range : "short_term";
-
   try {
-    const spotifyRes = await spotifyFetch(`/me/top/tracks?time_range=${range}&limit=3`);
+    const spotifyRes = await spotifyFetch("/me/top/tracks?time_range=short_term&limit=10");
 
     if (!spotifyRes.ok) {
       throw new Error(`Spotify respondeu ${spotifyRes.status}`);

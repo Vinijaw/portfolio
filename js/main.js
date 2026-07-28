@@ -561,12 +561,7 @@ if (spotifyCard) {
   const nowPlayingArt = document.getElementById("spotifyNowPlayingArt");
   const nowPlayingTitle = document.getElementById("spotifyNowPlayingTitle");
   const nowPlayingArtist = document.getElementById("spotifyNowPlayingArtist");
-  const trackEls = [
-    document.getElementById("spotifyTrack1"),
-    document.getElementById("spotifyTrack2"),
-    document.getElementById("spotifyTrack3"),
-  ];
-  const tabButtons = spotifyCard.querySelectorAll(".curiosities__tab");
+  const trackListEl = document.getElementById("spotifyTrackList");
 
   const renderNowPlaying = (data) => {
     if (!data || !data.isPlaying) {
@@ -574,28 +569,40 @@ if (spotifyCard) {
       return;
     }
     nowPlayingEl.hidden = false;
+    nowPlayingEl.href = data.url;
     nowPlayingArt.style.backgroundImage = data.art ? `url(${data.art})` : "";
     nowPlayingTitle.textContent = data.title;
     nowPlayingArtist.textContent = data.artist;
   };
 
-  const renderTopTracks = (tracks) => {
-    trackEls.forEach((trackEl, index) => {
-      const track = tracks[index];
-      if (!trackEl || !track) return;
-      trackEl.querySelector(".curiosities__track-art").style.backgroundImage = track.art
-        ? `url(${track.art})`
-        : "";
-      trackEl.querySelector("strong").textContent = track.title;
-      trackEl.querySelector("span").textContent = track.artist;
-    });
+  const createTrackLink = (track) => {
+    const link = document.createElement("a");
+    link.className = "curiosities__track";
+    link.href = track.url;
+    link.target = "_blank";
+    link.rel = "noopener";
+
+    const art = document.createElement("div");
+    art.className = "curiosities__track-art";
+    art.setAttribute("aria-hidden", "true");
+    if (track.art) art.style.backgroundImage = `url(${track.art})`;
+
+    const info = document.createElement("div");
+    info.className = "curiosities__track-info";
+    const title = document.createElement("strong");
+    title.textContent = track.title;
+    const artist = document.createElement("span");
+    artist.textContent = track.artist;
+    info.append(title, artist);
+
+    link.append(art, info);
+    return link;
   };
 
-  const loadTopTracks = (range) => {
-    fetch(`/api/spotify-top-tracks?range=${range}`)
-      .then((response) => response.json())
-      .then((data) => renderTopTracks(data.tracks || []))
-      .catch(() => {});
+  const renderTopTracks = (tracks) => {
+    if (!tracks.length) return;
+    trackListEl.innerHTML = "";
+    tracks.forEach((track) => trackListEl.appendChild(createTrackLink(track)));
   };
 
   fetch("/api/spotify-now-playing")
@@ -603,18 +610,8 @@ if (spotifyCard) {
     .then(renderNowPlaying)
     .catch(() => {});
 
-  loadTopTracks("short_term");
-
-  tabButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      if (button.classList.contains("is-active")) return;
-      tabButtons.forEach((btn) => {
-        btn.classList.remove("is-active");
-        btn.setAttribute("aria-selected", "false");
-      });
-      button.classList.add("is-active");
-      button.setAttribute("aria-selected", "true");
-      loadTopTracks(button.dataset.range);
-    });
-  });
+  fetch("/api/spotify-top-tracks")
+    .then((response) => response.json())
+    .then((data) => renderTopTracks(data.tracks || []))
+    .catch(() => {});
 }
