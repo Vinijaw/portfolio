@@ -562,6 +562,7 @@ if (spotifyCard) {
   const nowPlayingTitle = document.getElementById("spotifyNowPlayingTitle");
   const nowPlayingArtist = document.getElementById("spotifyNowPlayingArtist");
   const trackListEl = document.getElementById("spotifyTrackList");
+  const trackListInnerEl = document.getElementById("spotifyTrackListInner");
 
   const renderNowPlaying = (data) => {
     if (!data || !data.isPlaying) {
@@ -599,10 +600,31 @@ if (spotifyCard) {
     return link;
   };
 
+  // Instância própria do Lenis pra lista de faixas ter a mesma inércia do
+  // scroll da página, mas sem entrar em conflito com ela: a própria lista
+  // já é excluída da instância principal via [data-lenis-prevent].
+  let trackListLenis = null;
+  if (typeof Lenis !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    trackListEl.classList.add("curiosities__track-list--lenis");
+    trackListLenis = new Lenis({
+      wrapper: trackListEl,
+      content: trackListInnerEl,
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    });
+
+    const trackListRaf = (time) => {
+      trackListLenis.raf(time);
+      requestAnimationFrame(trackListRaf);
+    };
+    requestAnimationFrame(trackListRaf);
+  }
+
   const renderTopTracks = (tracks) => {
     if (!tracks.length) return;
-    trackListEl.innerHTML = "";
-    tracks.forEach((track) => trackListEl.appendChild(createTrackLink(track)));
+    trackListInnerEl.innerHTML = "";
+    tracks.forEach((track) => trackListInnerEl.appendChild(createTrackLink(track)));
+    trackListLenis?.resize();
   };
 
   fetch("/api/spotify-now-playing")

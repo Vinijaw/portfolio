@@ -1386,6 +1386,10 @@ body.playground-modal-open {
   background: rgba(255, 255, 255, 0.05);
 }
 
+.curiosities__track[hidden] {
+  display: none;
+}
+
 .curiosities__track:first-of-type {
   border-top: none;
   padding-top: 0;
@@ -1420,6 +1424,7 @@ body.playground-modal-open {
 }
 
 .curiosities__track-list {
+  position: relative;
   max-height: 280px;
   overflow-y: auto;
   scrollbar-width: none;
@@ -1428,6 +1433,12 @@ body.playground-modal-open {
 
 .curiosities__track-list::-webkit-scrollbar {
   display: none;
+}
+
+/* Aplicada via JS quando o Lenis assume o scroll dessa lista (mesma
+   inércia da página). Sem JS/Lenis, cai no scroll nativo acima. */
+.curiosities__track-list--lenis {
+  overflow: hidden;
 }
 
 .curiosities__now-playing-tag {
