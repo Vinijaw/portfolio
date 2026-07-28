@@ -1416,11 +1416,19 @@ body.playground-modal-open {
 }
 
 .curiosities__track.curiosities__track--now-playing {
+  flex-direction: column;
+  text-align: center;
   border-top: none;
-  padding: 0.85rem;
+  padding: 1.25rem 0.85rem;
   margin-bottom: 1rem;
   background: rgba(255, 255, 255, 0.06);
   border-radius: calc(var(--radius) - 4px);
+}
+
+.curiosities__track--now-playing .curiosities__track-art {
+  width: 96px;
+  height: 96px;
+  border-radius: 10px;
 }
 
 .curiosities__track-list {
