@@ -1392,7 +1392,7 @@ body.playground-modal-open {
   color: var(--color-text-muted);
 }
 
-.curiosities__track--now-playing {
+.curiosities__track.curiosities__track--now-playing {
   border-top: none;
   padding: 0.85rem;
   margin-bottom: 1rem;
