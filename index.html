@@ -537,44 +537,48 @@
         </p>
 
         <div class="playground__grid">
-          <button type="button" class="playground-block" data-playground-item="gerenciamento">
-            <img class="playground-block__media" src="assets/images/cases/Playground/Gerenciamento de assinaturas/gerenciamento-cover.jpg" alt="" loading="lazy" />
-            <span class="playground-block__footer">
-              <span class="playground-block__name">Gerenciamento de Assinaturas</span>
-              <span class="playground-block__category">Desktop</span>
-            </span>
-          </button>
+          <div class="playground__track">
+            <button type="button" class="playground-block" data-playground-item="gerenciamento">
+              <img class="playground-block__media" src="assets/images/cases/Playground/Gerenciamento de assinaturas/gerenciamento-cover.jpg" alt="" loading="lazy" />
+              <span class="playground-block__footer">
+                <span class="playground-block__name">Gerenciamento de Assinaturas</span>
+                <span class="playground-block__category">Desktop</span>
+              </span>
+            </button>
 
-          <button type="button" class="playground-block" data-playground-item="zelia">
-            <img class="playground-block__media" src="assets/images/cases/Playground/Zélia/zelia-cover.jpg" alt="" loading="lazy" />
-            <span class="playground-block__footer">
-              <span class="playground-block__name">Zelia App</span>
-              <span class="playground-block__category">App</span>
-            </span>
-          </button>
+            <button type="button" class="playground-block" data-playground-item="zelia">
+              <img class="playground-block__media" src="assets/images/cases/Playground/Zélia/zelia-cover.jpg" alt="" loading="lazy" />
+              <span class="playground-block__footer">
+                <span class="playground-block__name">Zelia App</span>
+                <span class="playground-block__category">App</span>
+              </span>
+            </button>
 
-          <button type="button" class="playground-block" data-playground-item="orbit">
-            <img class="playground-block__media" src="assets/images/cases/Playground/Orbit/orbit-cover.jpg" alt="" loading="lazy" />
-            <span class="playground-block__footer">
-              <span class="playground-block__name">Orbit</span>
-              <span class="playground-block__category">Mobile</span>
-            </span>
-          </button>
+            <button type="button" class="playground-block" data-playground-item="orbit">
+              <img class="playground-block__media" src="assets/images/cases/Playground/Orbit/orbit-cover.jpg" alt="" loading="lazy" />
+              <span class="playground-block__footer">
+                <span class="playground-block__name">Orbit</span>
+                <span class="playground-block__category">Mobile</span>
+              </span>
+            </button>
 
-          <button type="button" class="playground-block" data-playground-item="genshin">
-            <img class="playground-block__media" src="assets/images/cases/Playground/Genshin/genshin-cover.jpg" alt="" loading="lazy" />
-            <span class="playground-block__footer">
-              <span class="playground-block__name">Assistente de Genshin Impact</span>
-              <span class="playground-block__category">App</span>
-            </span>
-          </button>
+            <button type="button" class="playground-block" data-playground-item="genshin">
+              <img class="playground-block__media" src="assets/images/cases/Playground/Genshin/genshin-cover.jpg" alt="" loading="lazy" />
+              <span class="playground-block__footer">
+                <span class="playground-block__name">Assistente de Genshin Impact</span>
+                <span class="playground-block__category">App</span>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Modal / Lightbox "Split View": conteúdo é preenchido via JS (js/main.js) a partir de PLAYGROUND_ITEMS -->
+      <!-- Modal / Lightbox "Split View": conteúdo é preenchido via JS (js/main.js) a partir de PLAYGROUND_ITEMS.
+           No mobile (ver CSS @media max-width:780px) o layout vira full-screen: carrossel no topo, bloco de
+           informações rolável embaixo, e a .playground-modal__mobile-bar fixa no rodapé com as ações. -->
       <div class="playground-modal" id="playgroundModal" aria-hidden="true">
         <div class="playground-modal__backdrop" data-playground-close></div>
-        <div class="playground-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="playgroundModalTitle">
+        <div class="playground-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="playgroundModalTitle" tabindex="-1">
 
           <!-- Bloco A: mídia / carrossel -->
           <div class="playground-modal__media">
@@ -597,6 +601,16 @@
             <hr class="playground-modal__divider" />
             <div class="playground-modal__tags"></div>
             <div class="playground-modal__desc"></div>
+          </div>
+
+          <!-- Barra de ações fixa no rodapé: só aparece no layout mobile -->
+          <div class="playground-modal__mobile-bar">
+            <button type="button" class="playground-modal__mobile-btn playground-modal__mobile-btn--ghost" data-playground-close>
+              ‹ Voltar
+            </button>
+            <a class="playground-modal__mobile-btn playground-modal__mobile-btn--primary playground-modal__link" href="#" target="_blank" rel="noopener noreferrer" hidden>
+              ↗ Abrir protótipo
+            </a>
           </div>
         </div>
       </div>

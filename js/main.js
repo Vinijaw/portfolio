@@ -141,6 +141,7 @@ const PLAYGROUND_ITEMS = {
 // Playground: clique no bloco abre a modal com carrossel + informações do projeto.
 const playgroundModal = document.getElementById("playgroundModal");
 if (playgroundModal) {
+  const dialogEl = playgroundModal.querySelector(".playground-modal__dialog");
   const carouselEl = playgroundModal.querySelector(".playground-modal__carousel");
   const mediaEl = playgroundModal.querySelector(".playground-modal__media");
   const navPrev = playgroundModal.querySelector(".playground-modal__nav--prev");
@@ -149,8 +150,9 @@ if (playgroundModal) {
   const titleEl = playgroundModal.querySelector(".playground-modal__title");
   const descEl = playgroundModal.querySelector(".playground-modal__desc");
   const tagsEl = playgroundModal.querySelector(".playground-modal__tags");
-  const linkEl = playgroundModal.querySelector(".playground-modal__link");
-  const closeBtn = playgroundModal.querySelector(".playground-modal__actions [data-playground-close]");
+  // Duas instâncias do link/botão "Abrir protótipo" existem no DOM: uma no
+  // cabeçalho (desktop) e uma na barra fixa do rodapé (mobile) — ver CSS.
+  const linkEls = playgroundModal.querySelectorAll(".playground-modal__link");
 
   const VIDEO_EXT = /\.(mp4|webm)$/i;
 
@@ -195,6 +197,7 @@ if (playgroundModal) {
 
       const media = document.createElement(isVideo ? "video" : "img");
       media.src = src;
+      media.draggable = false;
       if (isVideo) {
         media.loop = true;
         media.muted = true;
@@ -239,18 +242,20 @@ if (playgroundModal) {
       tagsEl.appendChild(span);
     });
 
-    if (item.prototypeUrl) {
-      linkEl.href = item.prototypeUrl;
-      linkEl.hidden = false;
-    } else {
-      linkEl.hidden = true;
-    }
+    linkEls.forEach((el) => {
+      if (item.prototypeUrl) {
+        el.href = item.prototypeUrl;
+        el.hidden = false;
+      } else {
+        el.hidden = true;
+      }
+    });
 
     lastFocusedEl = document.activeElement;
     playgroundModal.classList.add("is-open");
     playgroundModal.setAttribute("aria-hidden", "false");
     document.body.classList.add("playground-modal-open");
-    closeBtn.focus();
+    dialogEl.focus();
   };
 
   const closePlaygroundModal = () => {
@@ -271,12 +276,267 @@ if (playgroundModal) {
   navPrev.addEventListener("click", () => goToSlide(currentSlide - 1));
   navNext.addEventListener("click", () => goToSlide(currentSlide + 1));
 
+  // Arrastar o carrossel de mídia da modal (touch ou mouse) pra trocar de
+  // imagem, com a mesma resistência elástica nas pontas e resposta a flick
+  // rápido usadas no slider do grid do Laboratório.
+  let carouselDragging = false;
+  let carouselStartX = 0;
+  let carouselLastX = 0;
+  let carouselLastTime = 0;
+  let carouselVelocity = 0;
+  let carouselDeltaPct = 0;
+  let carouselSuppressNextClick = false;
+
+  const onCarouselPointerDown = (event) => {
+    if (currentImages.length < 2 || event.button === 2) return;
+    carouselDragging = true;
+    carouselEl.classList.add("is-dragging");
+    trackEl.style.transition = "none";
+    carouselStartX = carouselLastX = event.clientX;
+    carouselLastTime = performance.now();
+    carouselVelocity = 0;
+    carouselDeltaPct = 0;
+  };
+
+  const onCarouselPointerMove = (event) => {
+    if (!carouselDragging) return;
+    const now = performance.now();
+    const dt = now - carouselLastTime || 16;
+    carouselVelocity = (event.clientX - carouselLastX) / dt;
+    carouselLastX = event.clientX;
+    carouselLastTime = now;
+
+    const step = 100 / currentImages.length;
+    const viewportWidth = carouselEl.getBoundingClientRect().width || 1;
+    carouselDeltaPct = ((event.clientX - carouselStartX) / viewportWidth) * step;
+
+    let proposed = -currentSlide * step + carouselDeltaPct;
+    const maxPct = 0;
+    const minPct = -(currentImages.length - 1) * step;
+    if (proposed > maxPct) proposed = maxPct + (proposed - maxPct) * 0.35;
+    if (proposed < minPct) proposed = minPct + (proposed - minPct) * 0.35;
+
+    trackEl.style.transform = `translateX(${proposed}%)`;
+  };
+
+  const onCarouselPointerUp = () => {
+    if (!carouselDragging) return;
+    carouselDragging = false;
+    carouselEl.classList.remove("is-dragging");
+    trackEl.style.transition = "";
+    window.removeEventListener("pointermove", onCarouselPointerMove);
+    window.removeEventListener("pointerup", onCarouselPointerUp);
+    window.removeEventListener("pointercancel", onCarouselPointerUp);
+
+    // Se o dedo/mouse soltar em cima da seta de prev/next (comum perto da
+    // borda em telas estreitas), o click nativo do botão dispararia por
+    // cima do gesto e desfaria/duplicaria a troca de slide.
+    carouselSuppressNextClick = Math.abs(carouselLastX - carouselStartX) > 6;
+
+    const step = 100 / currentImages.length;
+    const draggedSlides = Math.round(-carouselDeltaPct / step);
+    let targetIndex = currentSlide + draggedSlides;
+    if (draggedSlides === 0 && Math.abs(carouselVelocity) > 0.4) {
+      targetIndex = currentSlide + (carouselVelocity < 0 ? 1 : -1);
+    }
+    goToSlide(targetIndex);
+  };
+
+  carouselEl.addEventListener("pointerdown", (event) => {
+    onCarouselPointerDown(event);
+    if (!carouselDragging) return;
+    // Move/up ficam no window, não no carrossel: os botões de prev/next
+    // são irmãos sobrepostos nas bordas, e num arraste que termina em
+    // cima deles o "solta" nunca chegaria ao carrossel se ficasse só nele.
+    window.addEventListener("pointermove", onCarouselPointerMove);
+    window.addEventListener("pointerup", onCarouselPointerUp);
+    window.addEventListener("pointercancel", onCarouselPointerUp);
+  });
+
+  mediaEl.addEventListener(
+    "click",
+    (event) => {
+      if (carouselSuppressNextClick) {
+        event.stopPropagation();
+        event.preventDefault();
+        carouselSuppressNextClick = false;
+      }
+    },
+    true
+  );
+
   document.addEventListener("keydown", (event) => {
     if (!playgroundModal.classList.contains("is-open")) return;
     if (event.key === "Escape") closePlaygroundModal();
     if (event.key === "ArrowLeft") goToSlide(currentSlide - 1);
     if (event.key === "ArrowRight") goToSlide(currentSlide + 1);
   });
+}
+
+// Playground no mobile: os cards viram um carrossel "coverflow" arrastável
+// (card em foco grande no centro, vizinhos menores nas laterais) com uma
+// resposta de "jogar o card" ao soltar, proporcional à velocidade do gesto.
+// No desktop (grid normal) isso fica todo desligado.
+{
+  const grid = document.querySelector(".playground__grid");
+  const track = document.querySelector(".playground__track");
+  const cards = track ? Array.from(track.querySelectorAll(".playground-block")) : [];
+
+  if (grid && track && cards.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const mobileQuery = window.matchMedia("(max-width: 640px)");
+
+    let active = false;
+    let isDragging = false;
+    let currentIndex = 0;
+    let baseTranslate = 0;
+    let dragDelta = 0;
+    let startX = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let velocity = 0;
+    let suppressNextClick = false;
+
+    // offsetLeft não é afetado pelo transform da trilha, então dá a posição
+    // "de repouso" real de cada card — já embutindo o padding-inline da
+    // trilha (usado pelo fallback sem JS). Medir em vez de assumir index*step
+    // a partir de zero é o que garante o card centralizar de verdade.
+    const step = () => (cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : cards[0].getBoundingClientRect().width);
+
+    const cardCenter = (index) => cards[index].offsetLeft + cards[index].getBoundingClientRect().width / 2;
+
+    const translateForIndex = (index) => grid.getBoundingClientRect().width / 2 - cardCenter(index);
+
+    // Aplica a posição da trilha + a escala/opacidade de cada card conforme
+    // a distância (contínua, não só por índice) até o centro do carrossel —
+    // é isso que dá o efeito de "cresce ao chegar no meio, encolhe ao sair".
+    const render = (translate) => {
+      track.style.transform = `translateX(${translate}px)`;
+      const s = step() || 1;
+      const virtualIndex = (translateForIndex(0) - translate) / s;
+      cards.forEach((card, i) => {
+        const dist = Math.abs(i - virtualIndex);
+        const scale = Math.max(0.82, 1 - dist * 0.16);
+        const opacity = Math.max(0.5, 1 - dist * 0.35);
+        card.style.transform = `scale(${scale})`;
+        card.style.opacity = String(opacity);
+      });
+    };
+
+    const settle = (index, animate = true) => {
+      currentIndex = Math.max(0, Math.min(cards.length - 1, index));
+      baseTranslate = translateForIndex(currentIndex);
+      track.style.transition = animate ? "transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)" : "none";
+      render(baseTranslate);
+    };
+
+    const onPointerDown = (event) => {
+      if (!active || event.button === 2) return;
+      isDragging = true;
+      grid.classList.add("is-dragging");
+      track.style.transition = "none";
+      startX = lastX = event.clientX;
+      lastTime = performance.now();
+      velocity = 0;
+      dragDelta = 0;
+      // Sem setPointerCapture de propósito: em toque (o único input aqui,
+      // já que isso só liga no mobile) o pointer já é implicitamente
+      // capturado pelo alvo inicial. Capturar explicitamente faz o
+      // navegador redirecionar o "click" sintético pro grid em vez do
+      // card, quebrando o toque simples que abre a modal do projeto.
+    };
+
+    const onPointerMove = (event) => {
+      if (!isDragging) return;
+      const now = performance.now();
+      const dt = now - lastTime || 16;
+      velocity = (event.clientX - lastX) / dt;
+      lastX = event.clientX;
+      lastTime = now;
+      dragDelta = event.clientX - startX;
+
+      // Resistência elástica nas pontas: arrastar além do primeiro/último
+      // card ainda se move, só que amortecido, em vez de travar seco.
+      let proposed = baseTranslate + dragDelta;
+      const maxTranslate = translateForIndex(0);
+      const minTranslate = translateForIndex(cards.length - 1);
+      if (proposed > maxTranslate) proposed = maxTranslate + (proposed - maxTranslate) * 0.35;
+      if (proposed < minTranslate) proposed = minTranslate + (proposed - minTranslate) * 0.35;
+
+      render(proposed);
+    };
+
+    const onPointerUp = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      grid.classList.remove("is-dragging");
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+      suppressNextClick = Math.abs(dragDelta) > 6;
+
+      const s = step() || 1;
+      const draggedCards = Math.round(-dragDelta / s);
+      let targetIndex = currentIndex + draggedCards;
+      // Flick rápido sem cruzar metade do card ainda "joga" pro próximo —
+      // é o gesto de arremesso, não só o de arrastar até a marca.
+      if (draggedCards === 0 && Math.abs(velocity) > 0.4) {
+        targetIndex = currentIndex + (velocity < 0 ? 1 : -1);
+      }
+      settle(targetIndex);
+    };
+
+    const enable = () => {
+      if (active) return;
+      active = true;
+      grid.classList.add("is-drag-carousel");
+      settle(currentIndex, false);
+    };
+
+    const disable = () => {
+      if (!active) return;
+      active = false;
+      isDragging = false;
+      grid.classList.remove("is-drag-carousel", "is-dragging");
+      track.style.transform = "";
+      track.style.transition = "";
+      cards.forEach((card) => {
+        card.style.transform = "";
+        card.style.opacity = "";
+      });
+    };
+
+    grid.addEventListener("pointerdown", (event) => {
+      onPointerDown(event);
+      if (!isDragging) return;
+      // Move/up ficam no window: se o gesto terminar fora do grid (comum
+      // num arraste rápido perto da borda da tela), o "solta" ainda tem
+      // que ser recebido, senão o carrossel fica travado em pleno arraste.
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("pointercancel", onPointerUp);
+    });
+
+    // Fase de captura: intercepta o clique do card antes de chegar no botão,
+    // pra um arraste não ser interpretado como "abrir a modal do projeto".
+    grid.addEventListener(
+      "click",
+      (event) => {
+        if (suppressNextClick) {
+          event.stopPropagation();
+          event.preventDefault();
+          suppressNextClick = false;
+        }
+      },
+      true
+    );
+
+    mobileQuery.addEventListener("change", (event) => (event.matches ? enable() : disable()));
+    if (mobileQuery.matches) enable();
+
+    window.addEventListener("resize", () => {
+      if (active) settle(currentIndex, false);
+    });
+  }
 }
 
 // Enquanto a foto real não é adicionada, mostra um placeholder no lugar da imagem quebrada

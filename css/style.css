@@ -735,6 +735,13 @@ em {
   gap: 1.25rem;
 }
 
+/* No desktop a track é só um wrapper transparente pro grid: os cards
+   continuam como itens diretos do grid, sem afetar o layout. No mobile
+   (ver media query abaixo) ela vira a "trilha" que o JS arrasta. */
+.playground__track {
+  display: contents;
+}
+
 .playground-block {
   position: relative;
   display: block;
@@ -820,9 +827,76 @@ em {
 }
 
 @media (max-width: 640px) {
+  /* Em telas pequenas os cards quadrados em grid 2x2 ficam ilegíveis
+     (nome do projeto cortado, categoria espremida). Trocamos para um
+     carrossel "coverflow": o card em foco fica grande e centralizado,
+     os vizinhos ficam menores nas laterais. Por padrão (sem JS) é um
+     scroll-snap nativo; o JS (playgroundCoverflow em main.js) assume o
+     controle via arraste, com a trilha em .playground__track. */
   .playground__grid {
-    grid-template-columns: repeat(2, 1fr);
+    position: relative;
+    display: block;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    margin-inline: -1.5rem;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    touch-action: pan-y;
+  }
+
+  .playground__grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .playground__track {
+    display: flex;
     gap: 0.75rem;
+    padding-inline: 1.5rem;
+  }
+
+  .playground-block {
+    flex: 0 0 72%;
+    scroll-snap-align: center;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+  }
+
+  /* Card maior sobra espaço: deixa o nome quebrar em vez de truncar. Sem
+     align-content o wrap espalha as duas linhas (nome/tag) pela altura
+     toda do footer — junta as duas coladas no canto inferior do card. */
+  .playground-block__footer {
+    align-items: flex-end;
+    align-content: flex-end;
+    flex-wrap: wrap;
+    row-gap: 0.35rem;
+  }
+
+  .playground-block__name {
+    white-space: normal;
+    line-height: 1.25;
+    flex: 1 1 100%;
+  }
+
+  /* Estado ligado pelo JS: a trilha passa a ser arrastada via transform,
+     então o scroll nativo do container é desligado pra não brigar com o
+     gesto (evita "puxar duas vezes"). */
+  .playground__grid.is-drag-carousel {
+    overflow: hidden;
+    scroll-snap-type: none;
+    cursor: grab;
+  }
+
+  .playground__grid.is-drag-carousel .playground-block {
+    scroll-snap-align: none;
+  }
+
+  .playground__grid.is-drag-carousel.is-dragging {
+    cursor: grabbing;
+  }
+
+  .playground__grid.is-drag-carousel.is-dragging .playground-block {
+    transition: none;
   }
 }
 
@@ -923,6 +997,14 @@ body.playground-modal-open {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.playground-modal__carousel.is-dragging {
+  cursor: grabbing;
 }
 
 /* Trilha física: uma faixa com um quadro por tela, deslizada via translateX.
@@ -1132,22 +1214,101 @@ body.playground-modal-open {
   color: var(--color-text-on-dark);
 }
 
+/* Barra de ações fixa do rodapé: só existe visualmente no layout mobile
+   (ver @media abaixo). No desktop as mesmas ações já vivem no cabeçalho
+   do bloco de informações (.playground-modal__actions). */
+.playground-modal__mobile-bar {
+  display: none;
+}
+
 @media (max-width: 780px) {
+  /* Abaixo de 780px a modal vira uma "página" full-screen: carrossel no
+     topo (altura fixa), bloco de informações rolando por baixo, e a
+     barra de ações grudada no rodapé — layout pensado pra uso mobile,
+     não um recorte do layout desktop espremido numa tela pequena. */
   .playground-modal {
-    padding: 1rem;
-    align-items: flex-end;
+    padding: 0;
+    align-items: stretch;
+    justify-content: stretch;
+  }
+
+  .playground-modal__backdrop {
+    backdrop-filter: none;
   }
 
   .playground-modal__dialog {
     grid-template-columns: 1fr;
-    grid-template-rows: auto auto;
+    grid-template-rows: auto 1fr auto;
     width: 100%;
-    max-height: 92vh;
-    overflow-y: auto;
+    height: 100vh;
+    height: 100dvh;
+    max-height: none;
+    gap: 0;
+    overflow: hidden;
   }
 
   .playground-modal__media {
-    min-height: 240px;
+    min-height: 0;
+    height: 34vh;
+    border-radius: 0;
+    border-width: 0 0 1px;
+  }
+
+  .playground-modal__info {
+    min-height: 0;
+    border-radius: 0;
+    border-width: 1px 0 0;
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  /* As ações somem do cabeçalho: reaparecem na barra fixa do rodapé. */
+  .playground-modal__actions {
+    display: none;
+  }
+
+  .playground-modal__mobile-bar {
+    display: flex;
+    flex-shrink: 0;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom));
+    background: var(--color-dark-alt);
+    border-top: 1px solid var(--color-border-on-dark);
+  }
+
+  .playground-modal__mobile-btn {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    height: 46px;
+    border-radius: 999px;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.15s ease, filter 0.15s ease;
+  }
+
+  .playground-modal__mobile-btn--ghost {
+    border: 1.5px solid var(--color-border-on-dark);
+    background: none;
+    color: var(--color-text-on-dark);
+  }
+
+  .playground-modal__mobile-btn--ghost:active {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .playground-modal__mobile-btn--primary {
+    border: none;
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .playground-modal__mobile-btn--primary:active {
+    filter: brightness(0.9);
   }
 }
 
