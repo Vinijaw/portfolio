@@ -1466,6 +1466,42 @@ body.playground-modal-open {
   border-radius: 999px;
 }
 
+/* Card do Spotify no tema escuro do site (mesma paleta navy usada no
+   modal do Playground), já que a identidade do Spotify também é dark. */
+.curiosities__card--dark {
+  background: var(--color-dark-alt);
+  border-color: var(--color-border-on-dark);
+  color: var(--color-text-on-dark);
+}
+
+.curiosities__card--dark .curiosities__track {
+  border-top-color: var(--color-border-on-dark);
+}
+
+.curiosities__card--dark .curiosities__track--now-playing {
+  border-bottom-color: var(--color-border-on-dark);
+}
+
+.curiosities__card--dark .curiosities__track-art {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.curiosities__card--dark .curiosities__track-info span {
+  color: var(--color-text-on-dark-muted);
+}
+
+.curiosities__card--dark .curiosities__tab {
+  color: var(--color-text-on-dark-muted);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--color-border-on-dark);
+}
+
+.curiosities__card--dark .curiosities__tab.is-active {
+  color: var(--color-accent);
+  background: rgba(31, 173, 160, 0.15);
+  border-color: var(--color-accent);
+}
+
 .curiosities__photos {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
