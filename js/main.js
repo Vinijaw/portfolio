@@ -550,3 +550,71 @@ if (heroPhotoImg) {
     heroPhotoImg.addEventListener("error", markPhotoEmpty);
   }
 }
+
+// Card "Top músicas — Spotify": busca via /api/spotify-*, que existem só quando
+// o site roda no Vercel com as env vars configuradas. Se a chamada falhar (ex.:
+// abrindo o index.html direto, ou sem as env vars), o card mantém o placeholder
+// do HTML e não quebra a página.
+const spotifyCard = document.getElementById("spotifyCard");
+if (spotifyCard) {
+  const nowPlayingEl = document.getElementById("spotifyNowPlaying");
+  const nowPlayingArt = document.getElementById("spotifyNowPlayingArt");
+  const nowPlayingTitle = document.getElementById("spotifyNowPlayingTitle");
+  const nowPlayingArtist = document.getElementById("spotifyNowPlayingArtist");
+  const trackEls = [
+    document.getElementById("spotifyTrack1"),
+    document.getElementById("spotifyTrack2"),
+    document.getElementById("spotifyTrack3"),
+  ];
+  const tabButtons = spotifyCard.querySelectorAll(".curiosities__tab");
+
+  const renderNowPlaying = (data) => {
+    if (!data || !data.isPlaying) {
+      nowPlayingEl.hidden = true;
+      return;
+    }
+    nowPlayingEl.hidden = false;
+    nowPlayingArt.style.backgroundImage = data.art ? `url(${data.art})` : "";
+    nowPlayingTitle.textContent = data.title;
+    nowPlayingArtist.textContent = data.artist;
+  };
+
+  const renderTopTracks = (tracks) => {
+    trackEls.forEach((trackEl, index) => {
+      const track = tracks[index];
+      if (!trackEl || !track) return;
+      trackEl.querySelector(".curiosities__track-art").style.backgroundImage = track.art
+        ? `url(${track.art})`
+        : "";
+      trackEl.querySelector("strong").textContent = track.title;
+      trackEl.querySelector("span").textContent = track.artist;
+    });
+  };
+
+  const loadTopTracks = (range) => {
+    fetch(`/api/spotify-top-tracks?range=${range}`)
+      .then((response) => response.json())
+      .then((data) => renderTopTracks(data.tracks || []))
+      .catch(() => {});
+  };
+
+  fetch("/api/spotify-now-playing")
+    .then((response) => response.json())
+    .then(renderNowPlaying)
+    .catch(() => {});
+
+  loadTopTracks("short_term");
+
+  tabButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.classList.contains("is-active")) return;
+      tabButtons.forEach((btn) => {
+        btn.classList.remove("is-active");
+        btn.setAttribute("aria-selected", "false");
+      });
+      button.classList.add("is-active");
+      button.setAttribute("aria-selected", "true");
+      loadTopTracks(button.dataset.range);
+    });
+  });
+}

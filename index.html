@@ -637,23 +637,40 @@
 
         <div class="curiosities__grid">
 
-          <article class="curiosities__card">
+          <article class="curiosities__card" id="spotifyCard">
             <h3 class="curiosities__card-title">Top músicas — Spotify</h3>
-            <div class="curiosities__track">
+
+            <div class="curiosities__track curiosities__track--now-playing" id="spotifyNowPlaying" hidden>
+              <div class="curiosities__track-art" id="spotifyNowPlayingArt" aria-hidden="true"></div>
+              <div class="curiosities__track-info">
+                <span class="curiosities__now-playing-tag">
+                  <span class="curiosities__now-playing-dot" aria-hidden="true"></span>Tocando agora
+                </span>
+                <strong id="spotifyNowPlayingTitle"></strong>
+                <span id="spotifyNowPlayingArtist"></span>
+              </div>
+            </div>
+
+            <div class="curiosities__tabs" role="tablist" aria-label="Período do top de músicas">
+              <button type="button" class="curiosities__tab is-active" data-range="short_term" role="tab" aria-selected="true">Últimas 4 semanas</button>
+              <button type="button" class="curiosities__tab" data-range="long_term" role="tab" aria-selected="false">Todo tempo</button>
+            </div>
+
+            <div class="curiosities__track" id="spotifyTrack1">
               <div class="curiosities__track-art" aria-hidden="true"></div>
               <div class="curiosities__track-info">
                 <strong>Faixa placeholder 1</strong>
                 <span>Artista placeholder</span>
               </div>
             </div>
-            <div class="curiosities__track">
+            <div class="curiosities__track" id="spotifyTrack2">
               <div class="curiosities__track-art" aria-hidden="true"></div>
               <div class="curiosities__track-info">
                 <strong>Faixa placeholder 2</strong>
                 <span>Artista placeholder</span>
               </div>
             </div>
-            <div class="curiosities__track">
+            <div class="curiosities__track" id="spotifyTrack3">
               <div class="curiosities__track-art" aria-hidden="true"></div>
               <div class="curiosities__track-info">
                 <strong>Faixa placeholder 3</strong>

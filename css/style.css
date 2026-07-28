@@ -1377,7 +1377,9 @@ body.playground-modal-open {
   width: 40px;
   height: 40px;
   border-radius: 6px;
-  background: var(--color-bg-alt);
+  background-color: var(--color-bg-alt);
+  background-size: cover;
+  background-position: center;
 }
 
 .curiosities__track-info strong {
@@ -1388,6 +1390,64 @@ body.playground-modal-open {
 .curiosities__track-info span {
   font-size: 0.8rem;
   color: var(--color-text-muted);
+}
+
+.curiosities__track--now-playing {
+  border-top: none;
+  padding-top: 0;
+  padding-bottom: 1rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.curiosities__now-playing-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-accent);
+  margin-bottom: 0.2rem;
+}
+
+.curiosities__now-playing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  animation: curiosities-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes curiosities-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.7); }
+}
+
+.curiosities__tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.curiosities__tab {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.curiosities__tab.is-active {
+  color: var(--color-accent-dark);
+  background: var(--color-accent-tint);
+  border-color: var(--color-accent);
 }
 
 .curiosities__hobbies {
