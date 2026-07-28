@@ -1422,17 +1422,12 @@ body.playground-modal-open {
 .curiosities__track-list {
   max-height: 280px;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 .curiosities__track-list::-webkit-scrollbar {
-  width: 6px;
-}
-
-.curiosities__track-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.25);
-  border-radius: 999px;
+  display: none;
 }
 
 .curiosities__now-playing-tag {
