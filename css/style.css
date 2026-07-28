@@ -1416,6 +1416,9 @@ body.playground-modal-open {
 }
 
 .curiosities__track.curiosities__track--now-playing {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
   border-top: none;
   padding: 0.85rem;
   margin-bottom: 1rem;
@@ -1423,11 +1426,10 @@ body.playground-modal-open {
   border-radius: calc(var(--radius) - 4px);
 }
 
-/* A capa é centralizada pelo flex contra o bloco inteiro (tag + título +
-   artista), mas visualmente deveria acompanhar só título + artista — a
-   tag "Tocando agora" empurra esse par pra baixo. Compensa com um nudge. */
-.curiosities__track--now-playing .curiosities__track-art {
-  margin-top: 0.6rem;
+.curiosities__now-playing-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .curiosities__track-list {
@@ -1457,7 +1459,6 @@ body.playground-modal-open {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--color-accent);
-  margin-bottom: 0.2rem;
 }
 
 .curiosities__now-playing-dot {
