@@ -72,6 +72,23 @@ ul {
   padding-inline: 1.5rem;
 }
 
+/* ==========================================================================
+   ÍCONES (Feather DS — https://feather.nanthealth.com/, SVGs em assets/icons/feather/)
+   ========================================================================== */
+.icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.icon--inline {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  margin-left: 0.15em;
+}
+
 em {
   font-style: normal;
   color: var(--color-accent);
