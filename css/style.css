@@ -1394,10 +1394,10 @@ body.playground-modal-open {
 
 .curiosities__track--now-playing {
   border-top: none;
-  padding-top: 0;
-  padding-bottom: 1rem;
-  margin-bottom: 0.6rem;
-  border-bottom: 1px dashed var(--color-border);
+  padding: 0.85rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: calc(var(--radius) - 4px);
 }
 
 .curiosities__now-playing-tag {
@@ -1476,10 +1476,6 @@ body.playground-modal-open {
 
 .curiosities__card--dark .curiosities__track {
   border-top-color: var(--color-border-on-dark);
-}
-
-.curiosities__card--dark .curiosities__track--now-playing {
-  border-bottom-color: var(--color-border-on-dark);
 }
 
 .curiosities__card--dark .curiosities__track-art {
