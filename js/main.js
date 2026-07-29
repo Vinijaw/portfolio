@@ -637,3 +637,55 @@ if (spotifyCard) {
     .then((data) => renderTopTracks(data.tracks || []))
     .catch(() => {});
 }
+
+// Carrossel de fotos ("Curiosidades"): avança sozinho a cada 2.5s, com
+// bolinhas indicando a foto atual (clicáveis pra pular direto).
+const photoCarousel = document.getElementById("photoCarousel");
+if (photoCarousel) {
+  const track = document.getElementById("photoCarouselTrack");
+  const slides = Array.from(track.children);
+  const dots = Array.from(document.getElementById("photoCarouselDots").children);
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let index = 0;
+  let timer = null;
+
+  const goTo = (target) => {
+    index = (target + slides.length) % slides.length;
+    track.style.transform = `translateX(-${index * 100}%)`;
+    dots.forEach((dot, dotIndex) => dot.classList.toggle("is-active", dotIndex === index));
+  };
+
+  const stop = () => {
+    clearInterval(timer);
+    timer = null;
+  };
+
+  const start = () => {
+    if (reduceMotion) return;
+    stop();
+    timer = setInterval(() => goTo(index + 1), 2500);
+  };
+
+  dots.forEach((dot, dotIndex) => {
+    dot.addEventListener("click", () => {
+      goTo(dotIndex);
+      start();
+    });
+  });
+
+  document.getElementById("photoCarouselPrev").addEventListener("click", () => {
+    goTo(index - 1);
+    start();
+  });
+
+  document.getElementById("photoCarouselNext").addEventListener("click", () => {
+    goTo(index + 1);
+    start();
+  });
+
+  photoCarousel.addEventListener("mouseenter", stop);
+  photoCarousel.addEventListener("mouseleave", start);
+
+  goTo(0);
+  start();
+}

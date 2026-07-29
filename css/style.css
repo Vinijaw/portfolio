@@ -1475,19 +1475,78 @@ body.playground-modal-open {
 }
 
 .curiosities__hobbies {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 0.6rem;
 }
 
 .curiosities__hobby {
+  aspect-ratio: 1 / 1;
+  perspective: 1200px;
+  border-radius: calc(var(--radius) - 4px);
+}
+
+.curiosities__hobby-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.curiosities__hobby:hover .curiosities__hobby-inner,
+.curiosities__hobby:focus-visible .curiosities__hobby-inner,
+.curiosities__hobby:focus-within .curiosities__hobby-inner {
+  transform: rotateY(180deg);
+}
+
+.curiosities__hobby-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: calc(var(--radius) - 4px);
+  backface-visibility: hidden;
+}
+
+.curiosities__hobby-face--front {
+  background: var(--color-dark);
+}
+
+.curiosities__hobby-media {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.curiosities__hobby-face--back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.4rem;
+  padding: 0.9rem;
+  background: var(--color-dark);
+  border: 1px solid var(--color-border-on-dark);
+  transform: rotateY(180deg);
+}
+
+.curiosities__hobby-icon {
+  width: 22px;
+  height: 22px;
+  color: var(--color-accent);
+}
+
+.curiosities__hobby-name {
   font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--color-text-muted);
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
-  padding: 0.5rem 0.9rem;
-  border-radius: 999px;
+  font-weight: 600;
+  color: var(--color-text-on-dark);
+}
+
+.curiosities__hobby-desc {
+  font-size: 0.72rem;
+  line-height: 1.35;
+  color: var(--color-text-on-dark-muted);
 }
 
 /* Card do Spotify no tema escuro do site (mesma paleta navy usada no
@@ -1510,21 +1569,105 @@ body.playground-modal-open {
   color: var(--color-text-on-dark-muted);
 }
 
-.curiosities__photos {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
+.curiosities__card--photos {
+  padding: 0;
+  overflow: hidden;
 }
 
-.curiosities__photo {
-  aspect-ratio: 1 / 1;
+.curiosities__photo-carousel {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.curiosities__photo-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0.1, 0.2, 1);
+}
+
+.curiosities__photo-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+.curiosities__photo-scrim {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 25%;
+  background: linear-gradient(to top, rgba(4, 8, 11, 0.55), transparent);
+  pointer-events: none;
+}
+
+.curiosities__photo-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-alt);
-  border-radius: calc(var(--radius) - 4px);
-  color: var(--color-text-muted);
-  font-size: 0.75rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.curiosities__photo-nav .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.curiosities__photo-nav:hover {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.curiosities__photo-nav--prev {
+  left: 0.5rem;
+}
+
+.curiosities__photo-nav--next {
+  right: 0.5rem;
+}
+
+.curiosities__photo-dots {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0.85rem;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.curiosities__photo-dot {
+  width: 6px;
+  height: 6px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.curiosities__photo-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.curiosities__photo-dot.is-active {
+  background: #fff;
+  transform: scale(1.3);
 }
 
 /* ==========================================================================
