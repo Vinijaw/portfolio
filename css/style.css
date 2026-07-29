@@ -482,19 +482,16 @@ em {
   animation-play-state: paused;
 }
 
-/* margin-right (em vez de gap no .logos__track) garante que cada
-   <ul> duplicada tenha a MESMA largura total (item + gap seguinte),
-   incluindo o espaço após o último ícone. Sem isso, o gap entre as
-   duas listas era contado só uma vez no track, então o translateX(-50%)
-   ficava 8px curto e o loop "pulava" sempre no mesmo ponto do ciclo
-   (que coincidia com o ícone do Gemini, por ser o último da lista). */
+/* margin-right (em vez de gap no .logos__track) garante que CADA
+   <ul> (a visível e a duplicada aria-hidden) tenha a MESMA largura
+   "unitária" (itens + gaps + esse respiro final). O translateX(-50%)
+   só alinha perfeitamente se as duas metades do track forem idênticas;
+   aplicar o respiro em só uma delas deixava a conta 8px curta e o
+   loop "pulava" sempre no mesmo ponto do ciclo. */
 .logos--tools .logos__marquee-list {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.logos--tools .logos__marquee-list:first-child {
   margin-right: 1rem;
 }
 
@@ -573,9 +570,6 @@ em {
     display: flex;
     align-items: center;
     gap: 1rem;
-  }
-
-  .logos__marquee-list:first-child {
     margin-right: 1rem;
   }
 
@@ -590,7 +584,10 @@ em {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    /* track tem 3 cópias da lista (para telas largas não ficarem sem
+       conteúdo perto do loop), então o avanço de um ciclo é 1/3 da
+       largura total, não metade. */
+    transform: translateX(calc(-100% / 3));
   }
 }
 
