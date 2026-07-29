@@ -474,7 +474,6 @@ em {
 
 .logos--tools .logos__track {
   display: flex;
-  gap: 1rem;
   width: max-content;
   animation: logos-scroll 38s linear infinite;
 }
@@ -483,10 +482,20 @@ em {
   animation-play-state: paused;
 }
 
+/* margin-right (em vez de gap no .logos__track) garante que cada
+   <ul> duplicada tenha a MESMA largura total (item + gap seguinte),
+   incluindo o espaço após o último ícone. Sem isso, o gap entre as
+   duas listas era contado só uma vez no track, então o translateX(-50%)
+   ficava 8px curto e o loop "pulava" sempre no mesmo ponto do ciclo
+   (que coincidia com o ícone do Gemini, por ser o último da lista). */
 .logos--tools .logos__marquee-list {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.logos--tools .logos__marquee-list:first-child {
+  margin-right: 1rem;
 }
 
 .logos--tools .logos__marquee-list .logos__item {
@@ -552,7 +561,6 @@ em {
 
   .logos__track {
     display: flex;
-    gap: 1rem;
     width: max-content;
     animation: logos-scroll 22s linear infinite;
   }
@@ -565,6 +573,10 @@ em {
     display: flex;
     align-items: center;
     gap: 1rem;
+  }
+
+  .logos__marquee-list:first-child {
+    margin-right: 1rem;
   }
 
   .logos__marquee-list .logos__item {
