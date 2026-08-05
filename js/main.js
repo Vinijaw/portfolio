@@ -13,6 +13,40 @@ if (typeof Lenis !== "undefined" && !window.matchMedia("(prefers-reduced-motion:
   requestAnimationFrame(raf);
 }
 
+// Scroll reveal (fade + blur): itens marcados com .reveal aparecem ao entrar
+// na viewport, com um pequeno atraso escalonado entre irmãos do mesmo grupo
+// pra dar a sensação de cascata (cards de um grid revelando em sequência).
+// Dispara só uma vez por elemento — depois de visível, para de observar.
+{
+  const revealEls = document.querySelectorAll(".reveal");
+  if (revealEls.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const groupIndex = new Map();
+    const delayFor = (el) => {
+      const parent = el.parentElement;
+      const i = groupIndex.get(parent) || 0;
+      groupIndex.set(parent, i + 1);
+      return Math.min(i, 5) * 90;
+    };
+
+    const observer = new IntersectionObserver(
+      (entries, obs) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          el.style.transitionDelay = `${delayFor(el)}ms`;
+          el.classList.add("is-visible");
+          obs.unobserve(el);
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
+}
+
 const navToggle = document.getElementById("navToggle");
 const nav = document.getElementById("nav");
 
