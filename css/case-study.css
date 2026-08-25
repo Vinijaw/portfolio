@@ -1,0 +1,655 @@
+/* ==========================================================================
+   CASE STUDY — estilos específicos das páginas de case completo.
+   Reaproveita os tokens definidos em style.css (cores, fontes, espaçamento).
+   ========================================================================== */
+
+.case {
+  padding-top: 2.5rem;
+}
+
+/* -------------------- Breadcrumb / voltar -------------------- */
+.case__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: color 0.15s ease;
+}
+
+.case__back:hover {
+  color: var(--color-accent-dark);
+}
+
+.case__back .icon {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* -------------------- Hero do case -------------------- */
+.case__hero {
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+}
+
+.case__eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.case__pill {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  background: var(--color-accent-tint);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+}
+
+.case__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.12;
+  max-width: 22ch;
+  letter-spacing: -0.01em;
+}
+
+.case__lead {
+  margin-top: 1.5rem;
+  font-size: 1.08rem;
+  color: var(--color-text-muted);
+}
+
+.case__meta {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.case__meta-item dt {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.case__meta-item dd {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.case__cover {
+  position: relative;
+  margin-top: 3rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-dark);
+}
+
+.case__cover img {
+  width: 100%;
+  display: block;
+}
+
+/* -------------------- Overlay com infos (papel, ano, plataforma, entregas) sobre a capa -------------------- */
+.case__cover-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: clamp(2rem, 6vw, 3.5rem) clamp(1.25rem, 3vw, 2rem) 1.75rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.72) 18%,
+    rgba(0, 0, 0, 0.4) 38%,
+    rgba(0, 0, 0, 0.14) 62%,
+    rgba(0, 0, 0, 0) 85%
+  );
+}
+
+.case__cover-overlay .case__meta {
+  width: 100%;
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.case__cover-overlay .case__meta-item dt {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.case__cover-overlay .case__meta-item dd {
+  color: #ffffff;
+}
+
+/* -------------------- Estrutura de seção do case -------------------- */
+.case__section {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid var(--color-border);
+}
+
+.case__section--dark {
+  background: var(--color-dark);
+  color: var(--color-text-on-dark);
+  border-top-color: var(--color-border-on-dark);
+}
+
+.case__section--dark .case__section-title,
+.case__section--dark .case__step-title {
+  color: var(--color-text-on-dark);
+}
+
+.case__section--dark .case__section-lead,
+.case__section--dark .case__text {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__section-head {
+  margin-bottom: 2.5rem;
+}
+
+.case__section-num {
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.case__section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+  line-height: 1.2;
+}
+
+.case__section-lead {
+  margin-top: 0.9rem;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+}
+
+.case__text {
+  color: var(--color-text-muted);
+  font-size: 0.98rem;
+}
+
+.case__text + .case__text {
+  margin-top: 1rem;
+}
+
+.case__text strong {
+  color: inherit;
+  font-weight: 700;
+}
+
+/* -------------------- Grid de 2 colunas texto+imagem -------------------- */
+.case__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.case__split-media img {
+  width: 100%;
+  border-radius: var(--radius);
+  display: block;
+}
+
+/* -------------------- Cards de estatística -------------------- */
+.case__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.case__stat {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.case__section--dark .case__stat {
+  background: var(--color-dark-alt);
+  border-color: var(--color-border-on-dark);
+}
+
+.case__stat-value {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.case__stat-label {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__stat-label {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__stat--positive .case__stat-value { color: #2fbf71; }
+.case__stat--warning .case__stat-value { color: #e0a83c; }
+.case__stat--negative .case__stat-value { color: #e0625c; }
+
+/* -------------------- Cards de problema (grid) -------------------- */
+.case__cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.case__card {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 1.35rem 1.5rem;
+}
+
+.case__section--dark .case__card {
+  background: var(--color-dark-alt);
+  border-color: var(--color-border-on-dark);
+  border-left-color: var(--color-accent);
+}
+
+.case__card h4 {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.case__card p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__card p {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* -------------------- Citações de entrevista -------------------- */
+.case__quotes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.case__quote {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.case__section--dark .case__quote {
+  background: var(--color-dark-alt);
+  border-color: var(--color-border-on-dark);
+}
+
+.case__quote-mark {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.case__quote p {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-text);
+}
+
+.case__section--dark .case__quote p {
+  color: var(--color-text-on-dark);
+}
+
+.case__quote cite {
+  display: block;
+  margin-top: 1rem;
+  font-style: normal;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__quote cite {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* -------------------- Imagem full-bleed dentro do container -------------------- */
+.case__figure {
+  margin-top: 2rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.case__section--dark .case__figure {
+  border-color: var(--color-border-on-dark);
+}
+
+.case__figure img {
+  width: 100%;
+  display: block;
+}
+
+.case__figure-caption {
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.case__section--dark .case__figure-caption {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* -------------------- Tabela de regras de negócio -------------------- */
+.case__table-wrap {
+  margin-top: 2rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+
+.case__section--dark .case__table-wrap {
+  border-color: var(--color-border-on-dark);
+}
+
+.case__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  min-width: 640px;
+}
+
+.case__table th,
+.case__table td {
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.case__section--dark .case__table th,
+.case__section--dark .case__table td {
+  border-bottom-color: var(--color-border-on-dark);
+}
+
+.case__table thead th {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent-dark);
+  background: var(--color-accent-tint);
+}
+
+.case__section--dark .case__table thead th {
+  color: var(--color-accent);
+  background: rgba(31, 173, 160, 0.12);
+}
+
+.case__table tbody td:first-child {
+  font-weight: 700;
+}
+
+.case__table tbody td {
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__table tbody td {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* -------------------- Grid de wireframes -------------------- */
+.case__wireframe-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.case__wireframe-grid img {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  display: block;
+}
+
+/* -------------------- Galeria horizontal de telas (UI final) -------------------- */
+.case__gallery {
+  margin-top: 2.5rem;
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+}
+
+.case__gallery-item {
+  flex: 0 0 auto;
+  width: 210px;
+  scroll-snap-align: start;
+}
+
+.case__gallery-item img {
+  width: 100%;
+  border-radius: 16px;
+  border: 6px solid var(--color-dark-alt);
+  display: block;
+  background: var(--color-dark-alt);
+}
+
+.case__gallery-caption {
+  margin-top: 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.case__section--dark .case__gallery-caption {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__gallery::-webkit-scrollbar {
+  height: 8px;
+}
+
+.case__gallery::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 999px;
+}
+
+.case__section--dark .case__gallery::-webkit-scrollbar-thumb {
+  background: var(--color-border-on-dark);
+}
+
+/* -------------------- Passos numerados (double diamond / metodologia) -------------------- */
+.case__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.case__step {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border-on-dark);
+  border-radius: var(--radius);
+  background: var(--color-dark-alt);
+}
+
+.case__step-num {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+.case__step-title {
+  margin-top: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.case__step p {
+  margin-top: 0.5rem;
+  font-size: 0.88rem;
+  color: var(--color-text-on-dark-muted);
+}
+
+/* -------------------- Bloco de aprendizados -------------------- */
+.case__learnings {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.case__learning {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.case__learning-icon {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-accent-tint);
+  color: var(--color-accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case__section--dark .case__learning-icon {
+  background: rgba(31, 173, 160, 0.16);
+  color: var(--color-accent);
+}
+
+.case__learning p {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  padding-top: 0.4rem;
+}
+
+.case__section--dark .case__learning p {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* -------------------- Nota de confidencialidade -------------------- */
+.case__note {
+  margin-top: 2rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  border-left: 3px solid var(--color-border);
+  padding-left: 1rem;
+}
+
+.case__section--dark .case__note {
+  color: var(--color-text-on-dark-muted);
+  border-left-color: var(--color-border-on-dark);
+}
+
+/* -------------------- Próximo case / CTA final -------------------- */
+.case__next {
+  padding-block: clamp(3rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.case__next-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  max-width: 24ch;
+  margin-inline: auto;
+}
+
+.case__next-actions {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   RESPONSIVO
+   ========================================================================== */
+@media (max-width: 860px) {
+  .case__meta {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .case__split {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .case__wireframe-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .case__steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .case__meta {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .case__wireframe-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .case__steps {
+    grid-template-columns: 1fr;
+  }
+
+  .case__gallery-item {
+    width: 165px;
+  }
+}

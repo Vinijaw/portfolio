@@ -1,0 +1,703 @@
+/* ==========================================================================
+   CASE STUDY — LAYOUT "APRESENTAÇÃO" (piloto: case-area-de-operacoes.html)
+   #deck ocupa 100vh e mostra só o .slide ativo por vez — trocar de seção
+   não rola a página, o conteúdo (painel de texto + palco de visuais) faz
+   um crossfade via JS (js/case-split.js), que escuta roda do mouse,
+   touch e setas. O CTA final é o último slide do deck (sem o layout de
+   painel+palco, só título e botões centralizados) — só aparece quando o
+   usuário rola além do slide de Resultados. Por isso essa página não
+   carrega o Lenis (a lib de
+   smooth-scroll do resto do site): ela ficaria competindo com esse
+   controle de scroll feito à mão.
+   Reaproveita os componentes de conteúdo já definidos em case-study.css
+   (.case__card, .case__figure, .case__table, .case__quote, .case__step,
+   .case__learning...) — só troca o scaffold das seções pra esse deck de
+   slides. Não é usado pelos outros cases.
+   ========================================================================== */
+
+/* O header padrão do site continua no HTML (pros scripts de nav em
+   main.js terem os elementos que esperam), só é escondido aqui. */
+body.case-split-page .header {
+  display: none;
+}
+
+.case--split {
+  padding-top: 0;
+}
+
+/* Botão "voltar": repetido no topo de cada slide, fora do bloco de texto
+   centralizado — assim ele fica sempre grudado no topo do painel, sem
+   depender de quanto conteúdo tem abaixo, e sem fundo/borda "flutuando"
+   por cima do título. */
+.slide__panel > .case__back {
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-bottom: 2rem;
+}
+
+.case__section--dark .slide__panel > .case__back {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__section--dark .slide__panel > .case__back:hover {
+  color: var(--color-accent);
+}
+
+.deck {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: minmax(300px, 32%) 1fr;
+  pointer-events: none;
+}
+
+.slide.is-active {
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Entrada em 2 tempos: o bloco de contexto (painel) aparece primeiro, o
+   bloco de conteúdo (palco) segue com um pequeno atraso — dá uma
+   sensação de "revelar" em vez de tudo aparecer de uma vez só. Ao sair,
+   os dois somem juntos (sem delay), pra não deixar a troca lenta. */
+.slide__panel,
+.slide__stage,
+.slide--cta {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide.is-active .slide__panel,
+.slide.is-active.slide--cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide.is-active .slide__stage {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s;
+}
+
+/* Slide de fechamento (CTA "quer ver mais algum case?"): sem painel+palco,
+   só o botão voltar no topo e o convite centralizado. */
+.slide.slide--cta {
+  display: flex;
+  flex-direction: column;
+  padding: 4.5rem clamp(1.5rem, 3vw, 3rem) 3rem;
+  background: var(--color-bg);
+  overflow-y: auto;
+}
+
+.slide--cta > .case__back {
+  align-self: flex-start;
+  margin-bottom: 0;
+}
+
+.slide--cta .case__next {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide__panel,
+  .slide__stage,
+  .slide--cta {
+    transition: opacity 0.15s linear, transform 0.15s linear;
+    transition-delay: 0s;
+  }
+}
+
+.slide__panel {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 2.5rem clamp(1.5rem, 3vw, 3rem) 3rem;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg);
+  z-index: 2;
+}
+
+.slide__panel-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 420px;
+}
+
+.slide__stage {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  padding: clamp(2rem, 5vw, 4rem);
+  background: var(--color-bg-alt);
+}
+
+/* Palco "sangrado": sem padding, pra conteúdo (capa, carrossel) ocupar
+   100% da área — quem controla o respiro interno é o próprio conteúdo. */
+.slide__stage--flush {
+  padding: 0;
+}
+
+/* Palco em 2 colunas: usado quando a seção tem 1 imagem + cards de apoio
+   — em vez de empilhar (o que tira tudo de 100vh), os dois lados dividem
+   o palco lado a lado. */
+.slide__stage--split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 2.5rem;
+}
+
+.slide__stage--split .case__figure img {
+  max-height: 62vh;
+  object-fit: contain;
+}
+
+.slide__stage--split .case__cards {
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Cards quadrados com ícone — usados no palco da seção de Contexto. */
+.case__cards--square {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.case__card--square {
+  aspect-ratio: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.65rem;
+  background: var(--color-bg);
+  border-left: 1px solid var(--color-border);
+}
+
+.case__card-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent-tint);
+  color: var(--color-accent-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case__card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.case__section--dark .case__card-icon {
+  background: rgba(31, 173, 160, 0.16);
+  color: var(--color-accent);
+}
+
+@media (max-width: 900px) {
+  .case__cards--square {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  }
+}
+
+.case__section--dark .slide__panel {
+  background: var(--color-dark);
+  border-right-color: var(--color-border-on-dark);
+}
+
+.case__section--dark .slide__stage {
+  background: var(--color-dark-alt);
+}
+
+/* Zera as margens verticais dos componentes de conteúdo quando usados
+   dentro do palco — aqui quem organiza o espaçamento é o gap do
+   .slide__stage, não a margin-top de cada componente. */
+.slide__stage > * {
+  margin-top: 0 !important;
+}
+
+/* Imagem de destaque do palco (capa) — ocupa 100% da área de conteúdo. */
+.slide__stage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Título do slide de abertura: menor que o padrão de case-study.css pra
+   sobrar mais espaço pro lead + meta dentro de uma tela só. */
+.case--split .case__title {
+  font-size: clamp(1.6rem, 2.8vw, 2.3rem);
+  line-height: 1.18;
+  max-width: 20ch;
+}
+
+/* Meta vertical (Ano, Papel, Plataforma, Entregas) do slide de abertura —
+   fora do bloco centralizado, encostada no rodapé do painel. */
+.slide__meta {
+  flex-shrink: 0;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slide__meta-item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.case__section--dark .slide__meta-item {
+  border-bottom-color: var(--color-border-on-dark);
+}
+
+.slide__meta-item dt {
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.case__section--dark .slide__meta-item dt {
+  color: var(--color-text-on-dark-muted);
+}
+
+.slide__meta-item dd {
+  font-size: 0.92rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Número grande indicando a ordem de cada etapa (slide "Como conduzi o
+   projeto") — decorativo, fica à esquerda do conteúdo do card. */
+.case__step--numbered {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.case__step-order {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 1;
+  color: var(--color-accent);
+  opacity: 0.35;
+}
+
+.case__step-body {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Lista de premissas (ex.: slide "Como conduzi o projeto") — rótulo em
+   negrito seguido da explicação, com um traço à esquerda pra separar
+   visualmente do parágrafo corrido. */
+.case__premises {
+  margin-top: 1.25rem;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.case__premises li {
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-text-muted);
+  font-size: 0.98rem;
+}
+
+.case__premises li strong {
+  display: inline;
+  color: var(--color-text);
+  font-family: var(--font-display);
+}
+
+.case__section--dark .case__premises li {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__section--dark .case__premises li strong {
+  color: var(--color-text-on-dark);
+}
+
+/* -------------------- Carrossel de telas dentro do palco -------------------- */
+/* Quando uma seção tem mais de uma tela pra mostrar, em vez de empilhar
+   (o que forçaria scroll vertical no palco) elas viram um carrossel:
+   uma por vez, trocada por seta ou bolinha, sempre cabendo em 100vh. */
+.stage-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding-block: clamp(2rem, 5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-carousel__viewport {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* "Peek carousel": cada tela ocupa ~84% da largura, sobrando ~8% de
+   respiro de cada lado — o suficiente pra próxima tela "espiar" na borda,
+   como uma dica visual de que dá pra navegar. O deslocamento pra centralizar
+   a tela ativa (e mostrar essa prévia) é calculado em js/case-split.js. */
+.stage-carousel__track {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.stage-carousel__slide {
+  flex: 0 0 84%;
+  margin-right: 3%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  opacity: 0.35;
+  transition: opacity 0.4s ease;
+}
+
+.stage-carousel__slide.is-active {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage-carousel__track {
+    transition: none;
+  }
+}
+
+/* Largura fixa em 100% da tela (não da imagem): assim o card branco
+   sempre alcança a borda da coluna, e é ele — não a imagem, que pode ser
+   bem mais estreita que 84% em telas largas — que aparece "espiando" no
+   próximo/anterior. */
+.stage-carousel__slide .case__figure {
+  margin: 0;
+  width: 100%;
+  height: 66vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stage-carousel__slide .case__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.stage-carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.stage-carousel__arrow:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.stage-carousel__arrow--prev {
+  left: 1.5rem;
+}
+
+.stage-carousel__arrow--next {
+  right: 1.5rem;
+}
+
+.stage-carousel__arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.case__section--dark .stage-carousel__arrow {
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-text-on-dark);
+}
+
+.case__section--dark .stage-carousel__arrow:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.stage-carousel__dots {
+  flex-shrink: 0;
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.stage-carousel__dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: width 0.2s ease, background 0.2s ease;
+}
+
+.stage-carousel__dot.is-active {
+  width: 20px;
+  background: var(--color-accent);
+}
+
+.case__section--dark .stage-carousel__dot {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* -------------------- Lightbox (imagem expandida com zoom) -------------------- */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 4vw;
+  background: rgba(8, 12, 16, 0.92);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+  border-radius: 4px;
+}
+
+.lightbox__img.is-zoomed {
+  cursor: zoom-out;
+  transform: scale(1.8);
+}
+
+.lightbox__close {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox__close svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Qualquer imagem clicável do deck (capa, telas, carrossel) ganha esse
+   cursor via JS (js/case-lightbox.js), que também abre o lightbox. */
+.is-zoomable {
+  cursor: zoom-in;
+}
+
+/* Controles de navegação (setas cima/baixo) fixos no canto inferior
+   direito — dois círculos soltos e translúcidos, sem card ao redor,
+   por cima de slides claros ou escuros. */
+.slide-nav {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slide-nav__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--color-text);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(14, 27, 35, 0.14);
+  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+}
+
+.slide-nav__btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.slide-nav__btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.8);
+  color: var(--color-accent-dark);
+}
+
+.slide-nav__btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  /* Abaixo de 900px o js/case-split.js não liga o controle de scroll —
+     aqui é só rolagem normal, então o deck vira uma pilha comum e os
+     botões de navegação não fazem sentido. */
+  .slide-nav {
+    display: none;
+  }
+
+  .deck {
+    height: auto;
+    overflow: visible;
+  }
+
+  .slide {
+    position: static;
+    pointer-events: auto;
+    height: auto;
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .slide__panel,
+  .slide__stage,
+  .slide--cta {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .case__section--dark.slide {
+    border-top-color: var(--color-border-on-dark);
+  }
+
+  .slide__panel {
+    height: auto;
+    overflow: visible;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    padding: 2.5rem 1.25rem;
+  }
+
+  .case__section--dark .slide__panel {
+    border-bottom-color: var(--color-border-on-dark);
+  }
+
+  .slide__panel-inner {
+    max-width: none;
+  }
+
+  .slide__stage {
+    height: auto;
+    overflow: visible;
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .slide__stage--split {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* Sem o controle de scroll do deck, o carrossel também vira pilha
+     normal — as duas telas visíveis, uma embaixo da outra. */
+  .stage-carousel {
+    height: auto;
+    padding: 2rem 1.25rem 2.5rem;
+  }
+
+  .stage-carousel__viewport {
+    flex: none;
+    overflow: visible;
+  }
+
+  .stage-carousel__track {
+    display: block;
+    transform: none !important;
+  }
+
+  .stage-carousel__slide {
+    flex: none;
+    width: 100%;
+    margin-right: 0;
+    opacity: 1;
+    margin-bottom: 2rem;
+  }
+
+  .stage-carousel__arrow,
+  .stage-carousel__dots {
+    display: none;
+  }
+}

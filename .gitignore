@@ -12,3 +12,6 @@ Desktop.ini
 
 .vercel
 .env*
+
+# Material bruto de pesquisa dos cases (não anonimizado, não é pra publicar)
+Temp/
