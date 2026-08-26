@@ -21,13 +21,21 @@
     const navDownBtn = document.querySelector('.slide-nav__btn[data-dir="down"]');
     const lightbox = document.getElementById("lightbox");
 
-    let index = 0;
+    // Retoma no slide de onde o usuário saiu (ex.: recarregou a página)
+    // via #slide-N na URL — o hash é atualizado a cada troca de slide.
+    const slideFromHash = slides.findIndex((slide) => slide.id === window.location.hash.slice(1));
+
+    let index = slideFromHash >= 0 ? slideFromHash : 0;
     let locked = false;
 
     const render = () => {
       slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
       if (navUpBtn) navUpBtn.disabled = index === 0;
       if (navDownBtn) navDownBtn.disabled = index === lastIndex;
+      const hash = `#${slides[index].id}`;
+      if (window.location.hash !== hash) {
+        history.replaceState(null, "", hash);
+      }
     };
 
     const goTo = (next) => {

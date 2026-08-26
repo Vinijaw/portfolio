@@ -165,6 +165,98 @@ body.case-split-page .header {
   gap: 2.5rem;
 }
 
+/* Palco da seção do focus group: imagem do board centralizada em cima,
+   os 4 cards de destaque (3 temas + a citação) em linha embaixo. */
+#focusGroupStage {
+  gap: 0.5rem;
+}
+
+/* Prévia recortada: a figura ocupa a mesma largura da linha de cards
+   abaixo (em vez de acompanhar a proporção da imagem) e a imagem cobre
+   essa caixa com object-fit: cover — corta um pouco, mas o objetivo é só
+   dar um teaser; a imagem inteira (sem corte) aparece ao clicar, no
+   lightbox com zoom. */
+#focusGroupStage .case__figure {
+  width: 100%;
+  height: 36vh;
+}
+
+#focusGroupStage .case__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Espaçamento maior antes da linha de cards — !important necessário pra
+   vencer o "zera margem" genérico dos filhos diretos do palco. */
+#focusGroupStage .case__cards {
+  gap: 0.85rem;
+  margin-top: 2rem !important;
+}
+
+#focusGroupStage .case__card {
+  background: var(--color-bg);
+  padding: 0.85rem 1rem;
+}
+
+#focusGroupStage .case__card h4 {
+  font-size: 0.82rem;
+  margin-bottom: 0.3rem;
+}
+
+#focusGroupStage .case__card p {
+  font-size: 0.74rem;
+  line-height: 1.35;
+}
+
+/* O card de citação usa .case__quote (pro <cite>/itálico) junto com
+   .case__card (pro visual igual aos outros cards de destaque) — como as
+   duas classes têm fundo/borda próprios, o par junto aqui garante que o
+   estilo de card vença. */
+#focusGroupStage .case__quote.case__card {
+  background: var(--color-bg);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.85rem 1rem;
+}
+
+/* Ocupa a largura das 3 colunas de cima, numa linha só embaixo delas. */
+#focusGroupStage .case__quote--full {
+  grid-column: 1 / -1;
+}
+
+#focusGroupStage .case__quote-mark--icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+#focusGroupStage .case__quote p {
+  font-size: 0.74rem;
+}
+
+#focusGroupStage .case__quote cite {
+  font-size: 0.68rem;
+  margin-top: 0.4rem;
+}
+
+.case__quote-mark--icon {
+  color: var(--color-accent);
+}
+
+.case__quote-mark--icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+#focusGroupStage .case__quote-mark {
+  font-size: 1.5rem;
+  margin-bottom: 0.15rem;
+}
+
+#focusGroupStage .case__quote p {
+  font-size: 0.85rem;
+}
+
 .slide__stage--split .case__figure img {
   max-height: 62vh;
   object-fit: contain;
@@ -519,18 +611,22 @@ body.case-split-page .header {
   visibility: visible;
 }
 
+/* width/height (não max-width/max-height): imagens de origem pequena
+   (prints de baixa resolução) também esticam pra ocupar a área grande,
+   em vez de aparecer no tamanho natural — mesmo perdendo um pouco de
+   nitidez, o pedido aqui foi "grande" acima de "nítido". */
 .lightbox__img {
-  max-width: 100%;
-  max-height: 100%;
+  width: 92vw;
+  height: 92vh;
   object-fit: contain;
   cursor: zoom-in;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, transform-origin 0.08s linear;
   border-radius: 4px;
 }
 
 .lightbox__img.is-zoomed {
   cursor: zoom-out;
-  transform: scale(1.8);
+  transform: scale(2.4);
 }
 
 .lightbox__close {

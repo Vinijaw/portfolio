@@ -10,10 +10,22 @@
   const deck = document.getElementById("deck");
 
   if (lightbox && lightboxImg && deck) {
+    // Posição do zoom (% da imagem) sob o cursor — atualizada no clique
+    // que liga o zoom e, enquanto ele estiver ligado, a cada movimento do
+    // mouse, pra dar a sensação de "passear" pela imagem ampliada em vez
+    // dela ficar travada no centro.
+    const setOriginFromEvent = (event) => {
+      const rect = lightboxImg.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width) * 100;
+      const y = ((event.clientY - rect.top) / rect.height) * 100;
+      lightboxImg.style.transformOrigin = `${Math.max(0, Math.min(100, x))}% ${Math.max(0, Math.min(100, y))}%`;
+    };
+
     const open = (img) => {
       lightboxImg.src = img.currentSrc || img.src;
       lightboxImg.alt = img.alt || "";
       lightboxImg.classList.remove("is-zoomed");
+      lightboxImg.style.transformOrigin = "50% 50%";
       lightbox.classList.add("is-open");
     };
 
@@ -27,8 +39,14 @@
       img.addEventListener("click", () => open(img));
     });
 
-    lightboxImg.addEventListener("click", () => {
-      lightboxImg.classList.toggle("is-zoomed");
+    lightboxImg.addEventListener("click", (event) => {
+      const zooming = !lightboxImg.classList.contains("is-zoomed");
+      if (zooming) setOriginFromEvent(event);
+      lightboxImg.classList.toggle("is-zoomed", zooming);
+    });
+
+    lightboxImg.addEventListener("mousemove", (event) => {
+      if (lightboxImg.classList.contains("is-zoomed")) setOriginFromEvent(event);
     });
 
     closeBtn?.addEventListener("click", close);
