@@ -186,7 +186,7 @@ body.case-split-page .header {
    padding do palco, pra não empurrar o resto do conteúdo. */
 #focusGroupStage .case__figure {
   width: 100%;
-  height: calc(36vh + clamp(2rem, 5vw, 4rem));
+  height: 80vh;
   margin-top: calc(-1 * clamp(2rem, 5vw, 4rem)) !important;
 }
 
@@ -219,14 +219,14 @@ body.case-split-page .header {
   line-height: 1.35;
 }
 
-/* O card de citação usa .case__quote (pro <cite>/itálico) junto com
-   .case__card (pro visual igual aos outros cards de destaque) — como as
-   duas classes têm fundo/borda próprios, o par junto aqui garante que o
-   estilo de card vença. */
+/* O card de citação usa .case__quote junto com .case__card (mesmo
+   visual dos outros cards de destaque) — como as duas classes têm
+   fundo/borda próprios, o par junto aqui garante que o estilo de card
+   vença. */
 #focusGroupStage .case__quote.case__card {
-  background: transparent;
-  border: none;
-  padding: 0.85rem 1rem;
+  background: var(--color-bg);
+  border-left: 3px solid var(--color-accent);
+  padding: 0.85rem 1.1rem;
 }
 
 /* Ocupa a largura das 3 colunas de cima, numa linha só embaixo delas. */
@@ -234,18 +234,34 @@ body.case-split-page .header {
   grid-column: 1 / -1;
 }
 
+/* Tudo em uma linha só: ícone, frase em negrito e a atribuição, lado a
+   lado em vez de empilhados como no .case__quote padrão. */
+#focusGroupStage .case__quote--inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#focusGroupStage .case__quote--inline .case__quote-mark {
+  margin-bottom: 0;
+}
+
+#focusGroupStage .case__quote--inline p {
+  margin: 0;
+  font-style: normal;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+#focusGroupStage .case__quote--inline p strong {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
 #focusGroupStage .case__quote-mark--icon svg {
   width: 1.1rem;
   height: 1.1rem;
-}
-
-#focusGroupStage .case__quote p {
-  font-size: 0.74rem;
-}
-
-#focusGroupStage .case__quote cite {
-  font-size: 0.68rem;
-  margin-top: 0.4rem;
 }
 
 .case__quote-mark--icon {
