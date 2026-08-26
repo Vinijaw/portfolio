@@ -176,9 +176,14 @@ body.case-split-page .header {
    essa caixa com object-fit: cover — corta um pouco, mas o objetivo é só
    dar um teaser; a imagem inteira (sem corte) aparece ao clicar, no
    lightbox com zoom. */
+/* Estica pra cima até o topo da tela (o palco não tem header por cima
+   nessa página), como se a imagem viesse de fora da tela por cima —
+   compensa com margin-top negativo + altura extra do mesmo tamanho do
+   padding do palco, pra não empurrar o resto do conteúdo. */
 #focusGroupStage .case__figure {
   width: 100%;
-  height: 36vh;
+  height: calc(36vh + clamp(2rem, 5vw, 4rem));
+  margin-top: calc(-1 * clamp(2rem, 5vw, 4rem)) !important;
 }
 
 #focusGroupStage .case__figure img {
@@ -215,8 +220,8 @@ body.case-split-page .header {
    duas classes têm fundo/borda próprios, o par junto aqui garante que o
    estilo de card vença. */
 #focusGroupStage .case__quote.case__card {
-  background: var(--color-bg);
-  border-left: 3px solid var(--color-accent);
+  background: transparent;
+  border: none;
   padding: 0.85rem 1rem;
 }
 
