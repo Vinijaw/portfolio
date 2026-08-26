@@ -169,6 +169,10 @@ body.case-split-page .header {
    os 4 cards de destaque (3 temas + a citação) em linha embaixo. */
 #focusGroupStage {
   gap: 0.5rem;
+  /* O palco padrão centraliza o conteúdo verticalmente — aqui o grupo
+     precisa começar grudado no topo, senão a margem negativa da imagem
+     só "estica o grupo" sem prender ela na borda de verdade. */
+  justify-content: flex-start;
 }
 
 /* Prévia recortada: a figura ocupa a mesma largura da linha de cards
