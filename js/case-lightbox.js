@@ -27,6 +27,29 @@
       lightboxImg.style.transformOrigin = `${Math.max(0, Math.min(100, x))}% ${Math.max(0, Math.min(100, y))}%`;
     };
 
+    // O <img> tem object-fit: contain, então o elemento costuma ser maior
+    // que a imagem visível de fato (letterbox) — sem essa checagem, um
+    // clique na área "vazia" ao redor de uma imagem bem larga ou bem alta
+    // também ligava o zoom. Calcula o retângulo realmente desenhado e só
+    // deixa passar cliques dentro dele.
+    const isClickOnRenderedImage = (event) => {
+      const rect = lightboxImg.getBoundingClientRect();
+      const naturalRatio = lightboxImg.naturalWidth / lightboxImg.naturalHeight;
+      const boxRatio = rect.width / rect.height;
+      let renderedWidth = rect.width;
+      let renderedHeight = rect.height;
+      if (naturalRatio > boxRatio) {
+        renderedHeight = rect.width / naturalRatio;
+      } else {
+        renderedWidth = rect.height * naturalRatio;
+      }
+      const offsetX = (rect.width - renderedWidth) / 2;
+      const offsetY = (rect.height - renderedHeight) / 2;
+      const x = event.clientX - rect.left;
+      const y = event.clientY - rect.top;
+      return x >= offsetX && x <= offsetX + renderedWidth && y >= offsetY && y <= offsetY + renderedHeight;
+    };
+
     // Estado do carrossel atual aberto na modal (null quando a imagem
     // aberta não pertence a nenhum carrossel).
     let carouselEl = null;
@@ -72,6 +95,7 @@
     });
 
     lightboxImg.addEventListener("click", (event) => {
+      if (!isClickOnRenderedImage(event)) return;
       const zooming = !lightboxImg.classList.contains("is-zoomed");
       if (zooming) setOriginFromEvent(event);
       lightboxImg.classList.toggle("is-zoomed", zooming);
