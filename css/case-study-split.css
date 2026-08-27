@@ -15,6 +15,16 @@
    slides. Não é usado pelos outros cases.
    ========================================================================== */
 
+/* Figura "crua": pra diagramas em PNG com fundo transparente (ex.: o
+   diagrama de escrow) — sem o card branco nem a borda que .case__figure
+   usa por padrão pra emoldurar prints de tela. */
+.case__figure--plain {
+  background: none;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
 /* O header padrão do site continua no HTML (pros scripts de nav em
    main.js terem os elementos que esperam), só é escondido aqui. */
 body.case-split-page .header {
