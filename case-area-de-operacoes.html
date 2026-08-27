@@ -292,26 +292,42 @@
         </div>
       </div>
 
-      <div class="slide__stage slide__stage--split">
-        <div>
-          <div class="case__figure reveal" style="background:#fff;">
-            <img src="assets/images/cases/Cases selecionados/area-de-operacoes/roteiro-entrevista.png" alt="Roteiro de entrevista com o time de Backoffice: Instrução, Rotina, Trabalho, Perguntas do Fluxo e Fechamento" />
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/roteiro-entrevista.png" alt="Roteiro de entrevista com o time de Backoffice: Instrução, Rotina, Trabalho, Perguntas do Fluxo e Fechamento" />
+                </div>
+                <p class="case__figure-caption">Roteiro usado nas entrevistas — a mesma estrutura foi adaptada para o time de Desenvolvimento.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/fluxo-movimentacoes.jpg" alt="Mapeamento do fluxo de Movimentações, com raias para Cliente, Plataforma, Time de atendimento e suporte e Time de desenvolvimento" />
+                </div>
+                <p class="case__figure-caption">Mapeamento do fluxo de Movimentações — do alerta do cliente até o ajuste feito pelo time de desenvolvimento.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/fluxo-comissoes.jpg" alt="Mapeamento do fluxo de Comissões, com raias para Cliente, Plataforma, Time de atendimento e suporte e Time de desenvolvimento" />
+                </div>
+                <p class="case__figure-caption">Mapeamento do fluxo de Comissões — do erro informado pelo cliente até o reenvio da cobrança.</p>
+              </div>
+            </div>
           </div>
-          <p class="case__figure-caption">Roteiro usado nas entrevistas — a mesma estrutura foi adaptada para o time de Desenvolvimento.</p>
-        </div>
 
-        <div class="case__cards" style="grid-template-columns: 1fr;">
-          <div class="case__card reveal">
-            <h4>Dependência gerava gargalo duplo</h4>
-            <p>A engenharia era interrompida tanto para resolver problemas pontuais quanto para evoluir o produto — as duas filas competiam entre si.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Modelo insustentável</h4>
-            <p>A base de clientes crescia mais rápido do que o quadro de desenvolvedores disponível para sustentar o volume manual.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Risco de erro humano</h4>
-            <p>Alterações feitas direto em código ou banco de dados não tinham as validações que uma interface dedicada poderia ter.</p>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o roteiro de entrevista"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o fluxo de Movimentações"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para o fluxo de Comissões"></button>
           </div>
         </div>
       </div>
