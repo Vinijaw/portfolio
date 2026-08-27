@@ -165,6 +165,11 @@
 
     render();
 
+    // Ponte com js/case-lightbox.js: ao abrir uma imagem desse carrossel
+    // no modal, ele usa isso pra navegar entre as telas sem fechar a
+    // modal, mantendo o carrossel da página em sincronia.
+    carousel.goToSlide = goTo;
+
     prevBtn?.addEventListener("click", () => goTo(current - 1));
     nextBtn?.addEventListener("click", () => goTo(current + 1));
     dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));

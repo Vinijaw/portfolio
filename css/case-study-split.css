@@ -682,6 +682,47 @@ body.case-split-page .header {
   height: 20px;
 }
 
+/* Setas de navegação da modal — só aparecem quando a imagem aberta faz
+   parte de um carrossel com mais de uma tela (.lightbox.has-carousel). */
+.lightbox__arrow {
+  display: none;
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  z-index: 201;
+}
+
+.lightbox__arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.lightbox__arrow svg {
+  width: 22px;
+  height: 22px;
+}
+
+.lightbox__arrow--prev {
+  left: 1.5rem;
+}
+
+.lightbox__arrow--next {
+  right: 1.5rem;
+}
+
+.lightbox.has-carousel .lightbox__arrow {
+  display: flex;
+}
+
 /* Qualquer imagem clicável do deck (capa, telas, carrossel) ganha esse
    cursor via JS (js/case-lightbox.js), que também abre o lightbox. */
 .is-zoomable {
