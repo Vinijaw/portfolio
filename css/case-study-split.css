@@ -215,8 +215,8 @@ body.case-split-page .header {
 }
 
 #focusGroupStage .case__card p {
-  font-size: 0.74rem;
-  line-height: 1.35;
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 
 /* O card de citação usa .case__quote junto com .case__card (mesmo
@@ -254,7 +254,9 @@ body.case-split-page .header {
 }
 
 #focusGroupStage .case__quote--inline p strong {
+  font-family: var(--font-display);
   font-style: normal;
+  font-size: 0.82rem;
   font-weight: 700;
   color: var(--color-text);
 }
