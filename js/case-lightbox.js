@@ -30,9 +30,10 @@
     // O <img> tem object-fit: contain, então o elemento costuma ser maior
     // que a imagem visível de fato (letterbox) — sem essa checagem, um
     // clique na área "vazia" ao redor de uma imagem bem larga ou bem alta
-    // também ligava o zoom. Calcula o retângulo realmente desenhado e só
-    // deixa passar cliques dentro dele.
-    const isClickOnRenderedImage = (event) => {
+    // também ligava o zoom (e o cursor de zoom aparecia ali também).
+    // Calcula o retângulo realmente desenhado e testa se o ponto cai
+    // dentro dele.
+    const isPointOnRenderedImage = (event) => {
       const rect = lightboxImg.getBoundingClientRect();
       const naturalRatio = lightboxImg.naturalWidth / lightboxImg.naturalHeight;
       const boxRatio = rect.width / rect.height;
@@ -56,11 +57,23 @@
     let carouselImages = [];
     let carouselIndex = 0;
 
+    // Cursor de zoom só faz sentido em cima da imagem de fato — fora
+    // dela (letterbox) volta pro cursor normal, e enquanto já estiver
+    // ampliada mostra "zoom-out" na imagem inteira.
+    const updateCursor = (event) => {
+      if (lightboxImg.classList.contains("is-zoomed")) {
+        lightboxImg.style.cursor = "zoom-out";
+      } else {
+        lightboxImg.style.cursor = isPointOnRenderedImage(event) ? "zoom-in" : "default";
+      }
+    };
+
     const showImage = (img) => {
       lightboxImg.src = img.currentSrc || img.src;
       lightboxImg.alt = img.alt || "";
       lightboxImg.classList.remove("is-zoomed");
       lightboxImg.style.transformOrigin = "50% 50%";
+      lightboxImg.style.cursor = "default";
     };
 
     const open = (img) => {
@@ -95,14 +108,16 @@
     });
 
     lightboxImg.addEventListener("click", (event) => {
-      if (!isClickOnRenderedImage(event)) return;
+      if (!isPointOnRenderedImage(event)) return;
       const zooming = !lightboxImg.classList.contains("is-zoomed");
       if (zooming) setOriginFromEvent(event);
       lightboxImg.classList.toggle("is-zoomed", zooming);
+      updateCursor(event);
     });
 
     lightboxImg.addEventListener("mousemove", (event) => {
       if (lightboxImg.classList.contains("is-zoomed")) setOriginFromEvent(event);
+      updateCursor(event);
     });
 
     prevBtn?.addEventListener("click", () => goToCarouselImage(carouselIndex - 1));

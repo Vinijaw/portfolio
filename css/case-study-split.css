@@ -652,17 +652,20 @@ body.case-split-page .header {
    (prints de baixa resolução) também esticam pra ocupar a área grande,
    em vez de aparecer no tamanho natural — mesmo perdendo um pouco de
    nitidez, o pedido aqui foi "grande" acima de "nítido". */
+/* object-fit: contain deixa "letterbox" (área vazia) dentro do próprio
+   elemento quando a proporção da imagem não bate com a do box — por
+   isso o cursor não é fixo aqui: js/case-lightbox.js calcula o
+   retângulo realmente desenhado e aplica zoom-in/zoom-out/default via
+   style inline conforme a posição do mouse. */
 .lightbox__img {
   width: 92vw;
   height: 92vh;
   object-fit: contain;
-  cursor: zoom-in;
   transition: transform 0.3s ease, transform-origin 0.08s linear;
   border-radius: 4px;
 }
 
 .lightbox__img.is-zoomed {
-  cursor: zoom-out;
   transform: scale(2.4);
 }
 
