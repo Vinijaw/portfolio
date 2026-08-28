@@ -424,6 +424,7 @@
 
 .case__table tbody td:first-child {
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .case__table tbody td {
@@ -436,6 +437,62 @@
 
 .case__table tbody tr:last-child td {
   border-bottom: none;
+}
+
+/* Selo colorido pro status na primeira coluna da tabela de regras —
+   cada status ganha uma cor fixa pra ficar reconhecível de relance,
+   igual a uma tag de sistema. */
+.status-pill {
+  display: inline-block;
+  padding: 0.35rem 0.9rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.status-pill--red {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #dc2626;
+}
+
+.status-pill--green {
+  background: #e8f8ee;
+  border-color: #86efac;
+  color: #16a34a;
+}
+
+.status-pill--blue {
+  background: #eaf3fe;
+  border-color: #93c5fd;
+  color: #2563eb;
+}
+
+.status-pill--purple {
+  background: #f3ecfe;
+  border-color: #c4b5fd;
+  color: #7c3aed;
+}
+
+.status-pill--orange {
+  background: #fff1e6;
+  border-color: #fdba8c;
+  color: #ea580c;
+}
+
+.status-pill--yellow {
+  background: #fefce8;
+  border-color: #fde68a;
+  color: #ca8a04;
+}
+
+.status-pill--gray {
+  background: #f8f8f8;
+  border-color: #e2e2e2;
+  color: #6b7280;
 }
 
 /* -------------------- Grid de wireframes -------------------- */
