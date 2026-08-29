@@ -57,14 +57,16 @@
     let carouselImages = [];
     let carouselIndex = 0;
 
-    // Cursor de zoom só faz sentido em cima da imagem de fato — fora
-    // dela (letterbox) volta pro cursor normal, e enquanto já estiver
-    // ampliada mostra "zoom-out" na imagem inteira.
+    // Cursor de zoom só faz sentido em cima da imagem de fato. Fora
+    // dela (letterbox) o clique fecha a modal — mesmo efeito de clicar
+    // no fundo — então o cursor vira "pointer" pra sugerir isso, em vez
+    // de manter zoom-in/zoom-out numa área onde zoom não é o que
+    // acontece ao clicar.
     const updateCursor = (event) => {
-      if (lightboxImg.classList.contains("is-zoomed")) {
-        lightboxImg.style.cursor = "zoom-out";
+      if (!isPointOnRenderedImage(event)) {
+        lightboxImg.style.cursor = "pointer";
       } else {
-        lightboxImg.style.cursor = isPointOnRenderedImage(event) ? "zoom-in" : "default";
+        lightboxImg.style.cursor = lightboxImg.classList.contains("is-zoomed") ? "zoom-out" : "zoom-in";
       }
     };
 
@@ -108,7 +110,12 @@
     });
 
     lightboxImg.addEventListener("click", (event) => {
-      if (!isPointOnRenderedImage(event)) return;
+      // Fora da imagem de fato (letterbox) é, na prática, a mesma coisa
+      // que clicar no fundo da modal — fecha, em vez de não fazer nada.
+      if (!isPointOnRenderedImage(event)) {
+        close();
+        return;
+      }
       const zooming = !lightboxImg.classList.contains("is-zoomed");
       if (zooming) setOriginFromEvent(event);
       lightboxImg.classList.toggle("is-zoomed", zooming);
