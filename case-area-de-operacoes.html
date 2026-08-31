@@ -382,7 +382,7 @@
           </p>
           <p class="case__text" style="margin-top:1rem;">
             Essa etapa foi importante para eu tomar a decisão de como iria estruturar a hierarquia
-            da área de operações — neste caso, após uma análise de status/ação, tomei a decisão de
+            da área de operações, neste caso, após a análise de status/ação, tomei a decisão de
             criá-la orientada a funcionalidade.
           </p>
         </div>
@@ -449,24 +449,53 @@
         </a>
         <div class="slide__panel-inner">
           <span class="case__section-num">05 · Idear</span>
-          <h2 class="case__section-title">Um hub consistente, não sete telas diferentes</h2>
+          <h2 class="case__section-title">Uma central para a operação</h2>
           <p class="case__section-lead">
-            Desenhei a Área de Operações como novo item de navegação de primeiro nível na
-            Plataforma Nacional, com uma home em formato de cards que direciona para dois grupos —
-            Instruções (Transferências, Aplicações, Resgates) e Comissões.
+            Criei a Área de Operações como uma seção de primeiro nível na plataforma, dividida em
+            <strong>Instruções</strong> (Aplicações, Resgates, Transferências, Programadas) e
+            <strong>Comissões</strong> que foram as primeiras operações que atacamos.
           </p>
           <p class="case__text" style="margin-top:1.5rem;">
-            Todas as sub-áreas reaproveitam o mesmo padrão: filtros avançados (contrato, contas,
-            CPF/CNPJ, canal, status), busca direta por ID, seleção em lote com limite máximo, e uma
-            etapa de revisão que mostra exatamente o que foi alterado antes de confirmar — reduzindo
-            o risco de erro humano que motivou o projeto.
+            Todas as telas seguem o mesmo padrão de filtros avançados, busca por ID (quando for
+            necessário) e ações em lote. Para evitar o risco de erro humano, adicionei um passo de
+            revisão detalhado antes de cada submissão.
           </p>
           <p class="case__text" style="margin-top:1rem;">
-            A área também foi encaixada no novo modelo de permissões do backoffice (RBAC 2.0),
-            garantindo que cada ação só fique disponível para analistas autorizados — um requisito
-            implícito de operar sobre valores financeiros reais. A entrega avançou em épicos
-            sucessivos: criação da área, sustentação de Programadas, um ciclo dedicado a
-            idempotência das ações, e o go-live em produção via GMUD.
+            A interface foi feita em uma estrutura escalável, visto que teríamos diversas outras
+            operações e funcionalidades de outras áreas também. Além disso, foi alinhado com os
+            analistas responsáveis um controle de acesso conforme o nível de autorização.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <div class="case__figure reveal" style="background:#fff;">
+          <img src="assets/images/cases/Cases selecionados/area-de-operacoes/home-hub.png" alt="Home da Área de Operações: busca e cards para Transferências, Aplicações, Resgates, Movimentações Programadas e Comissões" />
+        </div>
+        <p class="case__figure-caption">Home da Área de Operações.</p>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 8 · IDEAR: DESIGN SYSTEM ===================== -->
+    <section class="slide" id="slide-8">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">05 · Idear</span>
+          <h2 class="case__section-title">Design system: ciano no lugar do vermelho</h2>
+          <p class="case__section-lead">
+            Criei um arquivo para documentar os componentes mais padronizados da área de operações,
+            funciona como um "wrapper design system": uso os componentes do próprio antd, que é o
+            design system oficial do produto, com os ajustes de cor, estados e padrões que a Área
+            de Operações precisava.
+          </p>
+          <p class="case__text" style="margin-top:1.5rem;">
+            Troquei a cor primária das ações para ciano, em vez do vermelho usado no resto da
+            plataforma. Pois por se tratar de uma área crítica, queria deixar os feedbacks bem
+            claros e reservar o vermelho só para situações de alertas críticos.
           </p>
         </div>
       </div>
@@ -477,15 +506,297 @@
             <div class="stage-carousel__track" data-carousel-track>
               <div class="stage-carousel__slide is-active">
                 <div class="case__figure reveal" style="background:#fff;">
-                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-transferencias.png" alt="Tela de Reprocessar Transferências: tabela com filtros, status e ação de reprocessar em lote ou individual" />
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-header-home.jpg" alt="Documentação do design system: variações de header e cards da home" />
+                </div>
+                <p class="case__figure-caption">Header e Home documentados.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-filtros.jpg" alt="Documentação do design system: componente de filtro montado, com abas e campos em ciano" />
+                </div>
+                <p class="case__figure-caption">Filtro — componente montado.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-campos-seletores.jpg" alt="Documentação do design system: blocos de campos de filtro e seletores" />
+                </div>
+                <p class="case__figure-caption">Campos e seletores — os blocos por trás do filtro.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-selecao-contrato.jpg" alt="Documentação do design system: lista de seleção de contrato" />
+                </div>
+                <p class="case__figure-caption">Seleção de contrato.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-celulas-colunas.jpg" alt="Documentação do design system: células de status coloridas (Cancelada, Finalizada, Em processamento, Agendada, Falta de saldo, Pendente) e colunas de tabela" />
+                </div>
+                <p class="case__figure-caption">Células de status e colunas.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-acoes-lote.jpg" alt="Documentação do design system: barra de ações em lote, em ciano" />
+                </div>
+                <p class="case__figure-caption">Ações em lote.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-tooltips.jpg" alt="Documentação do design system: tooltips de ação e tooltips informativos, em ciano" />
+                </div>
+                <p class="case__figure-caption">Tooltips de ação e informativos.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-collapses.jpg" alt="Documentação do design system: componente de collapse" />
+                </div>
+                <p class="case__figure-caption">Collapses.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-footer.jpg" alt="Documentação do design system: rodapé de tabela com paginação, em ciano" />
+                </div>
+                <p class="case__figure-caption">Footer — paginação.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para tela 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para tela 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para tela 3"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para tela 4"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="4" aria-label="Ir para tela 5"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="5" aria-label="Ir para tela 6"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="6" aria-label="Ir para tela 7"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="7" aria-label="Ir para tela 8"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="8" aria-label="Ir para tela 9"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 9 · IDEAR: MOVIMENTAÇÕES DO DIA ===================== -->
+    <section class="slide case__section--dark" id="slide-9">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">05 · Idear</span>
+          <h2 class="case__section-title">Movimentações do dia: reprocessar</h2>
+          <p class="case__section-lead">
+            No focus group, este foi o tema mais citado do board inteiro: recuperar falhas e ter
+            visibilidade em tempo real sobre o que está acontecendo com uma transferência agora.
+          </p>
+          <p class="case__text" style="margin-top:1.5rem;">
+            Durante as entrevistas identifiquei que as operações de movimentações poderiam
+            acontecer através de problemas de canais de pagamento, ou muitas vezes o cliente
+            solicitava um ajuste de data/hora e valor.
+          </p>
+          <p class="case__text" style="margin-top:1rem;">
+            Então desenhei a tela de Reprocessar Transferências com filtros avançados, busca direta
+            por ID e seleção em lote, permitindo editar valor, data, horário e canal de pagamento
+            sem sair da interface. Por segurança, antes de qualquer confirmação, uma etapa de
+            revisão mostra exatamente o que vai mudar em cada operação selecionada.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-tabela.jpg" alt="Tela de Reprocessar Transferências: tabela com filtros, status e ação de reprocessar em lote ou individual" />
                 </div>
                 <p class="case__figure-caption">Reprocessar Transferências — filtros avançados, seleção em lote e busca direta por ID.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure reveal" style="background:#fff;">
-                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/aplicacoes-editar.png" alt="Tela de Aplicações: tabela com filtros por contrato, CPF/CNPJ, canal e status, e ação de editar" />
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-selecao.jpg" alt="Cinco transferências selecionadas na tabela, com a barra de reprocessar em lote no rodapé" />
                 </div>
-                <p class="case__figure-caption">Aplicações — mesmo padrão de tabela e filtro, reaproveitado entre as sub-áreas.</p>
+                <p class="case__figure-caption">Seleção em lote — escolhe as transferências e reprocessa todas de uma vez.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-operacoes.jpg" alt="Etapa 1 do modal de reprocessamento em lote: tabela com cada operação, editável por linha" />
+                </div>
+                <p class="case__figure-caption">Etapa 1 — cada operação do lote, editável antes de reprocessar.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-editar-data.jpg" alt="Popover de edição de data e horário de uma operação, com a opção de agendar" />
+                </div>
+                <p class="case__figure-caption">Editar quando reprocessar — agora ou agendado.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-editar-valor.jpg" alt="Valor de uma operação editado e destacado na tabela do modal" />
+                </div>
+                <p class="case__figure-caption">Editar valor — o campo alterado fica destacado.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-revisao.jpg" alt="Etapa 2 do modal, revisão, com tooltips mostrando o valor anterior e o novo valor de cada alteração" />
+                </div>
+                <p class="case__figure-caption">Etapa 2 — revisão, com o antes e depois de cada alteração.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-sucesso.jpg" alt="Confirmação de sucesso após reprocessar as transferências selecionadas" />
+                </div>
+                <p class="case__figure-caption">Confirmação — reprocessado sem precisar de um chamado.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para tela 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para tela 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para tela 3"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para tela 4"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="4" aria-label="Ir para tela 5"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="5" aria-label="Ir para tela 6"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="6" aria-label="Ir para tela 7"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 10 · IDEAR: MOVIMENTAÇÕES PROGRAMADAS ===================== -->
+    <section class="slide case__section--dark" id="slide-10">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">05 · Idear</span>
+          <h2 class="case__section-title">Programadas: pausar sem depender de ajustes manuais</h2>
+          <p class="case__section-lead">
+            Por envolverem recorrências e regras condicionais, as movimentações programadas
+            demandavam um fluxo diferente para eliminar a dependência técnica do time de
+            desenvolvimento, que antes precisava pausar e retomar essas transações manualmente via
+            código.
+          </p>
+          <p class="case__text" style="margin-top:1.5rem;">
+            A necessidade de pausa ocorria principalmente em dois cenários: garantir saldo
+            suficiente para movimentações prioritárias (ex: pagamento de comissões) ou atender à
+            solicitação de interrupção feita pelo próprio usuário.
+          </p>
+          <p class="case__text" style="margin-top:1rem;">
+            Desenhei uma experiência que dá total visibilidade sobre as movimentações programadas
+            de cada contrato e suas respectivas datas de execução, destacando as mais próximas.
+            Além disso, ao solicitar uma pausa, o usuário define uma data para a retomada
+            automática da programação.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-lista-rotinas.jpg" alt="Tela de Movimentações Programadas: lista de rotinas de um contrato, com prioridade, próxima execução e ação de pausar" />
+                </div>
+                <p class="case__figure-caption">Movimentações Programadas — rotinas por contrato, com ação de pausar.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-definir-pausa.jpg" alt="Etapa 1 do modal de pausa: calendário para definir até quando a movimentação fica pausada, com aviso de cancelamento automático" />
+                </div>
+                <p class="case__figure-caption">Definir o período — o aviso de cancelamento automático já aparece aqui.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-sucesso.jpg" alt="Confirmação de pausa, informando até quando as rotinas programadas não serão executadas" />
+                </div>
+                <p class="case__figure-caption">Confirmação — até quando a pausa vale, sem ambiguidade.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-retomar.jpg" alt="Lista de contratos com rotinas pausadas destacadas e ação de editar a pausa" />
+                </div>
+                <p class="case__figure-caption">Contratos pausados ficam sinalizados, com opção de editar ou retomar.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para tela 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para tela 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para tela 3"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para tela 4"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 11 · IDEAR: COMISSÕES ===================== -->
+    <section class="slide case__section--dark" id="slide-11">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">05 · Idear</span>
+          <h2 class="case__section-title">Comissões: alertar antes de falhar</h2>
+          <p class="case__section-lead">
+            Comissões são cobradas de forma manual e automática. Uma rotina diária de verificação
+            identifica divergências e permite editar data, valor ou cancelar a cobrança — em lote
+            ou individualmente.
+          </p>
+          <p class="case__text" style="margin-top:1.5rem;">
+            O caso mais crítico é quando uma movimentação programada e uma comissão caem no mesmo
+            dia: sem saldo suficiente para as duas, a cobrança falha. Um aviso preventivo antecipa
+            esse conflito antes que ele vire um problema, com a mesma etapa de revisão usada nas
+            outras sub-áreas.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-lista.png" alt="Tela de Comissões com Divergências, mostrando a rotina diária de verificação e a lista de contratos afetados" />
+                </div>
+                <p class="case__figure-caption">Comissões com Divergências — rotina diária de verificação, por contrato.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure reveal" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-revisao.png" alt="Etapa de revisão da edição de uma comissão, com a tabela de divergências ao fundo mostrando status editado e aguardando edição" />
+                </div>
+                <p class="case__figure-caption">Editar Comissões — revisão antes de confirmar, com status por linha na tabela.</p>
               </div>
             </div>
           </div>
@@ -505,8 +816,8 @@
       </div>
     </section>
 
-    <!-- ===================== SLIDE 8 · RESULTADOS ===================== -->
-    <section class="slide" id="slide-8">
+    <!-- ===================== SLIDE 12 · RESULTADOS ===================== -->
+    <section class="slide" id="slide-12">
       <div class="slide__panel">
         <a href="index.html#cases" class="case__back">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
@@ -564,8 +875,8 @@
       </div>
     </section>
 
-    <!-- ===================== SLIDE 9 · CTA FINAL ===================== -->
-    <section class="slide slide--cta" id="slide-9">
+    <!-- ===================== SLIDE 13 · CTA FINAL ===================== -->
+    <section class="slide slide--cta" id="slide-13">
       <a href="index.html#cases" class="case__back">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
         Voltar para os cases
@@ -586,6 +897,7 @@
       <button type="button" class="slide-nav__btn" data-dir="up" aria-label="Seção anterior">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
       </button>
+      <span class="slide-nav__counter" id="slideNavCounter" aria-hidden="true">01 / 14</span>
       <button type="button" class="slide-nav__btn" data-dir="down" aria-label="Próxima seção">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12l7 7 7-7"/></svg>
       </button>

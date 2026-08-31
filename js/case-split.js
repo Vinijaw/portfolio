@@ -19,6 +19,7 @@
 
     const navUpBtn = document.querySelector('.slide-nav__btn[data-dir="up"]');
     const navDownBtn = document.querySelector('.slide-nav__btn[data-dir="down"]');
+    const navCounter = document.getElementById("slideNavCounter");
     const lightbox = document.getElementById("lightbox");
 
     // Retoma no slide de onde o usuário saiu (ex.: recarregou a página)
@@ -32,6 +33,10 @@
       slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
       if (navUpBtn) navUpBtn.disabled = index === 0;
       if (navDownBtn) navDownBtn.disabled = index === lastIndex;
+      if (navCounter) {
+        const pad = (n) => String(n).padStart(2, "0");
+        navCounter.textContent = `${pad(index + 1)} / ${pad(slides.length)}`;
+      }
       const hash = `#${slides[index].id}`;
       if (window.location.hash !== hash) {
         history.replaceState(null, "", hash);
