@@ -1951,6 +1951,39 @@ body.playground-modal-open {
   color: var(--color-accent);
 }
 
+/* Case ainda não publicado: mantém o card na grid (pra dar contexto do
+   que vem a seguir), mas sem convidar pro clique — sem hover, sem
+   levantar no hover, e o link vira texto morto em vez de <a>. */
+.case-card--disabled:hover {
+  transform: none;
+  border-color: var(--color-border-on-dark);
+}
+
+.case-card__thumb {
+  position: relative;
+}
+
+.case-card__badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #f5b544;
+  color: #16222b;
+  font-family: var(--font-display);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+}
+
+.case-card__link--disabled {
+  color: var(--color-text-on-dark-muted);
+  cursor: default;
+  pointer-events: none;
+}
+
 /* ==========================================================================
    FOOTER / CONTATO
    ========================================================================== */
