@@ -19,7 +19,9 @@
 
     const navUpBtn = document.querySelector('.slide-nav__btn[data-dir="up"]');
     const navDownBtn = document.querySelector('.slide-nav__btn[data-dir="down"]');
+    const navHomeBtn = document.getElementById("slideNavHome");
     const navCounter = document.getElementById("slideNavCounter");
+    const skipToInterfacesBtn = document.getElementById("skipToInterfacesBtn");
     const lightbox = document.getElementById("lightbox");
 
     // Retoma no slide de onde o usuário saiu (ex.: recarregou a página)
@@ -33,9 +35,17 @@
       slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
       if (navUpBtn) navUpBtn.disabled = index === 0;
       if (navDownBtn) navDownBtn.disabled = index === lastIndex;
+      if (navHomeBtn) navHomeBtn.disabled = index === 0;
       if (navCounter) {
         const pad = (n) => String(n).padStart(2, "0");
         navCounter.textContent = `${pad(index + 1)} / ${pad(slides.length)}`;
+      }
+      // z-index:auto no .slide não cria stacking context, então o botão
+      // (com z-index próprio, pra ficar acima do conteúdo do slide-0)
+      // pintaria por cima de qualquer slide, não só do slide-0, se
+      // dependesse só de CSS — por isso o show/hide é explícito aqui.
+      if (skipToInterfacesBtn) {
+        skipToInterfacesBtn.style.display = index === 0 ? "" : "none";
       }
       const hash = `#${slides[index].id}`;
       if (window.location.hash !== hash) {
@@ -58,6 +68,20 @@
 
     render();
 
+    // Botão "Pular para as interfaces" (só existe no slide-0): vai direto
+    // pra tela de Reprocessar e já abre a modal com o carrossel daquela
+    // etapa, sem precisar clicar de novo na imagem. O atraso é só pra
+    // deixar a transição de slide terminar antes da modal abrir por cima.
+    skipToInterfacesBtn?.addEventListener("click", () => {
+      const targetIndex = slides.findIndex((slide) => slide.id === "slide-9");
+      if (targetIndex < 0) return;
+      goTo(targetIndex);
+      window.setTimeout(() => {
+        slides[targetIndex].querySelector(".stage-carousel__slide.is-active img, .case__figure img")?.click();
+      }, 700);
+    });
+
+    navHomeBtn?.addEventListener("click", () => goTo(0));
     navUpBtn?.addEventListener("click", () => goTo(index - 1));
     navDownBtn?.addEventListener("click", () => goTo(index + 1));
 

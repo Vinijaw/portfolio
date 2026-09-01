@@ -107,6 +107,10 @@ body.case-split-page .header {
   overflow-y: auto;
 }
 
+.slide--cta.case__section--dark {
+  background: var(--color-dark);
+}
+
 .slide--cta > .case__back {
   align-self: flex-start;
   margin-bottom: 0;
@@ -149,6 +153,7 @@ body.case-split-page .header {
 }
 
 .slide__stage {
+  position: relative;
   height: 100%;
   overflow-y: auto;
   display: flex;
@@ -538,23 +543,25 @@ body.case-split-page .header {
   }
 }
 
-/* Largura fixa em 100% da tela (não da imagem): assim o card branco
-   sempre alcança a borda da coluna, e é ele — não a imagem, que pode ser
-   bem mais estreita que 84% em telas largas — que aparece "espiando" no
-   próximo/anterior. */
+/* O card (borda + cantos arredondados) agora abraça o tamanho real da
+   imagem — em vez de esticar pra 100% x 66vh e deixar um "letterbox"
+   branco nos lados que sobram quando a proporção da captura de tela não
+   bate com a da caixa. display:inline-flex faz a .case__figure encolher
+   pro tamanho do próprio <img>; quem centraliza é o flex do slide. */
 .stage-carousel__slide .case__figure {
   margin: 0;
-  width: 100%;
-  height: 66vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex;
+  max-width: 100%;
+  max-height: 66vh;
+  border: none;
 }
 
 .stage-carousel__slide .case__figure img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 66vh;
 }
 
 .stage-carousel__arrow {
@@ -787,14 +794,12 @@ body.case-split-page .header {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  background: rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border: none;
+  background: #fff;
   color: var(--color-text);
   cursor: pointer;
   box-shadow: 0 8px 20px rgba(14, 27, 35, 0.14);
-  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease;
+  transition: background 0.15s ease, color 0.15s ease, opacity 0.15s ease, box-shadow 0.15s ease;
 }
 
 .slide-nav__btn svg {
@@ -803,8 +808,8 @@ body.case-split-page .header {
 }
 
 .slide-nav__btn:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.8);
   color: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(14, 27, 35, 0.22);
 }
 
 .slide-nav__btn:disabled {
@@ -812,11 +817,133 @@ body.case-split-page .header {
   cursor: default;
 }
 
+/* Botão extra, menor, encaixado em cima do "subir" — volta pro slide-0
+   de qualquer ponto do deck. O tooltip usa o mesmo truque de pseudo-
+   elemento do .tool-link (ver css/style.css), só que abrindo pra cima
+   em vez de para baixo, porque esse botão já é o mais alto da pilha. */
+.slide-nav__btn--home {
+  width: 34px;
+  height: 34px;
+  position: relative;
+}
+
+.slide-nav__btn--home svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Ancorado pela direita (não centralizado) porque esse botão fica
+   colado na borda direita da tela — um tooltip centralizado vazaria
+   pra fora do viewport. */
+.slide-nav__btn--home::after,
+.slide-nav__btn--home::before {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 6;
+}
+
+.slide-nav__btn--home::after {
+  content: attr(data-tooltip);
+  bottom: calc(100% + 12px);
+  right: -8px;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+}
+
+.slide-nav__btn--home::before {
+  content: "";
+  bottom: calc(100% + 6px);
+  right: 10px;
+  border: 5px solid transparent;
+  border-top-color: var(--color-accent);
+}
+
+.slide-nav__btn--home:hover::after,
+.slide-nav__btn--home:hover::before,
+.slide-nav__btn--home:focus-visible::after,
+.slide-nav__btn--home:focus-visible::before {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Botão flutuante só na hero (slide-0): deixa quem já conhece o formato
+   pular direto pra primeira tela de interface (Movimentações do dia),
+   já abrindo o carrossel em modal — sem passar pelo processo inteiro.
+   Fica no canto inferior esquerdo do bloco de conteúdo (a própria
+   .slide__stage vira o ponto de referência via position:relative).
+   O hover é um "preenchimento" de esquerda pra direita: a
+   .skip-to-interfaces__sweep é uma camada da cor escura, encolhida em
+   scaleX(0) a partir da esquerda, que cresce até cobrir o botão —
+   texto e ícone ficam por cima porque só eles recebem z-index. */
+.skip-to-interfaces {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border: 2px solid #a6ebe0;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.skip-to-interfaces:hover {
+  transform: translateY(-2px);
+}
+
+.skip-to-interfaces__sweep {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent-dark);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.18s ease;
+}
+
+.skip-to-interfaces:hover .skip-to-interfaces__sweep {
+  transform: scaleX(1);
+}
+
+.skip-to-interfaces .icon--inline,
+.skip-to-interfaces > span:not(.skip-to-interfaces__sweep) {
+  position: relative;
+  z-index: 1;
+}
+
+.skip-to-interfaces .icon--inline {
+  width: 18px;
+  height: 18px;
+}
+
 @media (max-width: 900px) {
   /* Abaixo de 900px o js/case-split.js não liga o controle de scroll —
      aqui é só rolagem normal, então o deck vira uma pilha comum e os
      botões de navegação não fazem sentido. */
   .slide-nav {
+    display: none;
+  }
+
+  /* Sem o controle de scroll do deck, "pular" não faz sentido — a home
+     do case já é só mais uma seção rolável como outra qualquer. */
+  .skip-to-interfaces {
     display: none;
   }
 

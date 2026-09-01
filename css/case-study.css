@@ -671,6 +671,11 @@
   flex-wrap: wrap;
 }
 
+.case__section--dark .btn--ghost {
+  border-color: var(--color-border-on-dark);
+  color: var(--color-text-on-dark);
+}
+
 /* ==========================================================================
    RESPONSIVO
    ========================================================================== */

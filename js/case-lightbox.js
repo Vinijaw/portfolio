@@ -104,7 +104,9 @@
       lightboxImg.classList.remove("is-zoomed");
     };
 
-    deck.querySelectorAll("img").forEach((img) => {
+    // A capa da hero (slide-0) fica de fora: é só uma ilustração de
+    // abertura, não uma tela que faça sentido ampliar em modal.
+    deck.querySelectorAll("img:not(.slide__stage-img)").forEach((img) => {
       img.classList.add("is-zoomable");
       img.addEventListener("click", () => open(img));
     });
