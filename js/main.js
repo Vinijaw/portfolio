@@ -723,3 +723,18 @@ if (photoCarousel) {
   goTo(0);
   start();
 }
+
+// Cards de case na home: o card inteiro fica clicável, não só o link
+// "Ver case completo" — o link de verdade continua lá (acessibilidade,
+// clique do meio pra abrir em nova aba), só ganha companhia. Cards
+// marcados como em construção (.case-card--disabled) ficam de fora,
+// já que a ação deles também está desabilitada.
+document.querySelectorAll(".case-card:not(.case-card--disabled)").forEach((card) => {
+  const link = card.querySelector(".case-card__link");
+  if (!link || !link.getAttribute("href")) return;
+  card.style.cursor = "pointer";
+  card.addEventListener("click", (event) => {
+    if (event.target.closest("a")) return;
+    window.location.href = link.getAttribute("href");
+  });
+});

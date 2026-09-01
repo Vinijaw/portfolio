@@ -1947,7 +1947,9 @@ body.playground-modal-open {
   transition: color 0.15s ease;
 }
 
-.case-card__link:hover {
+.case-card__link:hover,
+.case-card__link:focus-visible,
+.case-card:not(.case-card--disabled):hover .case-card__link {
   color: var(--color-accent);
 }
 
