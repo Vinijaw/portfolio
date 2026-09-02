@@ -201,7 +201,7 @@
 
         <div class="cases__grid">
 
-          <article class="case-card reveal">
+          <article class="case-card case-card--locked reveal" data-locked-href="case-area-de-operacoes.html">
             <div class="case-card__thumb" aria-hidden="true">
               <img src="assets/images/cases/Cases selecionados/area-de-operacoes/cover.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
             </div>
@@ -212,7 +212,7 @@
               ajustes do dia a dia: reprocessar transferências, pausar movimentações programadas e
               corrigir comissões.
             </p>
-            <a href="case-area-de-operacoes.html" class="case-card__link">Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
+            <a href="case-area-de-operacoes.html" class="case-card__link" data-locked-link>Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
           </article>
 
           <article class="case-card case-card--disabled reveal">
@@ -805,6 +805,35 @@
       <p class="footer__copy">© 2026 João Vinícius. Todos os direitos reservados.</p>
     </div>
   </footer>
+
+  <!-- ===================== MODAL DE CASE RESTRITO ===================== -->
+  <div class="case-lock" id="caseLock" aria-hidden="true">
+    <div class="case-lock__backdrop" data-lock-close></div>
+    <div class="case-lock__dialog" role="dialog" aria-modal="true" aria-labelledby="caseLockTitle">
+      <button type="button" class="case-lock__close" data-lock-close aria-label="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+      </button>
+      <span class="case-lock__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </span>
+      <h3 class="case-lock__title" id="caseLockTitle">Esse case é restrito</h3>
+      <p class="case-lock__text">
+        Esse case envolve informações sensíveis de um cliente e não pode ficar aberto ao público.
+        Se você recebeu um código de acesso, digite abaixo pra entrar.
+      </p>
+      <form class="case-lock__form" id="caseLockForm" autocomplete="off">
+        <div class="case-lock__digits" id="caseLockDigits">
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-digit aria-label="Dígito 1" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-digit aria-label="Dígito 2" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-digit aria-label="Dígito 3" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-digit aria-label="Dígito 4" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-digit aria-label="Dígito 5" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-digit aria-label="Dígito 6" />
+        </div>
+        <p class="case-lock__error" id="caseLockError" hidden>Código incorreto. Tente de novo.</p>
+      </form>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
   <script src="js/main.js"></script>

@@ -15,6 +15,50 @@
    slides. Não é usado pelos outros cases.
    ========================================================================== */
 
+/* Trava de acesso da página (ver o <script> inline no <head> e
+   js/case-lock.js). Enquanto html.case-locked estiver presente, o deck
+   e a navegação ficam fora da árvore visual e o gate (que reaproveita
+   os componentes .case-lock__* definidos em css/style.css pro modal da
+   home) ocupa a tela inteira. */
+.case-gate {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--color-bg);
+}
+
+html.case-locked .case-gate {
+  display: flex;
+}
+
+html.case-locked .deck,
+html.case-locked .slide-nav {
+  display: none;
+}
+
+.case-gate__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.case-gate__back:hover {
+  color: var(--color-text);
+}
+
+.case-gate__back .icon--inline {
+  width: 16px;
+  height: 16px;
+}
+
 /* Figura "crua": pra diagramas em PNG com fundo transparente (ex.: o
    diagrama de escrow) — sem o card branco nem a borda que .case__figure
    usa por padrão pra emoldurar prints de tela. */

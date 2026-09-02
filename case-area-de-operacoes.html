@@ -3,6 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Decide antes da página pintar se ela começa bloqueada, olhando o
+       sessionStorage (gravado aqui mesmo ou pelo modal da home, em
+       js/main.js) — evita o flash do conteúdo completo antes do CSS
+       de .case-locked entrar em ação. -->
+  <script>
+    if (!sessionStorage.getItem("caseUnlocked:area-de-operacoes")) {
+      document.documentElement.classList.add("case-locked");
+    }
+  </script>
   <title>Área de Operações — Case | João Vinícius, Product Designer</title>
   <meta name="description" content="Case da Área de Operações do Santander Escrow: como o discovery com dev, atendimento e produto guiou uma ferramenta que deu autonomia ao backoffice, sem depender de engenharia para ajustes do dia a dia." />
 
@@ -15,6 +24,35 @@
   <link rel="stylesheet" href="css/case-study-split.css" />
 </head>
 <body class="case-split-page">
+
+  <!-- ===================== TRAVA DE ACESSO DA PÁGINA ===================== -->
+  <div class="case-gate" id="caseGate">
+    <div class="case-lock__dialog case-gate__dialog">
+      <span class="case-lock__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+      </span>
+      <h1 class="case-lock__title">Esse case é restrito</h1>
+      <p class="case-lock__text">
+        Esse case envolve informações sensíveis de um cliente e não pode ficar aberto ao público.
+        Se você recebeu um código de acesso, digite abaixo pra entrar.
+      </p>
+      <form class="case-lock__form" id="caseGateForm" autocomplete="off">
+        <div class="case-lock__digits" id="caseGateDigits">
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-gate-digit aria-label="Dígito 1" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-gate-digit aria-label="Dígito 2" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-gate-digit aria-label="Dígito 3" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-gate-digit aria-label="Dígito 4" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-gate-digit aria-label="Dígito 5" />
+          <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="case-lock__digit" data-gate-digit aria-label="Dígito 6" />
+        </div>
+        <p class="case-lock__error" id="caseGateError" hidden>Código incorreto. Tente de novo.</p>
+      </form>
+      <a href="index.html#cases" class="case-gate__back">
+        <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+        Voltar para os cases
+      </a>
+    </div>
+  </div>
 
   <!-- ===================== HEADER (oculto nessa página — ver .case-split-page .header) ===================== -->
   <header class="header" id="top">
@@ -946,6 +984,7 @@
   </div>
 
   <script src="js/main.js"></script>
+  <script src="js/case-lock.js"></script>
   <script src="js/case-split.js"></script>
   <script src="js/case-lightbox.js"></script>
 </body>

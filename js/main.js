@@ -727,9 +727,10 @@ if (photoCarousel) {
 // Cards de case na home: o card inteiro fica clicável, não só o link
 // "Ver case completo" — o link de verdade continua lá (acessibilidade,
 // clique do meio pra abrir em nova aba), só ganha companhia. Cards
-// marcados como em construção (.case-card--disabled) ficam de fora,
-// já que a ação deles também está desabilitada.
-document.querySelectorAll(".case-card:not(.case-card--disabled)").forEach((card) => {
+// marcados como em construção (.case-card--disabled) ou restritos
+// (.case-card--locked, ver bloco da modal de senha logo abaixo) ficam
+// de fora dessa navegação direta.
+document.querySelectorAll(".case-card:not(.case-card--disabled):not(.case-card--locked)").forEach((card) => {
   const link = card.querySelector(".case-card__link");
   if (!link || !link.getAttribute("href")) return;
   card.style.cursor = "pointer";
@@ -738,3 +739,98 @@ document.querySelectorAll(".case-card:not(.case-card--disabled)").forEach((card)
     window.location.href = link.getAttribute("href");
   });
 });
+
+// Modal de código pra cases restritos (.case-card--locked): não é
+// segurança de verdade (quem souber a URL do case ainda acessa direto),
+// só evita deixar o link clicável pra qualquer visitante casual ou
+// motor de busca. O clique — no card inteiro ou direto no link "Ver
+// case completo" — abre a modal em vez de navegar; só o código certo
+// libera o redirecionamento. Grava o desbloqueio no sessionStorage
+// (mesma chave usada pelo gate da própria página do case, em
+// js/case-lock.js) pra não pedir a senha de novo ao chegar lá.
+{
+  const UNLOCK_KEY = "caseUnlocked:area-de-operacoes";
+  const lock = document.getElementById("caseLock");
+  const digitsWrap = document.getElementById("caseLockDigits");
+  const digits = digitsWrap ? Array.from(digitsWrap.querySelectorAll("[data-digit]")) : [];
+  const errorEl = document.getElementById("caseLockError");
+  const CODE = "405671";
+  let pendingHref = null;
+
+  if (lock && digits.length) {
+    const clearDigits = () => digits.forEach((input) => (input.value = ""));
+
+    const openLock = (href) => {
+      pendingHref = href;
+      clearDigits();
+      errorEl.hidden = true;
+      digitsWrap.classList.remove("is-shaking");
+      lock.classList.add("is-open");
+      lock.setAttribute("aria-hidden", "false");
+      digits[0].focus();
+    };
+
+    const closeLock = () => {
+      lock.classList.remove("is-open");
+      lock.setAttribute("aria-hidden", "true");
+      pendingHref = null;
+    };
+
+    const checkCode = () => {
+      const code = digits.map((input) => input.value).join("");
+      if (code.length < digits.length) return;
+      if (code === CODE) {
+        sessionStorage.setItem(UNLOCK_KEY, "1");
+        window.location.href = pendingHref;
+        return;
+      }
+      errorEl.hidden = false;
+      digitsWrap.classList.add("is-shaking");
+      window.setTimeout(() => {
+        digitsWrap.classList.remove("is-shaking");
+        clearDigits();
+        digits[0].focus();
+      }, 350);
+    };
+
+    digits.forEach((input, i) => {
+      input.addEventListener("input", () => {
+        input.value = input.value.replace(/\D/g, "").slice(0, 1);
+        if (input.value && digits[i + 1]) digits[i + 1].focus();
+        checkCode();
+      });
+
+      input.addEventListener("keydown", (event) => {
+        if (event.key === "Backspace" && !input.value && digits[i - 1]) {
+          digits[i - 1].focus();
+        }
+      });
+
+      input.addEventListener("paste", (event) => {
+        const text = (event.clipboardData || window.clipboardData).getData("text").replace(/\D/g, "");
+        if (!text) return;
+        event.preventDefault();
+        text.slice(0, digits.length).split("").forEach((char, idx) => {
+          if (digits[idx]) digits[idx].value = char;
+        });
+        const next = digits[Math.min(text.length, digits.length - 1)];
+        next.focus();
+        checkCode();
+      });
+    });
+
+    lock.querySelectorAll("[data-lock-close]").forEach((el) => el.addEventListener("click", closeLock));
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && lock.classList.contains("is-open")) closeLock();
+    });
+
+    document.querySelectorAll(".case-card--locked").forEach((card) => {
+      card.style.cursor = "pointer";
+      card.addEventListener("click", (event) => {
+        event.preventDefault();
+        openLock(card.dataset.lockedHref || card.querySelector(".case-card__link")?.getAttribute("href"));
+      });
+    });
+  }
+}

@@ -2083,3 +2083,155 @@ body.playground-modal-open {
     display: flex;
   }
 }
+
+/* ==========================================================================
+   MODAL DE CASE RESTRITO
+   Fica escondida (opacity/visibility) até o card marcado como
+   .case-card--locked ser clicado (ver js/main.js). Pede um código de 6
+   dígitos; sem o código certo, o clique no card nunca chega a navegar
+   pra página do case.
+   ========================================================================== */
+.case-lock {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.case-lock.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.case-lock__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 12, 16, 0.6);
+  backdrop-filter: blur(3px);
+}
+
+.case-lock__dialog {
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(14, 27, 35, 0.35);
+  transform: translateY(12px);
+  transition: transform 0.2s ease;
+}
+
+.case-lock.is-open .case-lock__dialog {
+  transform: translateY(0);
+}
+
+.case-lock__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.case-lock__close svg {
+  width: 16px;
+  height: 16px;
+}
+
+.case-lock__close:hover {
+  color: var(--color-text);
+}
+
+.case-lock__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-bg-alt);
+  color: var(--color-accent);
+  margin-bottom: 1.25rem;
+}
+
+.case-lock__icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.case-lock__title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 0.6rem;
+}
+
+.case-lock__text {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.case-lock__digits {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.case-lock__digit {
+  width: 42px;
+  height: 52px;
+  border: 2px solid var(--color-text-muted);
+  border-radius: 10px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-text);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.case-lock__digit:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(31, 173, 160, 0.18);
+}
+
+.case-lock__digits.is-shaking {
+  animation: case-lock-shake 0.35s ease;
+}
+
+.case-lock__digits.is-shaking .case-lock__digit {
+  border-color: #e0554f;
+}
+
+@keyframes case-lock-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.case-lock__error {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #e0554f;
+}
