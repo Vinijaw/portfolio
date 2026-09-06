@@ -422,40 +422,62 @@ body.case-split-page .header {
   max-width: 20ch;
 }
 
-/* Switch "Completa / Resumida" na hero — a opção ativa mostra qual versão
-   está aberta; a outra é um link pra página irmã do mesmo case. */
-.version-switch {
-  display: flex;
-  width: 100%;
-  max-width: 320px;
-  margin-top: 1.5rem;
-  padding: 0.25rem;
-  background: var(--color-bg-alt);
-  border: 1px solid var(--color-border);
+/* Botão flutuante só na hero (slide-0): deixa quem já conhece o formato
+   pular direto pra primeira tela de interface (Movimentações do dia),
+   já abrindo o carrossel em modal — sem passar pelo processo inteiro.
+   Fica no canto inferior esquerdo do bloco de conteúdo (a própria
+   .slide__stage vira o ponto de referência via position:relative).
+   O hover é um "preenchimento" de esquerda pra direita: a
+   .skip-to-interfaces__sweep é uma camada da cor escura, encolhida em
+   scaleX(0) a partir da esquerda, que cresce até cobrir o botão —
+   texto e ícone ficam por cima porque só eles recebem z-index. */
+.skip-to-interfaces {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.4rem;
+  border: 2px solid #a6ebe0;
   border-radius: 999px;
-  gap: 0.25rem;
-}
-
-.version-switch__option {
-  flex: 1;
-  padding: 0.4rem 1rem;
-  border-radius: 999px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-align: center;
-  color: var(--color-text-muted);
-  text-decoration: none;
-  white-space: nowrap;
-  transition: background 0.15s ease, color 0.15s ease;
-}
-
-a.version-switch__option:hover {
-  color: var(--color-text);
-}
-
-.version-switch__option.is-active {
   background: var(--color-accent);
   color: #fff;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.15s ease;
+}
+
+.skip-to-interfaces:hover {
+  transform: translateY(-2px);
+}
+
+.skip-to-interfaces__sweep {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent-dark);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.18s ease;
+}
+
+.skip-to-interfaces:hover .skip-to-interfaces__sweep {
+  transform: scaleX(1);
+}
+
+.skip-to-interfaces .icon--inline,
+.skip-to-interfaces > span:not(.skip-to-interfaces__sweep) {
+  position: relative;
+  z-index: 1;
+}
+
+.skip-to-interfaces .icon--inline {
+  width: 18px;
+  height: 18px;
 }
 
 /* Meta vertical (Ano, Papel, Plataforma, Entregas) do slide de abertura —
@@ -1024,42 +1046,17 @@ a.version-switch__option:hover {
   transform: translateY(0);
 }
 
-/* Gradiente escuro na base da capa da hero — só pra dar contraste ao
-   switch de versão que fica sobreposto à imagem (ver .version-switch--overlay). */
-.slide__stage-fade {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(8, 16, 20, 0.72), transparent 48%);
-  pointer-events: none;
-}
-
-/* Variante do switch "Completa/Resumida" quando fica em cima da imagem de
-   capa (canto inferior esquerdo, no lugar onde antes ficava o botão
-   "Pular para as interfaces") — fundo translúcido pra não brigar com a
-   imagem por baixo, já que o gradiente escuro cuida do contraste. */
-.version-switch--overlay {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  z-index: 5;
-  background: rgba(255, 255, 255, 0.14);
-  backdrop-filter: blur(6px);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.version-switch--overlay .version-switch__option:not(.is-active) {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-a.version-switch--overlay .version-switch__option:not(.is-active):hover {
-  color: #fff;
-}
-
 @media (max-width: 900px) {
   /* Abaixo de 900px o js/case-split.js não liga o controle de scroll —
      aqui é só rolagem normal, então o deck vira uma pilha comum e os
      botões de navegação não fazem sentido. */
   .slide-nav {
+    display: none;
+  }
+
+  /* Sem o controle de scroll do deck, "pular" não faz sentido — a home
+     do case já é só mais uma seção rolável como outra qualquer. */
+  .skip-to-interfaces {
     display: none;
   }
 

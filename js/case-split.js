@@ -22,6 +22,7 @@
     const navHomeBtn = document.getElementById("slideNavHome");
     const navCounter = document.getElementById("slideNavCounter");
     const lightbox = document.getElementById("lightbox");
+    const skipToInterfacesBtn = document.getElementById("skipToInterfacesBtn");
 
     // Foto do board do Focus Group: overlay fixo que só aparece nos
     // slides do Focus Group (slide-4 e slide-4b). Fica parada enquanto o
@@ -49,6 +50,13 @@
       if (fgImage) {
         fgImage.classList.toggle("is-shown", fgSlideIds.has(slides[index].id));
       }
+      // z-index:auto no .slide não cria stacking context, então o botão
+      // (com z-index próprio, pra ficar acima do conteúdo do slide-0)
+      // pintaria por cima de qualquer slide, não só do slide-0, se
+      // dependesse só de CSS — por isso o show/hide é explícito aqui.
+      if (skipToInterfacesBtn) {
+        skipToInterfacesBtn.style.display = index === 0 ? "" : "none";
+      }
       const hash = `#${slides[index].id}`;
       if (window.location.hash !== hash) {
         history.replaceState(null, "", hash);
@@ -73,6 +81,19 @@
     navHomeBtn?.addEventListener("click", () => goTo(0));
     navUpBtn?.addEventListener("click", () => goTo(index - 1));
     navDownBtn?.addEventListener("click", () => goTo(index + 1));
+
+    // Botão "Pular para as interfaces" (só existe no slide-0): vai direto
+    // pra tela de Reprocessar e já abre a modal com o carrossel daquela
+    // etapa, sem precisar clicar de novo na imagem. O atraso é só pra
+    // deixar a transição de slide terminar antes da modal abrir por cima.
+    skipToInterfacesBtn?.addEventListener("click", () => {
+      const targetIndex = slides.findIndex((slide) => slide.id === "slide-9");
+      if (targetIndex < 0) return;
+      goTo(targetIndex);
+      window.setTimeout(() => {
+        slides[targetIndex].querySelector(".stage-carousel__slide.is-active img, .case__figure img")?.click();
+      }, 700);
+    });
 
     if (!isMobile()) {
       const lightboxOpen = () => lightbox?.classList.contains("is-open");
