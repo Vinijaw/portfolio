@@ -175,6 +175,10 @@ body.case-split-page .header {
     transition: opacity 0.15s linear, transform 0.15s linear;
     transition-delay: 0s;
   }
+
+  .fg-deck-image {
+    transition: opacity 0.15s linear;
+  }
 }
 
 .slide__panel {
@@ -224,123 +228,107 @@ body.case-split-page .header {
   gap: 2.5rem;
 }
 
-/* Palco da seção do focus group: imagem do board centralizada em cima,
-   os 4 cards de destaque (3 temas + a citação) em linha embaixo. */
-#focusGroupStage {
-  gap: 0.5rem;
-  /* O palco padrão centraliza o conteúdo verticalmente — aqui o grupo
-     precisa começar grudado no topo, senão a margem negativa da imagem
-     só "estica o grupo" sem prender ela na borda de verdade. */
-  justify-content: flex-start;
+/* ---------- Slides do Focus Group (Focus Group + O que a votação
+   priorizou) ---------- */
+/* São 2 slides que compartilham a MESMA foto do board no palco, sem
+   legenda em tela (o texto alternativo fica só no alt da <img>). A
+   imagem inteira, sem corte, aparece no lightbox ao clicar.
+   No desktop a foto é um overlay único (.fg-deck-image) que fica FIXO
+   enquanto o usuário passa de um slide pro outro — só o painel de
+   contexto (esquerda) faz o crossfade. A foto só aparece/some ao entrar
+   e sair da seção. No mobile cada slide usa a própria <img> empilhada. */
+.fg-stage {
+  padding: 0;
+  overflow: hidden;
 }
 
-/* Prévia recortada: a figura ocupa a mesma largura da linha de cards
-   abaixo (em vez de acompanhar a proporção da imagem) e a imagem cobre
-   essa caixa com object-fit: cover — corta um pouco, mas o objetivo é só
-   dar um teaser; a imagem inteira (sem corte) aparece ao clicar, no
-   lightbox com zoom. */
-/* Estica pra cima até o topo da tela (o palco não tem header por cima
-   nessa página), como se a imagem viesse de fora da tela por cima —
-   compensa com margin-top negativo + altura extra do mesmo tamanho do
-   padding do palco, pra não empurrar o resto do conteúdo. */
-#focusGroupStage .case__figure {
+.fg-board-figure {
+  margin: 0;
+  flex: 1;
+  min-height: 0;
   width: 100%;
-  height: 80vh;
-  margin-top: calc(-1 * clamp(2rem, 5vw, 4rem)) !important;
 }
 
-#focusGroupStage .case__figure img {
+.fg-board-figure img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+/* Overlay fixo da foto (desktop). Cobre exatamente a coluna do palco —
+   a coluna 1 do grid do slide é minmax(300px, 32%). O JS (case-split.js)
+   liga .is-shown só quando o slide ativo é o slide-4 ou o slide-4b. */
+.fg-deck-image {
+  position: absolute;
+  inset: 0 0 0 max(300px, 32%);
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.fg-deck-image.is-shown {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fg-deck-image img {
   display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-/* Espaçamento maior antes da linha de cards — !important necessário pra
-   vencer o "zera margem" genérico dos filhos diretos do palco. */
-#focusGroupStage .case__cards {
-  gap: 0.85rem;
-  margin-top: 2rem !important;
+/* No desktop quem aparece é o overlay fixo; a <img> dentro de cada
+   slide do FG fica escondida. */
+.fg-stage .fg-board-figure {
+  display: none;
 }
 
-#focusGroupStage .case__card {
-  background: var(--color-bg);
-  padding: 0.85rem 1rem;
-}
-
-#focusGroupStage .case__card h4 {
-  font-size: 0.82rem;
-  margin-bottom: 0.3rem;
-}
-
-#focusGroupStage .case__card p {
-  font-size: 0.8rem;
-  line-height: 1.4;
-}
-
-/* O card de citação usa .case__quote junto com .case__card (mesmo
-   visual dos outros cards de destaque) — como as duas classes têm
-   fundo/borda próprios, o par junto aqui garante que o estilo de card
-   vença. */
-#focusGroupStage .case__quote.case__card {
-  background: var(--color-bg);
-  border-left: 3px solid var(--color-accent);
-  padding: 0.85rem 1.1rem;
-}
-
-/* Ocupa a largura das 3 colunas de cima, numa linha só embaixo delas. */
-#focusGroupStage .case__quote--full {
-  grid-column: 1 / -1;
-}
-
-/* Tudo em uma linha só: ícone, frase em negrito e a atribuição, lado a
-   lado em vez de empilhados como no .case__quote padrão. */
-#focusGroupStage .case__quote--inline {
+/* Lista dos 3 temas priorizados, no painel de contexto do slide "O que
+   a votação priorizou" — número em bolinha + tema em negrito + a dor. */
+.fg-priorities {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
   display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  flex-direction: column;
+  gap: 1rem;
+  counter-reset: fg-prio;
 }
 
-#focusGroupStage .case__quote--inline .case__quote-mark {
-  margin-bottom: 0;
-}
-
-#focusGroupStage .case__quote--inline p {
-  margin: 0;
-  font-style: normal;
-  font-size: 0.8rem;
+.fg-priorities li {
+  counter-increment: fg-prio;
+  position: relative;
+  padding-left: 2.4rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
   color: var(--color-text-muted);
 }
 
-#focusGroupStage .case__quote--inline p strong {
+.fg-priorities li::before {
+  content: counter(fg-prio);
+  position: absolute;
+  left: 0;
+  top: 0.05em;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: var(--color-accent-tint);
+  color: var(--color-accent-dark);
   font-family: var(--font-display);
-  font-style: normal;
-  font-size: 0.82rem;
   font-weight: 700;
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fg-priorities li strong {
   color: var(--color-text);
-}
-
-#focusGroupStage .case__quote-mark--icon svg {
-  width: 1.1rem;
-  height: 1.1rem;
-}
-
-.case__quote-mark--icon {
-  color: var(--color-accent);
-}
-
-.case__quote-mark--icon svg {
-  width: 1.4rem;
-  height: 1.4rem;
-}
-
-#focusGroupStage .case__quote-mark {
-  font-size: 1.5rem;
-  margin-bottom: 0.15rem;
-}
-
-#focusGroupStage .case__quote p {
-  font-size: 0.85rem;
+  font-family: var(--font-display);
+  font-weight: 600;
 }
 
 .slide__stage--split .case__figure img {
@@ -434,6 +422,42 @@ body.case-split-page .header {
   max-width: 20ch;
 }
 
+/* Switch "Completa / Resumida" na hero — a opção ativa mostra qual versão
+   está aberta; a outra é um link pra página irmã do mesmo case. */
+.version-switch {
+  display: flex;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 1.5rem;
+  padding: 0.25rem;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  gap: 0.25rem;
+}
+
+.version-switch__option {
+  flex: 1;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+a.version-switch__option:hover {
+  color: var(--color-text);
+}
+
+.version-switch__option.is-active {
+  background: var(--color-accent);
+  color: #fff;
+}
+
 /* Meta vertical (Ano, Papel, Plataforma, Entregas) do slide de abertura —
    fora do bloco centralizado, encostada no rodapé do painel. */
 .slide__meta {
@@ -477,27 +501,108 @@ body.case-split-page .header {
   text-align: right;
 }
 
-/* Número grande indicando a ordem de cada etapa (slide "Como conduzi o
-   projeto") — decorativo, fica à esquerda do conteúdo do card. */
-.case__step--numbered {
+/* Linha do tempo do processo (slide "Como conduzi o projeto") — as 4
+   etapas empilhadas e ligadas por um traço vertical que sai de baixo de
+   cada marcador numerado até o próximo. */
+.case__timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  max-width: 640px;
+  /* centraliza o bloco da linha do tempo no palco (senão fica colado
+     na esquerda por causa do max-width). */
+  align-self: center;
+}
+
+.case__timeline-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  column-gap: 1.5rem;
+  padding-bottom: 2.25rem;
+}
+
+.case__timeline-step:last-child {
+  padding-bottom: 0;
+}
+
+/* Traço que conecta um marcador ao próximo — começa logo abaixo do
+   círculo (44px) e vai até a base do item. */
+.case__timeline-step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 21px;
+  top: 44px;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(var(--color-accent), rgba(31, 173, 160, 0.18));
+}
+
+.case__timeline-marker {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--color-accent);
+  background: var(--color-accent-tint);
+  border: 1px solid var(--color-accent);
+}
+
+.case__section--dark .case__timeline-marker {
+  background: rgba(31, 173, 160, 0.14);
+  border-color: rgba(31, 173, 160, 0.45);
+}
+
+.case__timeline-phase {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.case__timeline-title {
+  margin: 0.35rem 0 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.case__section--dark .case__timeline-title {
+  color: var(--color-text-on-dark);
+}
+
+.case__timeline-text {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  max-width: 52ch;
+}
+
+.case__section--dark .case__timeline-text {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* Marcador um pouco menor quando o item não tem descrição (versão
+   resumida) — a linha fica mais compacta. */
+.case__timeline--tight .case__timeline-step {
+  padding-bottom: 1.5rem;
   align-items: center;
 }
 
-.case__step-order {
-  flex-shrink: 0;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 2.5rem;
-  line-height: 1;
-  color: var(--color-accent);
-  opacity: 0.35;
-}
-
-.case__step-body {
-  flex: 1;
-  min-width: 0;
+.case__timeline--tight .case__timeline-title {
+  margin-bottom: 0;
 }
 
 /* Lista de premissas (ex.: slide "Como conduzi o projeto") — rótulo em
@@ -919,62 +1024,35 @@ body.case-split-page .header {
   transform: translateY(0);
 }
 
-/* Botão flutuante só na hero (slide-0): deixa quem já conhece o formato
-   pular direto pra primeira tela de interface (Movimentações do dia),
-   já abrindo o carrossel em modal — sem passar pelo processo inteiro.
-   Fica no canto inferior esquerdo do bloco de conteúdo (a própria
-   .slide__stage vira o ponto de referência via position:relative).
-   O hover é um "preenchimento" de esquerda pra direita: a
-   .skip-to-interfaces__sweep é uma camada da cor escura, encolhida em
-   scaleX(0) a partir da esquerda, que cresce até cobrir o botão —
-   texto e ícone ficam por cima porque só eles recebem z-index. */
-.skip-to-interfaces {
+/* Gradiente escuro na base da capa da hero — só pra dar contraste ao
+   switch de versão que fica sobreposto à imagem (ver .version-switch--overlay). */
+.slide__stage-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 16, 20, 0.72), transparent 48%);
+  pointer-events: none;
+}
+
+/* Variante do switch "Completa/Resumida" quando fica em cima da imagem de
+   capa (canto inferior esquerdo, no lugar onde antes ficava o botão
+   "Pular para as interfaces") — fundo translúcido pra não brigar com a
+   imagem por baixo, já que o gradiente escuro cuida do contraste. */
+.version-switch--overlay {
   position: absolute;
   bottom: 2rem;
   left: 2rem;
   z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.4rem;
-  border: 2px solid #a6ebe0;
-  border-radius: 999px;
-  background: var(--color-accent);
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(6px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.version-switch--overlay .version-switch__option:not(.is-active) {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+a.version-switch--overlay .version-switch__option:not(.is-active):hover {
   color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.15s ease;
-}
-
-.skip-to-interfaces:hover {
-  transform: translateY(-2px);
-}
-
-.skip-to-interfaces__sweep {
-  position: absolute;
-  inset: 0;
-  background: var(--color-accent-dark);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.18s ease;
-}
-
-.skip-to-interfaces:hover .skip-to-interfaces__sweep {
-  transform: scaleX(1);
-}
-
-.skip-to-interfaces .icon--inline,
-.skip-to-interfaces > span:not(.skip-to-interfaces__sweep) {
-  position: relative;
-  z-index: 1;
-}
-
-.skip-to-interfaces .icon--inline {
-  width: 18px;
-  height: 18px;
 }
 
 @media (max-width: 900px) {
@@ -982,12 +1060,6 @@ body.case-split-page .header {
      aqui é só rolagem normal, então o deck vira uma pilha comum e os
      botões de navegação não fazem sentido. */
   .slide-nav {
-    display: none;
-  }
-
-  /* Sem o controle de scroll do deck, "pular" não faz sentido — a home
-     do case já é só mais uma seção rolável como outra qualquer. */
-  .skip-to-interfaces {
     display: none;
   }
 
@@ -1072,5 +1144,20 @@ body.case-split-page .header {
   .stage-carousel__arrow,
   .stage-carousel__dots {
     display: none;
+  }
+
+  /* Slides do Focus Group: sem overlay fixo — cada slide usa a própria
+     foto, empilhada abaixo do painel como imagem normal. */
+  .fg-deck-image {
+    display: none;
+  }
+
+  .fg-stage .fg-board-figure {
+    display: block;
+    flex: none;
+  }
+
+  .fg-board-figure img {
+    height: auto;
   }
 }

@@ -15,3 +15,6 @@ Desktop.ini
 
 # Material bruto de pesquisa dos cases (não anonimizado, não é pra publicar)
 Temp/
+
+# Mockups do Claude Design canvas (rascunho, não faz parte do site)
+design-canvas/

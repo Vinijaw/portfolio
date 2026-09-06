@@ -444,13 +444,13 @@
    igual a uma tag de sistema. */
 .status-pill {
   display: inline-block;
-  padding: 0.35rem 0.9rem;
-  border-radius: 8px;
+  padding: 0.2rem 0.65rem;
+  border-radius: 6px;
   border: 1px solid transparent;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 0.85rem;
-  line-height: 1.3;
+  font-size: 0.78rem;
+  line-height: 1.4;
 }
 
 .status-pill--red {
