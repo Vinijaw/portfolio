@@ -331,6 +331,18 @@ body.case-split-page .header {
   font-weight: 600;
 }
 
+/* Cards de resultado no palco do slide de Resultados — empilhados,
+   centrados e com fundo branco pra destacar do palco cinza. */
+.case__cards--results {
+  align-self: center;
+  max-width: 560px;
+  gap: 1rem;
+}
+
+.case__cards--results .case__card {
+  background: var(--color-bg);
+}
+
 .slide__stage--split .case__figure img {
   max-height: 62vh;
   object-fit: contain;
