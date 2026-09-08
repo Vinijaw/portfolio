@@ -720,7 +720,11 @@ body.case-split-page .header {
   height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* flex-start (não center) pra que a borda esquerda da imagem fique
+     sempre no mesmo lugar, independente de a captura ser mais larga ou
+     mais estreita — assim a prévia da próxima tela aparece igual em
+     todos os carrosséis. */
+  align-items: flex-start;
   justify-content: center;
   gap: 1rem;
   opacity: 0.35;
@@ -882,8 +886,21 @@ body.case-split-page .header {
   color: #fff;
 }
 
+/* As três descrições ficam empilhadas na mesma célula de grid, então o
+   bloco sempre tem a altura do maior texto (Programadas) e nada pula ao
+   trocar de aba. A inativa fica invisível mas ocupando o espaço. */
+.flow-texts {
+  display: grid;
+}
+
+.flow-texts > .flow-text {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
 .flow-text[hidden] {
-  display: none;
+  display: block;
+  visibility: hidden;
 }
 
 .flow-text__title {
@@ -1363,6 +1380,8 @@ body.summary-open .slide-nav {
     margin-right: 0;
     opacity: 1;
     margin-bottom: 2rem;
+    /* Sem prévia lateral no mobile (pilha), volta a centralizar a imagem. */
+    align-items: center;
   }
 
   .stage-carousel__arrow,
