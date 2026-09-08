@@ -144,7 +144,7 @@ body.case-split-page .header {
 }
 
 /* Slide de fechamento (CTA "quer ver mais algum case?"): sem painel+palco,
-   só o botão voltar no topo e o convite centralizado. */
+   só o convite centralizado ("Ver outros cases" já faz o papel de voltar). */
 .slide.slide--cta {
   display: flex;
   flex-direction: column;
@@ -166,10 +166,6 @@ body.case-split-page .header {
     radial-gradient(68% 68% at 0% 100%, rgba(255, 255, 255, 0.05), transparent 74%);
 }
 
-.slide--cta > .case__back {
-  align-self: flex-start;
-  margin-bottom: 0;
-}
 
 .slide--cta .case__next {
   flex: 1;
