@@ -441,64 +441,6 @@ body.case-split-page .header {
   max-width: 20ch;
 }
 
-/* Botão flutuante só na hero (slide-0): deixa quem já conhece o formato
-   pular direto pra primeira tela de interface (Movimentações do dia),
-   já abrindo o carrossel em modal — sem passar pelo processo inteiro.
-   Fica no canto inferior esquerdo do bloco de conteúdo (a própria
-   .slide__stage vira o ponto de referência via position:relative).
-   O hover é um "preenchimento" de esquerda pra direita: a
-   .skip-to-interfaces__sweep é uma camada da cor escura, encolhida em
-   scaleX(0) a partir da esquerda, que cresce até cobrir o botão —
-   texto e ícone ficam por cima porque só eles recebem z-index. */
-.skip-to-interfaces {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  z-index: 5;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.85rem 1.4rem;
-  border: 2px solid #a6ebe0;
-  border-radius: 999px;
-  background: var(--color-accent);
-  color: #fff;
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  overflow: hidden;
-  transition: transform 0.15s ease;
-}
-
-.skip-to-interfaces:hover {
-  transform: translateY(-2px);
-}
-
-.skip-to-interfaces__sweep {
-  position: absolute;
-  inset: 0;
-  background: var(--color-accent-dark);
-  transform: scaleX(0);
-  transform-origin: left center;
-  transition: transform 0.18s ease;
-}
-
-.skip-to-interfaces:hover .skip-to-interfaces__sweep {
-  transform: scaleX(1);
-}
-
-.skip-to-interfaces .icon--inline,
-.skip-to-interfaces > span:not(.skip-to-interfaces__sweep) {
-  position: relative;
-  z-index: 1;
-}
-
-.skip-to-interfaces .icon--inline {
-  width: 18px;
-  height: 18px;
-}
-
 /* Meta vertical (Ano, Papel, Plataforma, Entregas) do slide de abertura —
    fora do bloco centralizado, encostada no rodapé do painel. */
 .slide__meta {
@@ -1186,6 +1128,14 @@ body.summary-open .deck-drawer {
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--color-accent);
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 0.3s ease, transform 0.34s cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+
+body.summary-open .deck-drawer__title {
+  opacity: 1;
+  transform: none;
 }
 
 .deck-drawer__list {
@@ -1212,8 +1162,32 @@ body.summary-open .deck-drawer {
   font-size: 0.86rem;
   font-weight: 500;
   color: var(--color-text-on-dark-muted);
-  transition: background 0.12s ease, color 0.12s ease;
+  /* Entrada em cascata: cada item chega com um leve deslize + "pop"
+     (overshoot da curva). O --stagger só atrasa opacidade e transform,
+     então hover e cor seguem instantâneos. */
+  --stagger: 0s;
+  opacity: 0;
+  transform: translateX(14px);
+  transition: opacity 0.3s ease var(--stagger),
+    transform 0.34s cubic-bezier(0.34, 1.36, 0.64, 1) var(--stagger),
+    background 0.12s ease,
+    color 0.12s ease;
 }
+
+body.summary-open .deck-drawer__list button {
+  opacity: 1;
+  transform: none;
+}
+
+body.summary-open .deck-drawer__list button:nth-child(1) { --stagger: 0.05s; }
+body.summary-open .deck-drawer__list button:nth-child(2) { --stagger: 0.085s; }
+body.summary-open .deck-drawer__list button:nth-child(3) { --stagger: 0.12s; }
+body.summary-open .deck-drawer__list button:nth-child(4) { --stagger: 0.155s; }
+body.summary-open .deck-drawer__list button:nth-child(5) { --stagger: 0.19s; }
+body.summary-open .deck-drawer__list button:nth-child(6) { --stagger: 0.225s; }
+body.summary-open .deck-drawer__list button:nth-child(7) { --stagger: 0.26s; }
+body.summary-open .deck-drawer__list button:nth-child(8) { --stagger: 0.295s; }
+body.summary-open .deck-drawer__list button:nth-child(9) { --stagger: 0.33s; }
 
 .deck-drawer__list button:hover {
   background: rgba(255, 255, 255, 0.06);
@@ -1228,6 +1202,13 @@ body.summary-open .deck-drawer {
 .deck-drawer__list button.is-current {
   color: var(--color-text-on-dark);
   font-weight: 600;
+}
+
+/* "Interfaces" é um atalho pro meio da etapa Idear, não uma etapa —
+   entra menor e mais apagada, alinhada com os títulos (num vazio). */
+.deck-drawer__sub {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
 }
 
 .deck-drawer__num {
@@ -1267,6 +1248,15 @@ body.summary-open .slide-nav {
   .slide-nav {
     transition-duration: 0.001s;
   }
+
+  /* Sem cascata nem deslize: os itens do sumário só aparecem. */
+  .deck-drawer__title,
+  .deck-drawer__list button {
+    transform: none;
+    transition-property: opacity;
+    transition-duration: 0.15s;
+    transition-delay: 0s;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1274,12 +1264,6 @@ body.summary-open .slide-nav {
      aqui é só rolagem normal, então o deck vira uma pilha comum e os
      botões de navegação não fazem sentido. */
   .slide-nav {
-    display: none;
-  }
-
-  /* Sem o controle de scroll do deck, "pular" não faz sentido — a home
-     do case já é só mais uma seção rolável como outra qualquer. */
-  .skip-to-interfaces {
     display: none;
   }
 
