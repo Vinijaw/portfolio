@@ -228,12 +228,21 @@ em {
 }
 
 .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.05rem;
 }
 
-.logo span {
+.logo__mark {
+  width: auto;
+  height: 24px;
+  display: block;
+}
+
+.logo__wordmark span {
   color: var(--color-accent);
 }
 
@@ -2013,8 +2022,15 @@ body.playground-modal-open {
   justify-content: center;
 }
 
+.footer__logo {
+  display: block;
+  width: auto;
+  height: 40px;
+  margin: 4rem auto 0;
+}
+
 .footer__copy {
-  margin-top: 4rem;
+  margin-top: 1rem;
   font-size: 0.8rem;
   color: var(--color-text-on-dark-muted);
 }
