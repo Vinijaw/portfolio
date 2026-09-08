@@ -36,7 +36,9 @@ html.case-locked .case-gate {
 }
 
 html.case-locked .deck,
-html.case-locked .slide-nav {
+html.case-locked .slide-nav,
+html.case-locked .deck-summary-btn,
+html.case-locked .deck-drawer {
   display: none;
 }
 
@@ -147,12 +149,21 @@ body.case-split-page .header {
   display: flex;
   flex-direction: column;
   padding: 4.5rem clamp(1.5rem, 3vw, 3rem) 3rem;
-  background: var(--color-bg);
   overflow-y: auto;
+  /* Mesma ideia do palco, porém com os brilhos maiores e um pouco mais
+     fortes: a área do fechamento é vazia e aguenta um esfumado mais amplo
+     nos cantos. */
+  background-color: var(--color-bg);
+  background-image:
+    radial-gradient(72% 68% at 100% 0%, rgba(31, 173, 160, 0.08), transparent 72%),
+    radial-gradient(68% 68% at 0% 100%, rgba(20, 37, 47, 0.04), transparent 74%);
 }
 
 .slide--cta.case__section--dark {
-  background: var(--color-dark);
+  background-color: var(--color-dark);
+  background-image:
+    radial-gradient(72% 68% at 100% 0%, rgba(31, 173, 160, 0.16), transparent 72%),
+    radial-gradient(68% 68% at 0% 100%, rgba(255, 255, 255, 0.05), transparent 74%);
 }
 
 .slide--cta > .case__back {
@@ -209,7 +220,16 @@ body.case-split-page .header {
   justify-content: center;
   gap: 2rem;
   padding: clamp(2rem, 5vw, 4rem);
-  background: var(--color-bg-alt);
+  /* Fundo do palco: a cor chapada continua a base, e por cima dela dois
+     brilhos bem fracos em cantos opostos (um do acento, um clareado) mais
+     uma grade de pontos quase subliminar, pra tirar o ar plano sem virar
+     textura nem competir com os cards. */
+  background-color: var(--color-bg-alt);
+  background-image:
+    radial-gradient(62% 55% at 100% 0%, rgba(31, 173, 160, 0.07), transparent 70%),
+    radial-gradient(55% 55% at 0% 100%, rgba(255, 255, 255, 0.72), transparent 72%),
+    radial-gradient(rgba(22, 34, 43, 0.055) 1px, transparent 1.5px);
+  background-size: auto, auto, 22px 22px;
 }
 
 /* Palco "sangrado": sem padding, pra conteúdo (capa, carrossel) ocupar
@@ -396,7 +416,10 @@ body.case-split-page .header {
 }
 
 .case__section--dark .slide__stage {
-  background: var(--color-dark-alt);
+  background-color: var(--color-dark-alt);
+  background-image:
+    radial-gradient(62% 55% at 100% 0%, rgba(31, 173, 160, 0.12), transparent 70%),
+    radial-gradient(55% 55% at 0% 100%, rgba(255, 255, 255, 0.045), transparent 72%);
 }
 
 /* Zera as margens verticais dos componentes de conteúdo quando usados
@@ -806,6 +829,89 @@ body.case-split-page .header {
   background: rgba(255, 255, 255, 0.25);
 }
 
+/* -------------------- Fluxos com abas (slide "As três frentes") -------------------- */
+/* Os botões no painel trocam qual .flow-text e qual .flow-carousel
+   aparecem. Handler no fim de js/case-split.js. Slide sempre escuro. */
+.flow-hint {
+  margin: 0.9rem 0 0;
+  font-size: 0.8rem;
+  color: var(--color-text-on-dark-muted);
+}
+
+.flow-tabs {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+  margin: 1rem 0 1.75rem;
+}
+
+/* Só quebra a linha quando o painel fica estreito de verdade. */
+@media (max-width: 560px) {
+  .flow-tabs {
+    flex-wrap: wrap;
+  }
+}
+
+.flow-tab {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  border: 1px solid var(--color-border-on-dark);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-display);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.42rem 0.8rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.flow-tab:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.flow-tab:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.flow-tab.is-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #fff;
+}
+
+.flow-text[hidden] {
+  display: none;
+}
+
+.flow-text__title {
+  margin: 0 0 1rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+  line-height: 1.3;
+  color: var(--color-text-on-dark);
+}
+
+.flow-carousel {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow-carousel[hidden] {
+  display: none;
+}
+
+.flow-carousel > .stage-carousel {
+  flex: 1 1 auto;
+  height: auto;
+}
+
 /* -------------------- Lightbox (imagem expandida com zoom) -------------------- */
 .lightbox {
   position: fixed;
@@ -988,62 +1094,171 @@ body.case-split-page .header {
   cursor: default;
 }
 
-/* Botão extra, menor, encaixado em cima do "subir" — volta pro slide-0
-   de qualquer ponto do deck. O tooltip usa o mesmo truque de pseudo-
-   elemento do .tool-link (ver css/style.css), só que abrindo pra cima
-   em vez de para baixo, porque esse botão já é o mais alto da pilha. */
-.slide-nav__btn--home {
-  width: 34px;
-  height: 34px;
-  position: relative;
+/* -------------------- Sumário: botão fixo + gaveta que comprime o deck -------------------- */
+/* O botão vive no topo direito da tela. Ao abrir, a gaveta entra pela
+   direita e o #deck encolhe pra esquerda (as colunas do slide se
+   comprimem). Fecha e tudo volta. Handler no fim de js/case-split.js. */
+.deck-summary-btn {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: var(--color-text);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(14, 27, 35, 0.14);
+  transition: color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.slide-nav__btn--home svg {
-  width: 16px;
-  height: 16px;
+.deck-summary-btn:hover {
+  color: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(14, 27, 35, 0.22);
 }
 
-/* Ancorado pela direita (não centralizado) porque esse botão fica
-   colado na borda direita da tela — um tooltip centralizado vazaria
-   pra fora do viewport. */
-.slide-nav__btn--home::after,
-.slide-nav__btn--home::before {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  transform: translateY(4px);
-  transition: opacity 0.15s ease, transform 0.15s ease;
-  z-index: 6;
+.deck-summary-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
-.slide-nav__btn--home::after {
-  content: attr(data-tooltip);
-  bottom: calc(100% + 12px);
-  right: -8px;
-  background: var(--color-accent);
-  color: #fff;
+.deck-summary-btn__ico {
+  width: 20px;
+  height: 20px;
+}
+
+.deck-summary-btn__ico--close {
+  display: none;
+}
+
+.deck-summary-btn[aria-expanded="true"] .deck-summary-btn__ico--open {
+  display: none;
+}
+
+.deck-summary-btn[aria-expanded="true"] .deck-summary-btn__ico--close {
+  display: block;
+}
+
+/* Gaveta: fixa na borda direita, altura cheia, sai deslizando pra fora
+   da tela quando fechada. */
+.deck-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 55;
+  width: 264px;
+  height: 100vh;
+  padding: 4.5rem 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-dark);
+  border-left: 1px solid var(--color-border-on-dark);
+  box-shadow: -16px 0 40px rgba(8, 12, 16, 0.28);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0.28s;
+}
+
+body.summary-open .deck-drawer {
+  transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), visibility 0s;
+}
+
+.deck-drawer__title {
+  margin: 0 0 1rem;
   font-family: var(--font-display);
   font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.deck-drawer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.deck-drawer__list button {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.55rem 0.5rem;
+  border: none;
+  background: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--color-text-on-dark-muted);
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.deck-drawer__list button:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-on-dark);
+}
+
+.deck-drawer__list button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.deck-drawer__list button.is-current {
+  color: var(--color-text-on-dark);
   font-weight: 600;
-  white-space: nowrap;
-  padding: 0.4rem 0.75rem;
-  border-radius: 6px;
 }
 
-.slide-nav__btn--home::before {
-  content: "";
-  bottom: calc(100% + 6px);
-  right: 10px;
-  border: 5px solid transparent;
-  border-top-color: var(--color-accent);
+.deck-drawer__num {
+  flex-shrink: 0;
+  min-width: 1.6em;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--color-text-on-dark-muted);
+  font-variant-numeric: tabular-nums;
 }
 
-.slide-nav__btn--home:hover::after,
-.slide-nav__btn--home:hover::before,
-.slide-nav__btn--home:focus-visible::after,
-.slide-nav__btn--home:focus-visible::before {
-  opacity: 1;
-  transform: translateY(0);
+.deck-drawer__list button.is-current .deck-drawer__num {
+  color: var(--color-accent);
+}
+
+/* Enquanto a gaveta está aberta, o deck encolhe pela direita e a nav do
+   canto inferior desliza junto pra não ficar atrás dela. */
+.deck,
+.slide-nav {
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.summary-open .deck {
+  width: calc(100% - 264px);
+}
+
+body.summary-open .slide-nav {
+  transform: translateX(calc(-264px - 0.5rem));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-drawer,
+  .deck,
+  .slide-nav {
+    transition-duration: 0.001s;
+  }
 }
 
 @media (max-width: 900px) {
@@ -1060,9 +1275,21 @@ body.case-split-page .header {
     display: none;
   }
 
-  .deck {
+  /* Gaveta e botão de sumário: também não fazem sentido na pilha mobile. */
+  .deck-summary-btn,
+  .deck-drawer {
+    display: none;
+  }
+
+  .deck,
+  body.summary-open .deck {
     height: auto;
     overflow: visible;
+    width: auto;
+  }
+
+  body.summary-open .slide-nav {
+    transform: none;
   }
 
   .slide {

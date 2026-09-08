@@ -19,8 +19,12 @@
 
     const navUpBtn = document.querySelector('.slide-nav__btn[data-dir="up"]');
     const navDownBtn = document.querySelector('.slide-nav__btn[data-dir="down"]');
-    const navHomeBtn = document.getElementById("slideNavHome");
     const navCounter = document.getElementById("slideNavCounter");
+    const summaryBtn = document.getElementById("slideNavSummaryBtn");
+    const drawer = document.getElementById("deckDrawer");
+    const drawerItems = drawer
+      ? Array.from(drawer.querySelectorAll(".deck-drawer__list button[data-target]"))
+      : [];
     const lightbox = document.getElementById("lightbox");
     const skipToInterfacesBtn = document.getElementById("skipToInterfacesBtn");
 
@@ -38,11 +42,39 @@
     let index = slideFromHash >= 0 ? slideFromHash : 0;
     let locked = false;
 
+    // Marca na gaveta a etapa a que o slide atual pertence: o último
+    // item cujo slide-alvo já foi alcançado.
+    const markSummaryCurrent = () => {
+      let currentItem = null;
+      drawerItems.forEach((item) => {
+        const ti = slides.findIndex((s) => s.id === item.dataset.target);
+        if (ti >= 0 && ti <= index) currentItem = item;
+      });
+      drawerItems.forEach((item) => item.classList.toggle("is-current", item === currentItem));
+    };
+
+    const isSummaryOpen = () => document.body.classList.contains("summary-open");
+
+    const closeSummary = () => {
+      if (!drawer || !isSummaryOpen()) return;
+      document.body.classList.remove("summary-open");
+      summaryBtn.setAttribute("aria-expanded", "false");
+      drawer.setAttribute("aria-hidden", "true");
+    };
+
+    const openSummary = () => {
+      if (!drawer) return;
+      markSummaryCurrent();
+      document.body.classList.add("summary-open");
+      summaryBtn.setAttribute("aria-expanded", "true");
+      drawer.setAttribute("aria-hidden", "false");
+    };
+
     const render = () => {
       slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
       if (navUpBtn) navUpBtn.disabled = index === 0;
       if (navDownBtn) navDownBtn.disabled = index === lastIndex;
-      if (navHomeBtn) navHomeBtn.disabled = index === 0;
+      markSummaryCurrent();
       if (navCounter) {
         const pad = (n) => String(n).padStart(2, "0");
         navCounter.textContent = `${pad(index + 1)} / ${pad(slides.length)}`;
@@ -78,9 +110,31 @@
 
     render();
 
-    navHomeBtn?.addEventListener("click", () => goTo(0));
     navUpBtn?.addEventListener("click", () => goTo(index - 1));
     navDownBtn?.addEventListener("click", () => goTo(index + 1));
+
+    // Gaveta de sumário: abre pela direita comprimindo o deck. Um item
+    // da lista pula pra etapa e fecha. Fecha também com clique fora ou Esc.
+    summaryBtn?.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (isSummaryOpen()) closeSummary();
+      else openSummary();
+    });
+    drawerItems.forEach((item) => {
+      item.addEventListener("click", () => {
+        const target = slides.findIndex((s) => s.id === item.dataset.target);
+        if (target >= 0) goTo(target);
+        closeSummary();
+      });
+    });
+    document.addEventListener("click", (event) => {
+      if (isSummaryOpen() && !event.target.closest(".deck-drawer, .deck-summary-btn")) {
+        closeSummary();
+      }
+    });
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeSummary();
+    });
 
     // Botão "Pular para as interfaces" (só existe no slide-0): vai direto
     // pra tela de Reprocessar e já abre a modal com o carrossel daquela
@@ -91,7 +145,7 @@
       if (targetIndex < 0) return;
       goTo(targetIndex);
       window.setTimeout(() => {
-        slides[targetIndex].querySelector(".stage-carousel__slide.is-active img, .case__figure img")?.click();
+        slides[targetIndex].querySelector(".flow-carousel:not([hidden]) .stage-carousel__slide.is-active img, .stage-carousel__slide.is-active img, .case__figure img")?.click();
       }, 700);
     });
 
@@ -213,4 +267,32 @@
     nextBtn?.addEventListener("click", () => goTo(current + 1));
     dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
   });
+
+  // Slide "As três frentes que priorizamos": os botões no painel trocam
+  // qual descrição (.flow-text) e qual carrossel (.flow-carousel) aparece.
+  // Cada carrossel já foi inicializado acima pelo loop [data-carousel].
+  const flowSlide = document.getElementById("slide-9");
+  if (flowSlide) {
+    const flowTabs = Array.from(flowSlide.querySelectorAll(".flow-tab"));
+    const flowTexts = Array.from(flowSlide.querySelectorAll(".flow-text"));
+    const flowCarousels = Array.from(flowSlide.querySelectorAll(".flow-carousel"));
+
+    const setFlow = (name) => {
+      flowTabs.forEach((tab) => {
+        const on = tab.dataset.flow === name;
+        tab.classList.toggle("is-active", on);
+        tab.setAttribute("aria-pressed", String(on));
+      });
+      flowTexts.forEach((el) => {
+        el.hidden = el.dataset.flow !== name;
+      });
+      flowCarousels.forEach((el) => {
+        el.hidden = el.dataset.flow !== name;
+      });
+    };
+
+    flowTabs.forEach((tab) => {
+      tab.addEventListener("click", () => setFlow(tab.dataset.flow));
+    });
+  }
 }
