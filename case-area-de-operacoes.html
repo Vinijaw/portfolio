@@ -91,9 +91,9 @@
 
           <p class="case__lead reveal">
             Conforme o Santander Escrow escalou, ajustes operacionais simples viraram gargalo na
-            Engenharia. Junto com o PM, conduzi o discovery e desenhei a Área de Operações —
-            solução interna criada para dar autonomia ao Backoffice e destravar a rotina do time
-            técnico.
+            Engenharia. Junto com o PM, conduzi o discovery e desenhei a Área de Operações,
+            uma solução interna criada para dar autonomia ao Backoffice e destravar a rotina do
+            time técnico.
           </p>
         </div>
 
@@ -323,9 +323,9 @@
             Três temas se destacaram pelos impactos mais críticos e recorrentes.
           </p>
           <ol class="fg-priorities">
-            <li><strong>Movimentações do dia</strong> — tema mais citado: editar valor, data, horário e canal de pagamento direto na interface, recuperar falhas e acompanhar o status em tempo real.</li>
-            <li><strong>Programadas</strong> — movimentações recorrentes e condicionais: pausar, retomar ou alterar valores sem depender de script.</li>
-            <li><strong>Comissões</strong> — cobranças manuais e automáticas, com edição e um aviso preventivo de falta de saldo.</li>
+            <li><strong>Movimentações do dia.</strong> Tema mais citado: editar valor, data, horário e canal de pagamento direto na interface, recuperar falhas e acompanhar o status em tempo real.</li>
+            <li><strong>Programadas.</strong> Movimentações recorrentes e condicionais: pausar, retomar ou alterar valores sem depender de script.</li>
+            <li><strong>Comissões.</strong> Cobranças manuais e automáticas, com edição e um aviso preventivo de falta de saldo.</li>
           </ol>
           <p class="case__text" style="margin-top:1.25rem;">
             A síntese fechou com um princípio de design:
@@ -372,19 +372,19 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/roteiro-entrevista.png" alt="Roteiro de entrevista com o time de Backoffice: Instrução, Rotina, Trabalho, Perguntas do Fluxo e Fechamento" />
                 </div>
-                <p class="case__figure-caption">Roteiro usado nas entrevistas — a mesma estrutura foi adaptada para o time de Desenvolvimento.</p>
+                <p class="case__figure-caption">Roteiro usado nas entrevistas. A mesma estrutura foi adaptada para o time de Desenvolvimento.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/fluxo-movimentacoes.jpg" alt="Mapeamento do fluxo de Movimentações, com raias para Cliente, Plataforma, Time de atendimento e suporte e Time de desenvolvimento" />
                 </div>
-                <p class="case__figure-caption">Mapeamento do fluxo de Movimentações — do alerta do cliente até o ajuste feito pelo time de desenvolvimento.</p>
+                <p class="case__figure-caption">Mapeamento do fluxo de Movimentações: do alerta do cliente até o ajuste feito pelo time de desenvolvimento.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/fluxo-comissoes.jpg" alt="Mapeamento do fluxo de Comissões, com raias para Cliente, Plataforma, Time de atendimento e suporte e Time de desenvolvimento" />
                 </div>
-                <p class="case__figure-caption">Mapeamento do fluxo de Comissões — do erro informado pelo cliente até o reenvio da cobrança.</p>
+                <p class="case__figure-caption">Mapeamento do fluxo de Comissões: do erro informado pelo cliente até o reenvio da cobrança.</p>
               </div>
             </div>
           </div>
@@ -416,11 +416,10 @@
           <span class="case__section-num">04 · Definir</span>
           <h2 class="case__section-title">Mapeamento por status</h2>
           <p class="case__section-lead">
-            Antes de iniciar o desenho do fluxo, cruzei cada status de uma instrução de
-            transferência com as ações permitidas e os efeitos colaterais de cada uma. Para isso
-            utilizei uma área chamada "Monitoramento", utilizada para acompanhar o andamento de
-            todas as transações que aconteciam no produto e também responsável por um dos gatilhos
-            de uma operação.
+            Antes de iniciar o desenho do fluxo, separei os status de uma transferência e os
+            relacionei com as ações possíveis de cada um. Para isso utilizei uma área chamada
+            "Monitoramento", utilizada para acompanhar o andamento de todas as transações que
+            aconteciam no produto.
           </p>
           <p class="case__text" style="margin-top:1rem;">
             Essa etapa foi importante para eu tomar a decisão de como iria estruturar a hierarquia
@@ -527,7 +526,7 @@
         </a>
         <div class="slide__panel-inner">
           <span class="case__section-num">05 · Idear</span>
-          <h2 class="case__section-title">Design system: ciano no lugar do vermelho</h2>
+          <h2 class="case__section-title">Design system: uso intencional do ciano</h2>
           <p class="case__section-lead">
             Criei um arquivo para documentar os componentes mais padronizados da área de operações,
             funciona como um "wrapper design system": uso os componentes do próprio antd, que é o
@@ -535,9 +534,10 @@
             de Operações precisava.
           </p>
           <p class="case__text" style="margin-top:1.5rem;">
-            Troquei a cor primária das ações para ciano, em vez do vermelho usado no resto da
-            plataforma. Pois por se tratar de uma área crítica, queria deixar os feedbacks bem
-            claros e reservar o vermelho só para situações de alertas críticos.
+            Priorizei o ciano nas ações principais da área de operações em vez de carregar a
+            interface com o vermelho da marca. Por se tratar de um ambiente crítico, a intenção foi
+            deixar os feedbacks mais claros e reservar o vermelho quase que exclusivamente para
+            situações de erro e alertas destrutivos.
           </p>
         </div>
       </div>
@@ -556,13 +556,13 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-filtros.jpg" alt="Documentação do design system: componente de filtro montado, com abas e campos em ciano" />
                 </div>
-                <p class="case__figure-caption">Filtro — componente montado.</p>
+                <p class="case__figure-caption">Filtro: componente montado.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-campos-seletores.jpg" alt="Documentação do design system: blocos de campos de filtro e seletores" />
                 </div>
-                <p class="case__figure-caption">Campos e seletores — os blocos por trás do filtro.</p>
+                <p class="case__figure-caption">Campos e seletores: os blocos por trás do filtro.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
@@ -598,7 +598,7 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/design-system-footer.jpg" alt="Documentação do design system: rodapé de tabela com paginação, em ciano" />
                 </div>
-                <p class="case__figure-caption">Footer — paginação.</p>
+                <p class="case__figure-caption">Footer: paginação.</p>
               </div>
             </div>
           </div>
@@ -661,43 +661,43 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-tabela.jpg" alt="Tela de Reprocessar Transferências: tabela com filtros, status e ação de reprocessar em lote ou individual" />
                 </div>
-                <p class="case__figure-caption">Reprocessar Transferências — filtros avançados, seleção em lote e busca direta por ID.</p>
+                <p class="case__figure-caption">Reprocessar Transferências: filtros avançados, seleção em lote e busca direta por ID.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-selecao.jpg" alt="Cinco transferências selecionadas na tabela, com a barra de reprocessar em lote no rodapé" />
                 </div>
-                <p class="case__figure-caption">Seleção em lote — escolhe as transferências e reprocessa todas de uma vez.</p>
+                <p class="case__figure-caption">Seleção em lote: escolhe as transferências e reprocessa todas de uma vez.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-operacoes.jpg" alt="Etapa 1 do modal de reprocessamento em lote: tabela com cada operação, editável por linha" />
                 </div>
-                <p class="case__figure-caption">Etapa 1 — cada operação do lote, editável antes de reprocessar.</p>
+                <p class="case__figure-caption">Etapa 1: cada operação do lote, editável antes de reprocessar.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-editar-data.jpg" alt="Popover de edição de data e horário de uma operação, com a opção de agendar" />
                 </div>
-                <p class="case__figure-caption">Editar quando reprocessar — agora ou agendado.</p>
+                <p class="case__figure-caption">Editar quando reprocessar: agora ou agendado.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-editar-valor.jpg" alt="Valor de uma operação editado e destacado na tabela do modal" />
                 </div>
-                <p class="case__figure-caption">Editar valor — o campo alterado fica destacado.</p>
+                <p class="case__figure-caption">Editar valor: o campo alterado fica destacado.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-revisao.jpg" alt="Etapa 2 do modal, revisão, com tooltips mostrando o valor anterior e o novo valor de cada alteração" />
                 </div>
-                <p class="case__figure-caption">Etapa 2 — revisão, com o antes e depois de cada alteração.</p>
+                <p class="case__figure-caption">Etapa 2: revisão, com o antes e depois de cada alteração.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/reprocessar-lote-sucesso.jpg" alt="Confirmação de sucesso após reprocessar as transferências selecionadas" />
                 </div>
-                <p class="case__figure-caption">Confirmação — reprocessado sem precisar de um chamado.</p>
+                <p class="case__figure-caption">Confirmação: reprocessado sem precisar de um chamado.</p>
               </div>
             </div>
           </div>
@@ -759,19 +759,19 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-lista-rotinas.jpg" alt="Tela de Movimentações Programadas: lista de rotinas de um contrato, com prioridade, próxima execução e ação de pausar" />
                 </div>
-                <p class="case__figure-caption">Movimentações Programadas — rotinas por contrato, com ação de pausar.</p>
+                <p class="case__figure-caption">Movimentações Programadas: rotinas por contrato, com ação de pausar.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-definir-pausa.jpg" alt="Etapa 1 do modal de pausa: calendário para definir até quando a movimentação fica pausada, com aviso de cancelamento automático" />
                 </div>
-                <p class="case__figure-caption">Definir o período — o aviso de cancelamento automático já aparece aqui.</p>
+                <p class="case__figure-caption">Definir o período: o aviso de cancelamento automático já aparece aqui.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/programada-sucesso.jpg" alt="Confirmação de pausa, informando até quando as rotinas programadas não serão executadas" />
                 </div>
-                <p class="case__figure-caption">Confirmação — até quando a pausa vale, sem ambiguidade.</p>
+                <p class="case__figure-caption">Confirmação: até quando a pausa vale, sem ambiguidade.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
@@ -831,19 +831,19 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-lote-divergencias.jpg" alt="Tela de Comissões com Divergências, mostrando a rotina diária de verificação e a tabela de comissões afetadas" />
                 </div>
-                <p class="case__figure-caption">Comissões com Divergências — rotina diária de verificação, por contrato.</p>
+                <p class="case__figure-caption">Comissões com Divergências: rotina diária de verificação, por contrato.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-lote-selecao.jpg" alt="Todas as comissões selecionadas na tabela, com o aviso de limite de 10 atingido e ação de editar selecionadas" />
                 </div>
-                <p class="case__figure-caption">Seleção em lote — até 10 comissões por vez.</p>
+                <p class="case__figure-caption">Seleção em lote: até 10 comissões por vez.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-lote-editar-vazio.jpg" alt="Etapa 1 do modal de edição em lote, com todas as comissões do contrato ainda aguardando edição" />
                 </div>
-                <p class="case__figure-caption">Etapa 1 — cada comissão do lote, antes de qualquer edição.</p>
+                <p class="case__figure-caption">Etapa 1: cada comissão do lote, antes de qualquer edição.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
@@ -855,13 +855,13 @@
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-lote-revisao.jpg" alt="Etapa 2, revisão, com tooltips informativos disponíveis para cada valor e data alterados" />
                 </div>
-                <p class="case__figure-caption">Etapa 2 — revisão antes de confirmar as edições.</p>
+                <p class="case__figure-caption">Etapa 2: revisão antes de confirmar as edições.</p>
               </div>
               <div class="stage-carousel__slide">
                 <div class="case__figure" style="background:#fff;">
                   <img src="assets/images/cases/Cases selecionados/area-de-operacoes/comissoes-lote-sucesso.jpg" alt="Confirmação de sucesso: comissões editadas com sucesso" />
                 </div>
-                <p class="case__figure-caption">Confirmação — divergências resolvidas sem sair da tela.</p>
+                <p class="case__figure-caption">Confirmação: divergências resolvidas sem sair da tela.</p>
               </div>
             </div>
           </div>
@@ -885,7 +885,7 @@
       </div>
     </section>
 
-    <!-- ===================== SLIDE 12 · VALIDAR: METODOLOGIA ===================== -->
+    <!-- ===================== SLIDE 12 · VALIDAR: TESTE DE USABILIDADE ===================== -->
     <section class="slide" id="slide-12">
       <div class="slide__panel">
         <a href="index.html#cases" class="case__back">
@@ -897,25 +897,28 @@
           <h2 class="case__section-title">Teste de usabilidade: validando o reprocessamento</h2>
           <p class="case__section-lead">
             Antes de ir pra produção, testei a tarefa mais citada no focus group: reprocessar uma
-            transferência que falhou, alterando data, valor e canal de pagamento.
+            transferência que falhou, alterando data, valor e canal de pagamento. Os 3 participantes
+            concluíram e chegaram à tela de sucesso. A fricção apareceu no caminho, não no
+            resultado.
           </p>
-          <div class="case__stats">
-            <div class="case__stat">
-              <div class="case__stat-value">3</div>
-              <p class="case__stat-label">Participantes completaram (de 4 convidados)</p>
+          <div class="case__test-metrics">
+            <div class="case__test-pair">
+              <div class="case__test-cell">
+                <b>5m31s</b>
+                <span>tempo médio (4m27s&#8211;6m35s)</span>
+              </div>
+              <div class="case__test-cell">
+                <b>13&#8211;17</b>
+                <span>telas por participante (referência: 14)</span>
+              </div>
             </div>
-            <div class="case__stat">
-              <div class="case__stat-value">5m31s</div>
-              <p class="case__stat-label">Tempo médio (4m27s a 6m35s)</p>
-            </div>
-            <div class="case__stat">
-              <div class="case__stat-value">1</div>
-              <p class="case__stat-label">Tarefa: corrigir e reenviar a transferência</p>
+            <div class="case__test-task">
+              <p class="case__test-task__k">Tarefa</p>
+              <p class="case__test-task__t">Corrigir e reenviar a transferência que falhou</p>
             </div>
           </div>
           <p class="case__note" style="margin-top:1.5rem;">
-            Teste remoto e não moderado, feito com o UXtweak. Amostra pequena e sem filtro de
-            perfil documentado — leio os dados como direcionais, não estatísticos.
+            Teste remoto e não moderado, feito com o UXtweak.
           </p>
         </div>
       </div>
@@ -924,51 +927,12 @@
         <div class="case__figure" style="background:#fff;">
           <img src="assets/images/cases/Cases selecionados/area-de-operacoes/teste-heatmap-home.png" alt="Mapa de calor da home da Área de Operações no início da tarefa, mostrando cliques concentrados em Transferências" />
         </div>
-        <p class="case__figure-caption">Mapa de calor da primeira tela — todo mundo foi direto em "Transferências".</p>
+        <p class="case__figure-caption">Mapa de calor da primeira tela: todo mundo foi direto em "Transferências".</p>
       </div>
     </section>
 
-    <!-- ===================== SLIDE 13 · VALIDAR: RESULTADO ===================== -->
-    <section class="slide case__section--dark" id="slide-13">
-      <div class="slide__panel">
-        <a href="index.html#cases" class="case__back">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
-          Voltar para os cases
-        </a>
-        <div class="slide__panel-inner">
-          <span class="case__section-num">06 · Validar</span>
-          <h2 class="case__section-title">100% completaram. 0% "pelo caminho certo".</h2>
-          <p class="case__section-lead">
-            As duas métricas não se contradizem: a ferramenta media aderência a um único caminho
-            ideal, com 14 etapas. Os 3 participantes que completaram a tarefa chegaram à tela de
-            sucesso — cada um por uma variação diferente desse caminho.
-          </p>
-          <p class="case__text" style="margin-top:1.5rem;">
-            Reportar só o "0% de sucesso" seria enganoso. O problema real não era "não conseguir":
-            era não conseguir pelo caminho mais direto.
-          </p>
-        </div>
-      </div>
-
-      <div class="slide__stage">
-        <div class="case__stats">
-          <div class="case__stat case__stat--positive">
-            <div class="case__stat-value" style="font-size:clamp(2.6rem, 5vw, 3.6rem);">100%</div>
-            <p class="case__stat-label">Chegaram à tela de sucesso</p>
-          </div>
-          <div class="case__stat case__stat--warning">
-            <div class="case__stat-value" style="font-size:clamp(2.6rem, 5vw, 3.6rem);">0%</div>
-            <p class="case__stat-label">Seguiram o caminho exato definido como "correto"</p>
-          </div>
-        </div>
-        <p class="case__figure-caption" style="margin-top:1.5rem;">
-          Cada participante visitou de 13 a 17 telas — o caminho ideal tem 14.
-        </p>
-      </div>
-    </section>
-
-    <!-- ===================== SLIDE 14 · VALIDAR: FRICÇÕES ===================== -->
-    <section class="slide" id="slide-14">
+    <!-- ===================== SLIDE 13 · VALIDAR: FRICÇÕES ===================== -->
+    <section class="slide" id="slide-13">
       <div class="slide__panel">
         <a href="index.html#cases" class="case__back">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
@@ -978,24 +942,24 @@
           <span class="case__section-num">06 · Validar</span>
           <h2 class="case__section-title">Onde os usuários hesitaram</h2>
           <p class="case__section-lead">
-            Três pontos concentraram quase toda a fricção — o resto do fluxo foi usado direto, sem
-            cliques perdidos.
+            Três pontos concentraram quase toda a fricção; o resto do fluxo foi usado direto, sem
+            cliques perdidos:
           </p>
-          <div class="case__learnings" style="margin-top:1.5rem;">
-            <div class="case__learning reveal">
-              <span class="status-pill status-pill--red" style="flex-shrink:0;">Alta</span>
-              <p>Editar data ("Agora" vs "Agendar"): 5 cliques mortos — um participante voltou pro
+          <div class="case__frictions" style="margin-top:1.5rem;">
+            <div class="case__friction case__friction--high reveal">
+              <p class="case__friction__k">Alta</p>
+              <p>Editar data ("Agora" vs "Agendar"): 5 cliques mortos, um participante voltou pro
               "Agora" já com o agendamento preenchido. Alterar canal: reaberto até 5 vezes pelo
               mesmo participante antes de confirmar.</p>
             </div>
-            <div class="case__learning reveal">
-              <span class="status-pill status-pill--orange" style="flex-shrink:0;">Média</span>
+            <div class="case__friction case__friction--mid reveal">
+              <p class="case__friction__k">Média</p>
               <p>Modal de reprocessamento (visão geral): 4 cliques mortos em áreas que pareciam
               clicáveis. Um participante abriu "ver detalhes" duas vezes antes de confiar que
               tinha achado a transferência certa.</p>
             </div>
-            <div class="case__learning reveal">
-              <span class="status-pill status-pill--green" style="flex-shrink:0;">Baixa</span>
+            <div class="case__friction case__friction--low reveal">
+              <p class="case__friction__k">Baixa</p>
               <p>Editar valor e revisão final: uso direto, sem nenhum clique perdido.</p>
             </div>
           </div>
@@ -1003,59 +967,17 @@
       </div>
 
       <div class="slide__stage">
-        <div class="case__figure" style="background:#fff;">
-          <img src="assets/images/cases/Cases selecionados/area-de-operacoes/teste-heatmap-editar-data.png" alt="Mapa de calor da edição de data agendada, mostrando cliques concentrados também no botão Agora e no botão Cancelar" />
-        </div>
-        <p class="case__figure-caption">O ponto de maior fricção: alternância entre "Agora" e "Agendar".</p>
-      </div>
-    </section>
-
-    <!-- ===================== SLIDE 15 · VALIDAR: VOZ DO USUÁRIO ===================== -->
-    <section class="slide case__section--dark" id="slide-15">
-      <div class="slide__panel">
-        <a href="index.html#cases" class="case__back">
-          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
-          Voltar para os cases
-        </a>
-        <div class="slide__panel-inner">
-          <span class="case__section-num">06 · Validar</span>
-          <h2 class="case__section-title">"Precisaria praticar algumas vezes"</h2>
-          <p class="case__section-lead">
-            O qualitativo confirma o padrão observado no comportamento: existe uma lacuna entre
-            "parece fácil" e "confiança pra executar sozinho".
-          </p>
-          <div class="case__stats">
-            <div class="case__stat">
-              <div class="case__stat-value">3 de 3</div>
-              <p class="case__stat-label">Acharam o sistema fácil de usar</p>
-            </div>
-            <div class="case__stat">
-              <div class="case__stat-value">2 de 3</div>
-              <p class="case__stat-label">Achou que precisaria de ajuda técnica</p>
-            </div>
+        <div class="case__figgroup">
+          <div class="case__figure" style="border:none; display:inline-flex; max-width:100%;">
+            <img src="assets/images/cases/Cases selecionados/area-de-operacoes/teste-heatmap-editar-data.png" alt="Mapa de calor da edição de data agendada, mostrando cliques concentrados também no botão Agora e no botão Cancelar" style="display:block; width:auto; height:auto; max-height:56vh; max-width:100%;" />
           </div>
-        </div>
-      </div>
-
-      <div class="slide__stage">
-        <div class="case__quotes">
-          <blockquote class="case__quote reveal">
-            <span class="case__quote-mark">"</span>
-            <p>Boa visualização, apenas precisaria praticar algumas vezes para editar com
-            tranquilidade.</p>
-            <cite>Participante 5</cite>
-          </blockquote>
-          <blockquote class="case__quote reveal">
-            <span class="case__quote-mark">"</span>
-            <p>Fácil, intuitiva, prática.</p>
-            <cite>Participante 3</cite>
-          </blockquote>
+          <p class="case__figure-caption">O ponto de maior fricção: alternância entre "Agora" e "Agendar".</p>
         </div>
       </div>
     </section>
 
-    <!-- ===================== SLIDE 16 · VALIDAR: ITERAÇÃO ===================== -->
-    <section class="slide" id="slide-16">
+    <!-- ===================== SLIDE 14 · VALIDAR: QUALITATIVO + ITERAÇÃO ===================== -->
+    <section class="slide" id="slide-14">
       <div class="slide__panel">
         <a href="index.html#cases" class="case__back">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
@@ -1063,49 +985,68 @@
         </a>
         <div class="slide__panel-inner">
           <span class="case__section-num">06 · Validar</span>
-          <h2 class="case__section-title">O que mudou (e o que decidimos não mudar)</h2>
+          <h2 class="case__section-title">O que mudou</h2>
           <p class="case__section-lead">
-            Nem toda fricção observada virou ajuste de interface — a estrutura da tarefa já fazia
-            sentido, ninguém abandonou por não entender o fluxo.
+            No qualitativo, os 3 participantes acharam o sistema fácil de usar, mas 2 achavam que
+            precisariam de ajuda técnica na primeira vez. É a lacuna entre "parece fácil" e
+            "confiança pra executar sozinho".
+          </p>
+          <div class="case__quotes case__quotes--compact">
+            <blockquote class="case__quote reveal">
+              <span class="case__quote-mark">"</span>
+              <p>Boa visualização, apenas precisaria praticar algumas vezes para editar com
+              tranquilidade.</p>
+              <cite>Participante 1</cite>
+            </blockquote>
+            <blockquote class="case__quote reveal">
+              <span class="case__quote-mark">"</span>
+              <p>Fácil, intuitiva, prática.</p>
+              <cite>Participante 2</cite>
+            </blockquote>
+          </div>
+          <p class="case__text" style="margin-top:1.5rem;">
+            <strong>Ainda assim, nem toda fricção virou ajuste de interface:</strong> a estrutura da
+            tarefa já fazia sentido e ninguém abandonou por não entender o fluxo. Ao lado, o que
+            mudou e o que ficou como estava.
           </p>
         </div>
       </div>
 
       <div class="slide__stage">
-        <div class="case__cards case__cards--square">
-          <div class="case__card case__card--square reveal">
-            <span class="case__card-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Zm-2,15-5-5,1.41-1.41L10,14.17l7.59-7.59L19,8Z"/></svg>
+        <div class="case__decisions">
+          <div class="case__decision case__decision--changed reveal">
+            <span class="case__decision__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
             </span>
-            <h4>Ajustado</h4>
+            <span class="case__decision__tag">Ajustado</span>
             <p>Ao clicar em "Agora", adicionamos o aviso "O reprocessamento iniciará
-            automaticamente assim que você concluir esta etapa." — deixando explícito o que
+            automaticamente assim que você concluir esta etapa", deixando explícito o que
             aquela escolha compromete.</p>
           </div>
-          <div class="case__card case__card--square reveal">
-            <span class="case__card-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <div class="case__decision case__decision--kept reveal">
+            <span class="case__decision__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </span>
-            <h4>Avaliado, sem alteração</h4>
-            <p>"Alterar canal" reaberto várias vezes por um participante — na análise, isso se
+            <span class="case__decision__tag">Avaliado, sem alteração</span>
+            <p>"Alterar canal" reaberto várias vezes por um participante. Na análise, isso se
             mostrou familiarização com um layout novo, não uma falha de design. Os outros
             completaram essa etapa sem dificuldade.</p>
           </div>
-          <div class="case__card case__card--square reveal">
-            <span class="case__card-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+          <div class="case__decision case__decision--kept reveal">
+            <span class="case__decision__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             </span>
-            <h4>Avaliado, sem alteração</h4>
+            <span class="case__decision__tag">Avaliado, sem alteração</span>
             <p>Parte dos usuários conferia "ver detalhes" antes de reprocessar. "Ver detalhes"
-            nunca foi passo obrigatório — em casos específicos, é exatamente esse o caminho ideal,
-            e o comportamento confirmou que a rota estava sendo usada como planejado.</p>
+            nunca foi passo obrigatório, mas em casos específicos é exatamente esse o caminho
+            ideal, e o comportamento confirmou que a rota estava sendo usada como planejado.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== SLIDE 17 · RESULTADOS ===================== -->
-    <section class="slide" id="slide-17">
+    <!-- ===================== SLIDE 15 · RESULTADOS ===================== -->
+    <section class="slide" id="slide-15">
       <div class="slide__panel">
         <a href="index.html#cases" class="case__back">
           <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
@@ -1116,45 +1057,61 @@
           <h2 class="case__section-title">Em produção, com autonomia que antes não existia</h2>
           <p class="case__section-lead">
             Atualmente a Área de Operações está em produção e em uso, cobrindo Aplicações,
-            Resgates, Transferências e Comissões. Infelizmente a métrica de chamados evitados ou
-            tempo de resolução não foi levantada com o time, mas o resultado qualitativo já é
-            claro — veja ao lado.
+            Resgates, Transferências e Comissões.
           </p>
-
-          <p class="case__text" style="margin-top:1.5rem;">
-            <strong>Próximos passos:</strong> queremos tornar a Área de Operações ainda mais
-            segura, com dupla análise e confirmação antes de ações críticas e feedbacks mais claros
-            pra quem usa. Também estamos estudando expandir o acesso para outros times, como o
-            Compliance, que hoje participa manualmente da confirmação de aplicações e resgates.
+          <p class="case__text" style="margin-top:1.25rem;">
+            A métrica de chamados evitados ou tempo de resolução não foi levantada com o time, mas
+            o resultado qualitativo já é claro: pelos feedbacks, menos incidentes por erro humano e
+            mais agilidade no atendimento. Veja ao lado.
           </p>
         </div>
       </div>
 
       <div class="slide__stage">
-        <div class="case__cards case__cards--results" style="grid-template-columns: 1fr;">
-          <div class="case__card reveal">
-            <h4>Autonomia para o time de Operações</h4>
-            <p>Tarefas que antes exigiam abrir um chamado para a engenharia — pausar uma programada,
-            corrigir um valor, reprocessar uma falha — passaram a ser resolvidas pelo próprio time,
-            sem depender de desenvolvimento e com menos chance de erro humano.</p>
+        <div class="case__ba reveal">
+          <div class="case__ba__col case__ba__col--before">
+            <div class="case__ba__topo">
+              <span class="case__ba__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </span>
+              <span class="case__ba__tag">Antes</span>
+            </div>
+            <h4 class="case__ba__head">Abria um chamado pra engenharia</h4>
+            <ul class="case__ba__list">
+              <li>Quase toda solicitação de cliente virava um chamado pro time de desenvolvimento</li>
+              <li>Ajustes feitos direto no código ou no banco, com alto risco de erro humano</li>
+              <li>O Backoffice só intermediava chamados, sem autonomia pra resolver</li>
+              <li>A fila crescia mais rápido que a capacidade do time técnico</li>
+              <li>Tempo de resolução das solicitações só aumentava</li>
+              <li>Roadmap de Engenharia travado por demanda operacional</li>
+            </ul>
           </div>
-          <div class="case__card reveal">
-            <h4>Menos incidentes, mais agilidade</h4>
-            <p>Os feedbacks do time mostram redução no número de incidentes, prevenção de erros e
-            mais rapidez para atender solicitações dos clientes.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Pesquisa que virou ajuste em produção</h4>
-            <p>O teste de usabilidade já gerou pelo menos um ajuste concreto: o aviso explicando o
-            que a escolha "Agora" compromete no reprocessamento, que reduziu a ambiguidade
-            identificada durante o teste.</p>
+          <span class="case__ba__arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+          <div class="case__ba__col case__ba__col--after">
+            <div class="case__ba__topo">
+              <span class="case__ba__icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </span>
+              <span class="case__ba__tag">Depois</span>
+            </div>
+            <h4 class="case__ba__head">Resolve na própria interface</h4>
+            <ul class="case__ba__list">
+              <li>Aplicações, Resgates, Transferências, Programadas e Comissões numa central única</li>
+              <li>Filtros avançados, busca por ID e ações em lote em todas as telas</li>
+              <li>Editar valor, data, horário e canal sem sair da tela; pausar programadas sem script</li>
+              <li>Etapa de revisão com o antes e depois de cada operação antes de submeter</li>
+              <li>Controle de acesso por nível de autorização</li>
+              <li>Engenharia livre pra focar na evolução do produto</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== SLIDE 18 · CTA FINAL ===================== -->
-    <section class="slide slide--cta case__section--dark" id="slide-18">
+    <!-- ===================== SLIDE 16 · CTA FINAL ===================== -->
+    <section class="slide slide--cta case__section--dark" id="slide-16">
       <a href="index.html#cases" class="case__back">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
         Voltar para os cases
@@ -1185,7 +1142,7 @@
       <button type="button" class="slide-nav__btn" data-dir="up" aria-label="Seção anterior">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
       </button>
-      <span class="slide-nav__counter" id="slideNavCounter" aria-hidden="true">01 / 20</span>
+      <span class="slide-nav__counter" id="slideNavCounter" aria-hidden="true">01 / 18</span>
       <button type="button" class="slide-nav__btn" data-dir="down" aria-label="Próxima seção">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12l7 7 7-7"/></svg>
       </button>
