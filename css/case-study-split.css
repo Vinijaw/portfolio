@@ -122,17 +122,22 @@ body.case-split-page .header {
 /* Entrada em 2 tempos: o bloco de contexto (painel) aparece primeiro, o
    bloco de conteúdo (palco) segue com um pequeno atraso — dá uma
    sensação de "revelar" em vez de tudo aparecer de uma vez só. Ao sair,
-   os dois somem juntos (sem delay), pra não deixar a troca lenta. */
-.slide__panel,
+   os dois somem juntos (sem delay), pra não deixar a troca lenta.
+   A animação fica no conteúdo do painel (.slide__panel-inner / .slide__meta),
+   não no painel em si — assim o botão "voltar" fica parado a cada troca,
+   igual aos controles de navegação. */
+.slide__panel-inner,
+.slide__meta,
 .slide__stage,
-.slide--cta {
+.slide--cta .case__next {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.slide.is-active .slide__panel,
-.slide.is-active.slide--cta {
+.slide.is-active .slide__panel-inner,
+.slide.is-active .slide__meta,
+.slide.is-active.slide--cta .case__next {
   opacity: 1;
   transform: translateY(0);
 }
@@ -180,9 +185,10 @@ body.case-split-page .header {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slide__panel,
+  .slide__panel-inner,
+  .slide__meta,
   .slide__stage,
-  .slide--cta {
+  .slide--cta .case__next {
     transition: opacity 0.15s linear, transform 0.15s linear;
     transition-delay: 0s;
   }
@@ -1312,9 +1318,10 @@ body.summary-open .slide-nav {
     border-top: 1px solid var(--color-border);
   }
 
-  .slide__panel,
+  .slide__panel-inner,
+  .slide__meta,
   .slide__stage,
-  .slide--cta {
+  .slide--cta .case__next {
     opacity: 1;
     transform: none;
     transition: none;
