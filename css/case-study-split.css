@@ -844,16 +844,11 @@ body.case-split-page .header {
 
 .flow-tabs {
   display: flex;
-  flex-wrap: nowrap;
+  /* wrap normal: numa tela grande o painel tem largura pras três pílulas
+     numa linha só; quando o painel aperta, elas quebram sozinhas. */
+  flex-wrap: wrap;
   gap: 0.4rem;
   margin: 1rem 0 1.75rem;
-}
-
-/* Só quebra a linha quando o painel fica estreito de verdade. */
-@media (max-width: 560px) {
-  .flow-tabs {
-    flex-wrap: wrap;
-  }
 }
 
 .flow-tab {
