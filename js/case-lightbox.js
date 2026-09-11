@@ -95,8 +95,14 @@
     const goToCarouselImage = (nextIndex) => {
       if (!carouselImages.length) return;
       carouselIndex = (nextIndex + carouselImages.length) % carouselImages.length;
-      showImage(carouselImages[carouselIndex]);
-      carouselEl?.goToSlide?.(carouselIndex);
+      const img = carouselImages[carouselIndex];
+      showImage(img);
+      // Uma "janela" do carrossel pode ter mais de uma imagem (carrossel
+      // de telas de celular), então traduz o índice da imagem pro índice
+      // da janela que a contém antes de sincronizar o carrossel da página.
+      const slideEls = Array.from(carouselEl?.querySelectorAll(".stage-carousel__slide") || []);
+      const slideIdx = slideEls.indexOf(img.closest(".stage-carousel__slide"));
+      carouselEl?.goToSlide?.(slideIdx >= 0 ? slideIdx : carouselIndex);
     };
 
     const close = () => {
@@ -105,8 +111,10 @@
     };
 
     // A capa da hero (slide-0) fica de fora: é só uma ilustração de
-    // abertura, não uma tela que faça sentido ampliar em modal.
+    // abertura, não uma tela que faça sentido ampliar em modal. Os
+    // avatares das falas e a logo do slide de fechamento também.
     deck.querySelectorAll("img:not(.slide__stage-img)").forEach((img) => {
+      if (img.closest(".case__voice__avatar") || img.classList.contains("case__next-logo")) return;
       img.classList.add("is-zoomable");
       img.addEventListener("click", () => open(img));
     });

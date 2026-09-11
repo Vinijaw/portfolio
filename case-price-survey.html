@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Price Survey — Case | João Vinícius, Product Designer</title>
-  <meta name="description" content="Case de redesign do Price Survey: como a pesquisa com pricers e time interno guiou a reestruturação da jornada de coleta de preços." />
+  <meta name="description" content="Case do Price Survey: como a pesquisa com o time interno e com os pricers em campo guiou o redesenho da jornada de coleta de preços de um app onde só 40% das pesquisas disponíveis eram concluídas." />
 
   <link rel="icon" type="image/svg+xml" href="assets/icons/brands/jv-logo.svg" />
 
@@ -12,13 +12,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.css" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/case-study.css" />
+  <link rel="stylesheet" href="css/case-study-split.css" />
 </head>
-<body>
+<body class="case-split-page">
 
-  <!-- ===================== HEADER ===================== -->
+  <!-- ===================== HEADER (oculto nessa página — ver .case-split-page .header) ===================== -->
   <header class="header" id="top">
     <div class="container header__inner">
       <a href="index.html#top" class="logo">João<span>Vinícius</span></a>
@@ -39,591 +39,994 @@
     </div>
   </header>
 
-  <main class="case">
+  <main class="case case--split">
 
-    <!-- ===================== HERO DO CASE ===================== -->
-    <section class="container case__hero">
-      <a href="index.html#cases" class="case__back">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
-        Voltar para os cases
-      </a>
+    <div class="deck" id="deck">
 
-      <div class="case__eyebrow reveal" style="margin-top:2rem;">
-        <span class="case__pill">Produto B2C</span>
-        <span class="case__pill">App mobile</span>
-        <span class="case__pill">Economia colaborativa</span>
+    <!-- ===================== SLIDE 0 · HERO ===================== -->
+    <section class="slide" id="slide-0">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <h1 class="case__title reveal">Price Survey: redesenho da jornada do pricer</h1>
+
+          <p class="case__lead reveal">
+            O Price Survey conecta empresas que precisam de pesquisa de preço a pessoas comuns,
+            os pricers, que visitam lojas, fotografam etiquetas e são remuneradas por isso. O app
+            já rodava há um tempo, mas nunca tinha passado por um estudo com usuários. O resultado
+            era um funil furado: só 40% das pesquisas disponíveis chegavam a ser concluídas.
+            Entrei no projeto para entender o porquê e redesenhar a experiência de ponta a ponta.
+          </p>
+        </div>
+
+        <dl class="slide__meta reveal">
+          <div class="slide__meta-item">
+            <dt>Ano</dt>
+            <dd>2021</dd>
+          </div>
+          <div class="slide__meta-item">
+            <dt>Meu papel</dt>
+            <dd>Product Designer</dd>
+          </div>
+          <div class="slide__meta-item">
+            <dt>Formato</dt>
+            <dd>Projeto de agência para o Price Survey</dd>
+          </div>
+          <div class="slide__meta-item">
+            <dt>Entregas</dt>
+            <dd>Pesquisa, fluxos, UI e teste de usabilidade</dd>
+          </div>
+        </dl>
       </div>
 
-      <h1 class="case__title reveal">Price Survey: Transformando a jornada do pricer</h1>
+      <div class="slide__stage slide__stage--flush">
+        <img class="slide__stage-img reveal" src="assets/images/cases/Cases selecionados/price-survey/cover.jpg" alt="Telas do app Price Survey em mockups de smartphone" />
+      </div>
+    </section>
 
-      <p class="case__lead reveal">
-        O Price Survey conecta empresas que precisam de pesquisa de preço a pessoas comuns — os
-        "pricers" — que visitam lojas, fotografam etiquetas e são remuneradas por isso. O app já
-        existia havia um tempo, mas nunca tinha passado por um estudo com usuários. O resultado
-        era um funil furado: só 40% das pesquisas disponíveis chegavam a ser concluídas. Entrei
-        no projeto para entender o porquê e redesenhar a experiência de ponta a ponta.
-      </p>
+    <!-- ===================== SLIDE 1 · CONTEXTO (O MODELO) ===================== -->
+    <section class="slide" id="slide-1">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">01 · Contexto</span>
+          <h2 class="case__section-title">Crescimento sem pesquisa</h2>
+          <p class="case__text" style="margin-top:1.25rem;">
+            A Price Survey é uma mineradora que coleta diariamente dados de preços, promoções e
+            campanhas através de pesquisas. A empresa distribui essas pesquisas para uma rede de
+            usuários espalhados pelo Brasil, os "pricers": pessoas que se disponibilizam a buscar
+            produtos e comparar preços como cliente oculto, recebendo semanalmente por cada
+            pesquisa aprovada.
+          </p>
+          <p class="case__text">
+            O produto era funcional, mas cresceu sem uma camada de pesquisa por trás. Todas as
+            decisões vinham de suposição interna ou de reclamação pontual. Quando entrei, a
+            empresa tinha três frentes em aberto.
+          </p>
+        </div>
+      </div>
 
-      <div class="case__cover reveal">
-        <img src="assets/images/cases/Cases selecionados/price-survey/cover.jpg" alt="Tela de abertura do app Price Survey e mockup em smartphones" />
-        <div class="case__cover-overlay">
-          <dl class="case__meta">
-            <div class="case__meta-item">
-              <dt>Ano</dt>
-              <dd>2021</dd>
-            </div>
-            <div class="case__meta-item">
-              <dt>Meu papel</dt>
-              <dd>Product Designer</dd>
-            </div>
-            <div class="case__meta-item">
-              <dt>Plataforma</dt>
-              <dd>App mobile (Android/iOS)</dd>
-            </div>
-            <div class="case__meta-item">
-              <dt>Entregas</dt>
-              <dd>Pesquisa, fluxos, UI e testes</dd>
-            </div>
-          </dl>
+      <div class="slide__stage">
+        <p class="case__text"><strong>O que a empresa queria resolver:</strong></p>
+        <div class="case__cards case__cards--frentes">
+          <div class="case__card reveal">
+            <span class="case__frente__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            </span>
+            <h4>Confiabilidade</h4>
+            <p>Reduzir a sensação de instabilidade e insegurança que os próprios pricers relatavam durante o uso.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__frente__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M9 19h5a4 4 0 0 0 4-4V8"/></svg>
+            </span>
+            <h4>Clareza de fluxo</h4>
+            <p>Diminuir a dependência do suporte para dúvidas básicas de como fazer uma pesquisa.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__frente__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1 21 6l-4 3.9"/><path d="M3 11V10a4 4 0 0 1 4-4h14"/><path d="M7 21.9 3 18l4-3.9"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>
+            </span>
+            <h4>Retenção</h4>
+            <p>Entender por que tanta gente abandonava o app depois das primeiras tentativas.</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== CONTEXTO ===================== -->
-    <section class="case__section">
-      <div class="container">
-        <div class="case__split">
-          <div>
-            <span class="case__section-num">01 · Contexto</span>
-            <h2 class="case__section-title">Um app que já rodava, mas que nunca tinha "olhado" para quem usa</h2>
-            <p class="case__text" style="margin-top:1.25rem;">
-              A ideia por trás do Price Survey é simples de explicar: uma espécie de "economia
-              compartilhada" da pesquisa de mercado. Em vez de contratar uma equipe fixa de
-              cliente oculto, a empresa distribui pesquisas para uma rede de pricers espalhados
-              pelo Brasil, que recebem semanalmente por cada pesquisa aprovada.
-            </p>
-            <p class="case__text">
-              O produto era funcional, mas cresceu sem uma camada de pesquisa por trás. No
-              briefing inicial com o time, alguns números chamaram atenção: a produtividade
-              média por pricer, que já havia chegado a 180–200 itens pesquisados por hora,
-              estava em 40–50; e apenas 40% da demanda de pesquisas disponíveis era de fato
-              executada. Muita instabilidade técnica, muito pricer desistindo no meio do
-              caminho, e uma operação de suporte tentando compensar isso na base do
-              atendimento manual.
-            </p>
+    <!-- ===================== SLIDE 2 · CONTEXTO (OS NÚMEROS) ===================== -->
+    <section class="slide" id="slide-2">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">01 · Contexto</span>
+          <h2 class="case__section-title">O desafio: destravar a eficiência dos pricers</h2>
+          <p class="case__text" style="margin-top:1.25rem;">
+            No briefing inicial, alguns números chamaram atenção. A produtividade média por
+            pricer, que já havia chegado a 180 a 200 itens por hora, estava em 40 a 50. E boa
+            parte da demanda de pesquisas disponíveis simplesmente não era executada.
+          </p>
+          <p class="case__text">
+            Muita instabilidade técnica, muito pricer desistindo no meio do caminho, e um suporte
+            compensando na base do atendimento manual. Reescrever a base de código antiga era
+            trabalho da engenharia, então a decisão foi começar pela experiência enquanto a parte
+            técnica evoluía em paralelo.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <div class="case__stats">
+          <div class="case__stat case__stat--negative reveal">
+            <div class="case__stat-value"><span data-countup="40">0</span>&#8211;<span data-countup="50">0</span>/h</div>
+            <p class="case__stat-label">Itens pesquisados por pricer.<span class="case__stat-note">No melhor momento, chegou a 180 a 200 por hora.</span></p>
           </div>
-          <div>
-            <p class="case__text"><strong>O que a empresa queria resolver:</strong></p>
-            <div class="case__cards" style="margin-top:1rem; grid-template-columns: 1fr;">
-              <div class="case__card reveal">
-                <h4>Confiabilidade</h4>
-                <p>Reduzir a sensação de instabilidade e insegurança relatada pelos próprios pricers durante o uso.</p>
-              </div>
-              <div class="case__card reveal">
-                <h4>Clareza de fluxo</h4>
-                <p>Diminuir a dependência do suporte para dúvidas básicas de "como fazer uma pesquisa".</p>
-              </div>
-              <div class="case__card reveal">
-                <h4>Retenção</h4>
-                <p>Entender por que tanta gente abandonava o app depois das primeiras tentativas.</p>
-              </div>
-            </div>
+          <div class="case__stat case__stat--warning reveal">
+            <div class="case__stat-value"><span data-countup="40">0</span>%</div>
+            <p class="case__stat-label">da demanda de pesquisas disponíveis era de fato concluída</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== PROCESSO / DOUBLE DIAMOND ===================== -->
-    <section class="case__section case__section--dark">
-      <div class="container">
-        <div class="case__section-head reveal" style="max-width:56ch;">
+    <!-- ===================== SLIDE 3 · PROCESSO ===================== -->
+    <section class="slide case__section--dark" id="slide-3">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">02 · Processo</span>
           <h2 class="case__section-title">Como conduzi o projeto</h2>
           <p class="case__section-lead">
-            Optei pelo Double Diamond por um motivo prático: como ninguém ali tinha uma leitura
-            clara do problema, valia mais a pena investir tempo em imersão e definição do que
-            correr direto para telas. Cada divergência (entender o problema, depois imaginar
-            soluções) só fechava depois de validar com o time e, principalmente, com quem usa
-            o app todos os dias.
+            Optei pelo Double Diamond para estruturar um contexto com pouca clareza inicial,
+            priorizando entendimento profundo e definição antes da interface.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Assim, cada ciclo de divergência e convergência foi validado em conjunto com o time e
+            diretamente com quem utiliza o app no dia a dia.
           </p>
         </div>
+      </div>
 
-        <div class="case__steps">
-          <div class="case__step reveal">
-            <span class="case__step-num">Entender</span>
-            <h3 class="case__step-title">Imersão</h3>
-            <p>Entrevistas com o time interno e com pricers em campo, mapeamento do fluxo operacional.</p>
-          </div>
-          <div class="case__step reveal">
-            <span class="case__step-num">Definir</span>
-            <h3 class="case__step-title">Priorização</h3>
-            <p>Consolidação dos problemas, persona e nova arquitetura de informação.</p>
-          </div>
-          <div class="case__step reveal">
-            <span class="case__step-num">Idear</span>
-            <h3 class="case__step-title">Wireframes</h3>
-            <p>Benchmarking com concorrentes e estruturação do novo fluxo de pesquisa.</p>
-          </div>
-          <div class="case__step reveal">
-            <span class="case__step-num">Testar &amp; medir</span>
-            <h3 class="case__step-title">Prototipação</h3>
-            <p>UI de alta fidelidade e teste de usabilidade com taxa de sucesso de navegação.</p>
-          </div>
-        </div>
-
-        <div class="case__figure reveal" style="background:#fff;">
-          <img src="assets/images/cases/Cases selecionados/price-survey/double-diamond.jpg" alt="Diagrama do Double Diamond aplicado ao projeto: Entender, Definir, Idear, Testar e Medir" />
-        </div>
+      <div class="slide__stage">
+        <figure class="case__diamond reveal">
+          <img src="assets/images/cases/Cases selecionados/price-survey/double-diamond.svg" alt="Diagrama do Double Diamond: do Desafio até a Solução, passando por Imersão e Definição no primeiro losango e Ideação e Prototipação no segundo. Abaixo, as quatro etapas: Entender, Definir, Idear e Testar e Medir." />
+          <figcaption class="case__figure-caption">Dois ciclos de abrir para explorar e fechar para decidir: um sobre o problema, outro sobre a solução.</figcaption>
+        </figure>
       </div>
     </section>
 
-    <!-- ===================== IMERSÃO: TIME INTERNO ===================== -->
-    <section class="case__section">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 4 · ENTENDER: OPERAÇÃO INTERNA ===================== -->
+    <section class="slide" id="slide-4">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">03 · Entender</span>
           <h2 class="case__section-title">Primeiro, entender a operação por trás do app</h2>
           <p class="case__section-lead">
-            Antes de falar com quem usa o app na rua, conversei com quem lida com a
-            consequência disso todos os dias: operação, suporte, qualidade e financeiro. Os
-            nomes das pessoas entrevistadas foram trocados para preservar a privacidade de
-            cada uma.
+            Antes de falar com quem usa o app na rua, conversei com quem lida com a consequência
+            disso todos os dias: operação, suporte, qualidade e financeiro.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            A operação girava em torno de uma planilha viva: um painel interno reunia o que os
+            pricers coletavam e virava métrica para as empresas contratantes, mas a curadoria por
+            trás disso era quase toda manual. Um time pequeno analisava, em média, 800 itens por
+            dia: checando qualidade da imagem, cruzando geolocalização para pegar tentativa de
+            fraude e liberando o pagamento via Pix, um a um.
+          </p>
+          <p class="case__note" style="margin-top:1.5rem;">
+            Nomes e fotos de perfil são fictícios; só o teor das falas foi mantido.
           </p>
         </div>
+      </div>
 
-        <p class="case__text">
-          A operação girava em torno de uma planilha viva: um painel interno reunia o que os
-          pricers coletavam e virava métrica para as empresas contratantes — mas a curadoria
-          por trás disso era quase toda manual. Um time pequeno analisava, em média,
-          <strong>800 itens por dia</strong>: checando qualidade da imagem, cruzando geolocalização
-          para pegar tentativa de fraude e liberando o pagamento via Pix, um a um. "A gente
-          filtra imagem, cuida de GPS falso, olha qualidade — e isso é muito manual", resumiu
-          Patrícia Ramos, que na época liderava a operação e já tinha passado por praticamente
-          todas as frentes do time.
-        </p>
-        <p class="case__text">
-          Do lado do suporte, o volume de dúvidas era o maior sintoma. Camila Duarte e Bruna
-          Castro, que dividiam o atendimento ao longo do dia, contavam receber uma quantidade
-          "gigante" de mensagens repetidas: gente tirando foto errada, preenchendo valor
-          errado, sem entender por que uma pesquisa tinha sido reprovada. "Muita gente ainda
-          não sabe que pode simplesmente abrir uma pesquisa própria, e a comunicação sobre
-          pagamento é o que mais gera dúvida", explicou Bruna. Já Rafael Nunes, do time de
-          qualidade, apontava um erro recorrente de instrução: "em vez de fotografar a etiqueta
-          de preço, o pricer às vezes fotografa o produto — falta um passo a passo mais claro
-          dentro do próprio fluxo."
-        </p>
-
-        <div class="case__cards" style="margin-top:2.5rem;">
-          <div class="case__card reveal">
-            <h4>Pagamento manual e disperso</h4>
-            <p>Um time pequeno processava o Pix de milhares de pricers ativos toda semana, item por item.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Sem estudo prévio com usuários</h4>
-            <p>Todas as decisões de produto até então vinham de suposição interna ou de reclamações pontuais.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Conversão de cadastro baixa</h4>
-            <p>Menos de 2% das pessoas que se cadastravam chegavam a se tornar pricers ativos.</p>
-          </div>
+      <div class="slide__stage">
+        <div class="case__voices">
+          <figure class="case__voice reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+            </div>
+            <blockquote class="case__voice__quote">A gente filtra imagem, cuida de GPS falso, olha qualidade. E isso é muito manual.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/patricia.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Patrícia</b><span>operação e curadoria das pesquisas</span></span>
+            </figcaption>
+          </figure>
+          <figure class="case__voice reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+            </div>
+            <blockquote class="case__voice__quote">As dúvidas por dia são muitas e quase todas básicas: quais botões clicar, como enviar a pesquisa. E no pagamento, ninguém entende que passa por uma etapa de qualidade antes de cair.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/bruno.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Bruno</b><span>atendimento e suporte</span></span>
+            </figcaption>
+          </figure>
+          <figure class="case__voice reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+            </div>
+            <blockquote class="case__voice__quote">Em vez de fotografar a etiqueta de preço, o pricer às vezes fotografa o produto. Falta um passo a passo mais claro dentro do fluxo.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/rafael.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Rafael</b><span>time de qualidade</span></span>
+            </figcaption>
+          </figure>
         </div>
       </div>
     </section>
 
-    <!-- ===================== IMERSÃO: ENTREVISTAS COM PRICERS ===================== -->
-    <section class="case__section case__section--dark">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 5 · ENTENDER: PRICERS EM CAMPO ===================== -->
+    <section class="slide case__section--dark" id="slide-5">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">03 · Entender</span>
           <h2 class="case__section-title">Depois, ouvir quem faz a pesquisa na prática</h2>
           <p class="case__section-lead">
-            Entrevistei pricers com perfis bem diferentes entre si — de quem começou por
-            indicação de família a quem descobriu o app em um grupo de Facebook de
-            pesquisadores de mercado. Os nomes abaixo também são fictícios.
+            Entrevistei pricers com perfis bem diferentes entre si em idade, gênero e escolaridade,
+            de quem começou por indicação de família a quem descobriu o app num grupo de Facebook
+            de pesquisadores de mercado.
           </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Apesar das dores, havia um fato importante: para boa parte desse público, o app
+            representava uma fonte de renda real (e muitas vezes a única alternativa disponível).
+          </p>
+          <p class="case__note" style="margin-top:1.5rem;">Nomes e fotos de perfil são fictícios; só o teor das falas foi mantido.</p>
         </div>
+      </div>
 
-        <div class="case__quotes">
-          <blockquote class="case__quote reveal">
-            <span class="case__quote-mark">"</span>
-            <p>Não tivemos explicação de como fazer uma pesquisa. Fui a um local, faltavam itens,
-            enviei mesmo assim e fiquei com saldo negativo no aplicativo.</p>
-            <cite>Marlene Souza, pricer há poucas semanas</cite>
-          </blockquote>
-          <blockquote class="case__quote reveal">
-            <span class="case__quote-mark">"</span>
-            <p>Pediram uma pesquisa de tinta em um local que só vendia churrasqueira. Fui até lá
-            à toa — foi prejuízo de tempo e de deslocamento.</p>
-            <cite>Iracema Fernandes, pricer autônoma</cite>
-          </blockquote>
-          <blockquote class="case__quote reveal">
-            <span class="case__quote-mark">"</span>
-            <p>No começo tinha muita opção de pesquisa perto de mim. Hoje tenho que sair
-            procurando estabelecimento por fora do app para conseguir fechar o dia.</p>
-            <cite>Wellington Farias, ~150 pesquisas realizadas</cite>
-          </blockquote>
-          <blockquote class="case__quote reveal">
-            <span class="case__quote-mark">"</span>
-            <p>O app não me avisa quando o pagamento entra, só sei porque anoto à parte. Uma
-            loja consta como aprovada, mas não como paga, e fico sem saber o motivo.</p>
-            <cite>Rosana Pires, pricer em tempo parcial</cite>
-          </blockquote>
+      <div class="slide__stage">
+        <div class="case__voices">
+          <figure class="case__voice case__voice--negative reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+              <span class="case__voice__tag">Negativo</span>
+            </div>
+            <blockquote class="case__voice__quote">Não foi porque eu quis fazer errado, foi porque eu não sabia. Faltou uma orientação de como fazer a pesquisa.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/marlene.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Marlene</b><span>pricer há poucas semanas</span></span>
+            </figcaption>
+          </figure>
+          <figure class="case__voice case__voice--negative reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+              <span class="case__voice__tag">Negativo</span>
+            </div>
+            <blockquote class="case__voice__quote">Fui pegar uma pesquisa de refrigeração e o app não localizou a empresa pelo endereço. Quando cheguei, ninguém na loja sabia dizer que orçamento era aquele.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/adriana.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Adriana</b><span>pricer há cerca de um mês</span></span>
+            </figcaption>
+          </figure>
+          <figure class="case__voice case__voice--negative reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+              <span class="case__voice__tag">Negativo</span>
+            </div>
+            <blockquote class="case__voice__quote">No começo tinha muita opção de pesquisa. Hoje o rendimento caiu, tenho que sair procurando estabelecimento por fora do app.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/wellington.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Wellington</b><span>cerca de 150 pesquisas realizadas</span></span>
+            </figcaption>
+          </figure>
+          <figure class="case__voice case__voice--positive reveal">
+            <div class="case__voice__top">
+              <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+              <span class="case__voice__tag">Positivo</span>
+            </div>
+            <blockquote class="case__voice__quote">Estava sem dinheiro para o dia a dia. Com o pagamento semanal, nunca mais passei por essa necessidade.</blockquote>
+            <figcaption class="case__voice__person">
+              <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/price-survey/avatares/rosana.svg" alt="" /></span>
+              <span class="case__voice__id"><b>Rosana</b><span>pricer em tempo parcial</span></span>
+            </figcaption>
+          </figure>
         </div>
-
-        <p class="case__text" style="margin-top:2.5rem; max-width:74ch;">
-          Apesar das dores, havia algo importante nas entrelinhas: para boa parte desse
-          público, o app representava uma fonte de renda real e bem-vinda — muitas vezes a
-          única alternativa flexível disponível. Isso reforçou que o problema não era o
-          modelo de negócio, e sim a experiência em torno dele: falta de instrução no início,
-          pesquisas direcionadas para o lugar errado, ausência de notificações, e um fluxo
-          financeiro que ninguém conseguia acompanhar dentro do próprio app.
-        </p>
       </div>
     </section>
 
-    <!-- ===================== PROBLEMAS MAPEADOS ===================== -->
-    <section class="case__section">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 6 · DEFINIR: PROBLEMAS ===================== -->
+    <section class="slide" id="slide-6">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">04 · Definir</span>
-          <h2 class="case__section-title">Cruzando as duas pontas: os problemas que ficaram claros</h2>
+          <h2 class="case__section-title">Problemas que ficaram claros</h2>
           <p class="case__section-lead">
-            Com as conversas internas e as entrevistas com pricers lado a lado, consolidei tudo
-            em um mural colaborativo para agrupar os problemas por tema — e priorizar o que
-            realmente movia o ponteiro.
+            Com as conversas internas e as entrevistas com pricers lado a lado, consolidei tudo em
+            um mural colaborativo para agrupar os problemas por tema e facilitar a priorização.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Seis temas se sustentaram como recorrentes. As avaliações públicas na Play Store
+            reforçavam esse quadro: ao lado das queixas de pagamento, reclamações de navegação
+            confusa e do mapa apareciam com frequência.
           </p>
         </div>
+      </div>
 
+      <div class="slide__stage">
         <div class="case__cards">
           <div class="case__card reveal">
-            <h4>Comunicação quebrada</h4>
-            <p>Pricer não é avisado quando uma pesquisa é reprovada, nem entende claramente o que vai receber.</p>
+            <h4>Falta de comunicação</h4>
+            <p>O pricer não é avisado quando uma pesquisa é reprovada, nem entende claramente o que vai receber.</p>
           </div>
           <div class="case__card reveal">
             <h4>Tecnologia instável</h4>
-            <p>GPS impreciso, app não funciona offline, alto consumo de bateria e de dados.</p>
+            <p>GPS impreciso, app sem funcionamento offline, alto consumo de bateria e de dados.</p>
           </div>
           <div class="case__card reveal">
             <h4>Fluxo confuso</h4>
-            <p>Difícil diferenciar "enviar um item" de "finalizar a pesquisa"; linguagem pouco acessível para um público de baixa afinidade digital.</p>
+            <p>Difícil diferenciar "enviar um item" de "finalizar a pesquisa". Linguagem pouco acessível para um público de baixa afinidade digital.</p>
           </div>
           <div class="case__card reveal">
             <h4>Operação sobrecarregada</h4>
-            <p>Pagamento via Pix quase todo manual para milhares de pricers ativos, processo pouco escalável.</p>
+            <p>Pagamento semanal via Pix quase todo manual, feito um a um. Um processo trabalhoso e pouco escalável.</p>
           </div>
           <div class="case__card reveal">
             <h4>Demanda mal distribuída</h4>
-            <p>Pesquisas concentradas em poucas regiões, deixando pricers de outras áreas sem nada disponível.</p>
+            <p>Pesquisas concentradas em poucas regiões, dificultando o acesso a pesquisas para pricers de lugares mais distantes.</p>
           </div>
           <div class="case__card reveal">
             <h4>Credibilidade e segurança</h4>
-            <p>Tentativas frequentes de burlar geolocalização e baixa conversão no cadastro de novos pricers.</p>
+            <p>Tentativas frequentes de burlar a geolocalização, com conta compartilhada ou o pricer em dois lugares ao mesmo tempo.</p>
           </div>
         </div>
-
-        <div class="case__figure reveal">
-          <img src="assets/images/cases/Cases selecionados/price-survey/problemas.jpg" alt="Mural colaborativo com os problemas mapeados durante a etapa de definição, agrupados por tema" />
-        </div>
-        <p class="case__figure-caption">Registro do mural de priorização de problemas, montado com o time durante a etapa de definição.</p>
       </div>
     </section>
 
-    <!-- ===================== PERSONA + ARQUITETURA ===================== -->
-    <section class="case__section case__section--dark">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 7 · DEFINIR: PERSONA E ARQUITETURA ===================== -->
+    <section class="slide case__section--dark" id="slide-7">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">04 · Definir</span>
           <h2 class="case__section-title">Persona e nova arquitetura de informação</h2>
           <p class="case__section-lead">
-            Consolidei os pontos em comum das entrevistas em uma persona guia — para manter o
-            time olhando para uma pessoa real e não para uma média abstrata de usuário — e
-            simplifiquei a estrutura do app em quatro pilares claros de navegação.
+            Consolidei os pontos em comum das entrevistas em uma persona guia, para manter o time
+            olhando para uma pessoa real e não para uma média abstrata de usuário.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            A arquitetura antiga misturava pesquisa, pagamento e perfil sem hierarquia clara. A
+            proposta nova organiza tudo em torno do que o pricer precisa decidir a cada momento:
+            onde encontrar uma pesquisa, como executá-la passo a passo, e como acompanhar o que já
+            ganhou, sem sair do app para anotar em outro lugar.
           </p>
         </div>
+      </div>
 
-        <div class="case__figure reveal" style="background:#fff;">
-          <img src="assets/images/cases/Cases selecionados/price-survey/persona.jpg" alt="Persona Elizete Costa, 50 anos, autônoma de Campinas-SP, com objetivos, oportunidades e dores mapeadas" />
-        </div>
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/price-survey/persona.jpg" alt="Persona Elizete Costa, 50 anos, autônoma de Campinas-SP, com objetivos, oportunidades e dores mapeadas a partir das entrevistas" />
+                </div>
+                <p class="case__figure-caption">Persona guia, construída a partir dos pontos em comum das entrevistas.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/price-survey/fluxograma.jpg" alt="Fluxograma da nova arquitetura de informação, organizada em Login, Pesquisas, Carteira e Perfil" />
+                </div>
+                <p class="case__figure-caption">Nova arquitetura em quatro pilares claros de navegação.</p>
+              </div>
+            </div>
+          </div>
 
-        <p class="case__text" style="margin-top:2rem; max-width:74ch;">
-          A arquitetura antiga misturava pesquisa, pagamento e perfil sem uma hierarquia clara.
-          A proposta nova organiza tudo em torno do que o pricer realmente precisa decidir a
-          cada momento: onde encontrar uma pesquisa (lista ou mapa), como executá-la passo a
-          passo, e como acompanhar o que já ganhou — sem precisar sair do app para anotar em
-          outro lugar.
-        </p>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
 
-        <div class="case__figure reveal" style="background:#fff;">
-          <img src="assets/images/cases/Cases selecionados/price-survey/fluxograma.jpg" alt="Fluxograma da nova arquitetura de informação: Login, Pesquisas, Perfil e Carteira" />
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para a persona"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o fluxograma"></button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== BENCHMARKING ===================== -->
-    <section class="case__section">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 8 · IDEAR: BENCHMARKING ===================== -->
+    <section class="slide" id="slide-8">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">05 · Idear</span>
           <h2 class="case__section-title">Benchmarking com quatro concorrentes diretos</h2>
           <p class="case__section-lead">
             Analisei outros apps de cliente oculto e coleta de dados em campo para entender
-            padrões de mercado — o que costuma gerar reclamação e o que costuma gerar
-            confiança nesse tipo de produto.
+            padrões de mercado: o que costuma gerar reclamação e o que costuma gerar confiança
+            nesse tipo de produto.
           </p>
+          <ul class="case__premises">
+            <li><strong>Padrão de reclamação:</strong> bugs no cadastro e login, poucas pesquisas disponíveis e demora ou falha no pagamento se repetem nos quatro apps.</li>
+            <li><strong>Padrão de elogio:</strong> quando o pagamento é correto e no prazo, a percepção melhora mesmo com falhas visuais.</li>
+            <li><strong>Direção adotada:</strong> priorizar estabilidade e transparência financeira antes de investir em funcionalidades novas.</li>
+          </ul>
         </div>
+      </div>
 
-        <div class="case__cards" style="margin-bottom:2.5rem;">
-          <div class="case__card reveal">
-            <h4>Padrão de reclamação</h4>
-            <p>Bugs no cadastro/login, poucas pesquisas disponíveis e demora ou falha no pagamento se repetem nos quatro apps analisados.</p>
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-vidi.jpg" alt="Benchmarking do app Vidi Pesquisa, com notas neutra, negativa, positiva e melhorias sugeridas" />
+                </div>
+                <p class="case__figure-caption">Vidi Pesquisa: bugs de login e cadastro e poucas pesquisas puxam a nota. Os elogios são quase todos sobre pagamento em dia.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-conta-pra-gente.jpg" alt="Benchmarking do app Conta Pra Gente" />
+                </div>
+                <p class="case__figure-caption">Conta Pra Gente: trava e tem falhas de usabilidade, e muita gente não consegue ser aceita em pesquisa nenhuma. O que salva é o suporte.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-shopper-experience.jpg" alt="Benchmarking do app Shopper Experience" />
+                </div>
+                <p class="case__figure-caption">Shopper Experience: muitos bugs e pesquisas complexas ou inexistentes. Funciona bem só para quem passa da barreira inicial.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-onyou.jpg" alt="Benchmarking do app OnYou" />
+                </div>
+                <p class="case__figure-caption">OnYou: a coleta offline é o ponto forte, mas o pagamento é baixo para o esforço e o app consome muita bateria e dados.</p>
+              </div>
+            </div>
           </div>
-          <div class="case__card reveal">
-            <h4>Padrão de elogio</h4>
-            <p>Quando o pagamento é correto e no prazo, a percepção do app melhora mesmo com falhas visuais.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Direção adotada</h4>
-            <p>Priorizar estabilidade e transparência financeira antes de investir em funcionalidades novas.</p>
-          </div>
-        </div>
 
-        <div class="case__figure reveal">
-          <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-vidi.jpg" alt="Benchmarking do app Vidi Pesquisa: notas neutra, negativa, positiva e melhorias sugeridas" />
-        </div>
-        <div class="case__figure reveal">
-          <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-conta-pra-gente.jpg" alt="Benchmarking do app Conta Pra Gente" />
-        </div>
-        <div class="case__figure reveal">
-          <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-shopper-experience.jpg" alt="Benchmarking do app Shopper Experience" />
-        </div>
-        <div class="case__figure reveal">
-          <img src="assets/images/cases/Cases selecionados/price-survey/benchmark-onyou.jpg" alt="Benchmarking do app OnYou" />
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Concorrente anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo concorrente">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o benchmark 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o benchmark 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para o benchmark 3"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para o benchmark 4"></button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== WIREFRAMES ===================== -->
-    <section class="case__section case__section--dark">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 9 · IDEAR: WIREFRAMES ===================== -->
+    <section class="slide case__section--dark" id="slide-9">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">05 · Idear</span>
           <h2 class="case__section-title">Wireframes: um passo a passo em vez de um formulário só</h2>
           <p class="case__section-lead">
             A maior mudança estrutural foi quebrar o preenchimento de uma pesquisa em etapas
-            curtas e sequenciais, com barra de progresso — em vez de um fluxo único onde era
-            fácil se perder ou não entender o que já tinha sido feito.
+            curtas e sequenciais, com barra de progresso, em vez de um fluxo único onde era fácil
+            se perder ou não entender o que já tinha sido feito.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Também deixei lista e mapa como duas formas visíveis de encontrar as pesquisas
+            disponíveis. Antes era confuso: existia uma aba Mapa na navbar e, ainda por cima, um
+            ícone no canto da tela pra alternar. Quase ninguém entendia como aquilo funcionava.
           </p>
         </div>
+      </div>
 
-        <div class="case__wireframe-grid">
-          <img src="assets/images/cases/Cases selecionados/price-survey/wf-01-lista-locais.png" alt="Wireframe: lista de locais disponíveis" />
-          <img src="assets/images/cases/Cases selecionados/price-survey/wf-02-mapa.png" alt="Wireframe: mapa de locais" />
-          <img src="assets/images/cases/Cases selecionados/price-survey/wf-03-pesquisas-local.png" alt="Wireframe: pesquisas de um local" />
-          <img src="assets/images/cases/Cases selecionados/price-survey/wf-04-itens-pesquisa.png" alt="Wireframe: itens da pesquisa" />
-          <img src="assets/images/cases/Cases selecionados/price-survey/wf-05-tirar-foto.png" alt="Wireframe: tirar foto do item" />
-          <img src="assets/images/cases/Cases selecionados/price-survey/wf-06-formulario-item.png" alt="Wireframe: formulário do item" />
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel stage-carousel--screens" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/wf-01-lista-locais.png" alt="Wireframe da lista de locais disponíveis" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/wf-02-mapa.png" alt="Wireframe do mapa de locais" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/wf-03-pesquisas-local.png" alt="Wireframe das pesquisas de um local" /></div>
+                </div>
+                <p class="case__figure-caption">Achar uma pesquisa: por lista, por mapa, e as pesquisas de cada local.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/wf-04-itens-pesquisa.png" alt="Wireframe dos itens da pesquisa" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/wf-05-tirar-foto.png" alt="Wireframe da captura de foto do item" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/wf-06-formulario-item.png" alt="Wireframe do formulário do item" /></div>
+                </div>
+                <p class="case__figure-caption">Fazer a pesquisa: itens, foto da etiqueta e preenchimento, um passo por vez.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Grupo anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo grupo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o grupo 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o grupo 2"></button>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== UI FINAL / STYLE GUIDE ===================== -->
-    <section class="case__section">
-      <div class="container">
-        <div class="case__section-head reveal">
+    <!-- ===================== SLIDE 10 · PROTOTIPAR: STYLE GUIDE ===================== -->
+    <section class="slide" id="slide-10">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
           <span class="case__section-num">06 · Prototipar</span>
           <h2 class="case__section-title">Interface final: menos texto, mais leitura visual</h2>
           <p class="case__section-lead">
-            O style guide ficou deliberadamente enxuto — poucos componentes, alto contraste e
-            navegação inferior reduzida a três destinos (Carteira, Pesquisas e Perfil). Isso
-            respondia diretamente ao perfil de usuário mapeado nas entrevistas: pessoas que
-            escaneiam a tela em vez de ler blocos de instrução.
+            O style guide ficou deliberadamente enxuto: poucos componentes, alto contraste e
+            navegação inferior reduzida a três destinos, Carteira, Pesquisas e Perfil.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Isso respondia direto ao perfil mapeado nas entrevistas: pessoas que escaneiam a tela
+            em vez de ler blocos de instrução. Mantive a paleta em azul, cor já associada à marca,
+            mas reduzi a quantidade de elementos coloridos competindo por atenção. A tipografia
+            Barlow ganhou uma escala mais clara de pesos para diferenciar título, valor e texto de
+            apoio sem depender só de cor.
           </p>
         </div>
+      </div>
 
-        <div class="case__split" style="align-items:center;">
-          <div>
-            <p class="case__text">
-              Mantive a paleta em azul, cor já associada à marca, mas reduzi a quantidade de
-              elementos coloridos competindo por atenção na mesma tela. A tipografia Barlow
-              ganhou uma escala mais clara de pesos, para diferenciar título, valor e texto de
-              apoio sem depender só de cor.
-            </p>
-          </div>
-          <div class="case__split-media">
-            <img src="assets/images/cases/Cases selecionados/price-survey/style-guide.jpg" alt="Style guide do Price Survey: inputs, botões, seleção, barra inferior e escala tipográfica" />
-          </div>
+      <div class="slide__stage">
+        <div class="case__figure" style="background:#fff;">
+          <img src="assets/images/cases/Cases selecionados/price-survey/style-guide.jpg" alt="Style guide do Price Survey: inputs, botões, seleção, barra inferior e escala tipográfica" />
         </div>
+        <p class="case__figure-caption">Style guide enxuto: poucos componentes, alto contraste e uma barra inferior de três destinos.</p>
+      </div>
+    </section>
 
-        <p class="case__text" style="margin-top:3rem;">
-          O fluxo de uma pesquisa foi reorganizado em etapas curtas — do momento em que o
-          pricer escolhe o local até a confirmação de que tudo foi enviado com sucesso:
-        </p>
+    <!-- ===================== SLIDE 11 · PROTOTIPAR: O FLUXO ===================== -->
+    <section class="slide case__section--dark" id="slide-11">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">06 · Prototipar</span>
+          <h2 class="case__section-title">O fluxo de uma pesquisa, do local ao envio</h2>
+          <p class="case__section-lead">
+            O fluxo foi reorganizado em etapas curtas, do momento em que o pricer escolhe o local
+            até a confirmação de que tudo foi enviado com sucesso.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            A carteira já existia, mas ficava como um card sem destaque dentro das pesquisas.
+            Passou a ser um item fixo do menu: assim que termina a pesquisa, o pricer vê o saldo,
+            os dados de recebimento e o andamento de cada pagamento no mesmo lugar, sem precisar
+            anotar por fora.
+          </p>
+        </div>
+      </div>
 
-        <div class="case__gallery" data-lenis-prevent>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-01-pre-login.png" alt="Tela de boas-vindas antes do login" loading="lazy" />
-            <p class="case__gallery-caption">Boas-vindas</p>
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel stage-carousel--screens" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-01-pre-login.png" alt="Tela de boas-vindas antes do login" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-02-login.png" alt="Tela de login" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-03-lista-pesquisas.png" alt="Lista de pesquisas disponíveis" /></div>
+                </div>
+                <p class="case__figure-caption">Entrada: boas-vindas, login e a lista de pesquisas.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-04-mapa-pesquisas.png" alt="Mapa de pesquisas disponíveis" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-05-lista-itens.png" alt="Lista de itens de uma pesquisa" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-06-tirar-foto.png" alt="Tela de captura de foto da etiqueta de preço" /></div>
+                </div>
+                <p class="case__figure-caption">Escolher e começar: mapa, itens da pesquisa e captura da etiqueta.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-07-confirmar-foto.png" alt="Tela de confirmação da foto tirada" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-08-forms-item.png" alt="Formulário com o preço do item" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-09-item-concorrente.png" alt="Pergunta sobre item de marca concorrente" /></div>
+                </div>
+                <p class="case__figure-caption">Preencher: confirmar a foto, dados do item e item concorrente.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-10-revisao-pesquisa.png" alt="Tela de revisão do item antes do envio" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-11-confirmacao.png" alt="Confirmação de pesquisa finalizada com sucesso" /></div>
+                  <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-12-carteira-full.png" alt="Carteira com saldo, dados de recebimento e histórico de pagamentos" /></div>
+                </div>
+                <p class="case__figure-caption">Fechar: revisão, confirmação e a carteira dentro do app.</p>
+              </div>
+            </div>
           </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-02-login.png" alt="Tela de login" loading="lazy" />
-            <p class="case__gallery-caption">Login</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-03-lista-pesquisas.png" alt="Lista de pesquisas disponíveis" loading="lazy" />
-            <p class="case__gallery-caption">Lista de pesquisas</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-04-mapa-pesquisas.png" alt="Mapa de pesquisas disponíveis" loading="lazy" />
-            <p class="case__gallery-caption">Mapa de pesquisas</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-05-lista-itens.png" alt="Lista de itens de uma pesquisa" loading="lazy" />
-            <p class="case__gallery-caption">Itens da pesquisa</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-06-tirar-foto.png" alt="Tela de captura de foto da etiqueta de preço" loading="lazy" />
-            <p class="case__gallery-caption">Tirar a foto</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-07-confirmar-foto.png" alt="Tela de confirmação da foto tirada" loading="lazy" />
-            <p class="case__gallery-caption">Confirmar foto</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-08-forms-item.png" alt="Formulário com preço do item" loading="lazy" />
-            <p class="case__gallery-caption">Dados do item</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-09-item-concorrente.png" alt="Pergunta sobre item de marca concorrente" loading="lazy" />
-            <p class="case__gallery-caption">Item concorrente</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-10-revisao-pesquisa.png" alt="Tela de revisão do item antes do envio" loading="lazy" />
-            <p class="case__gallery-caption">Revisão</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-11-confirmacao.png" alt="Confirmação de pesquisa finalizada com sucesso" loading="lazy" />
-            <p class="case__gallery-caption">Pesquisa concluída</p>
-          </div>
-          <div class="case__gallery-item">
-            <img src="assets/images/cases/Cases selecionados/price-survey/ui-12-carteira-full.png" alt="Carteira com saldo, dados de recebimento e histórico de pagamentos" loading="lazy" />
-            <p class="case__gallery-caption">Carteira</p>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Grupo anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo grupo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o grupo 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o grupo 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para o grupo 3"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para o grupo 4"></button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===================== TESTE DE USABILIDADE ===================== -->
-    <section class="case__section case__section--dark">
-      <div class="container">
-        <div class="case__section-head reveal">
-          <span class="case__section-num">07 · Testar &amp; medir</span>
-          <h2 class="case__section-title">Teste de usabilidade com pricers reais</h2>
+    <!-- ===================== SLIDE 11b · PROTOTIPAR: ANTES E DEPOIS ===================== -->
+    <section class="slide case__section--dark" id="slide-11b">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">06 · Prototipar</span>
+          <h2 class="case__section-title">Do app antigo ao redesenho</h2>
           <p class="case__section-lead">
-            Rodei um teste moderado com cinco participantes — nomes trocados abaixo —
-            navegando pelo protótipo em tarefas que iam desde alternar entre lista e mapa até
-            entender o status de um pagamento na carteira.
+            O redesenho reorganizou a navbar: o mapa saiu, a Carteira entrou, o Perfil ficou só
+            com os ajustes, e o formulário de item virou um passo a passo.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            "Pesquisas" e "Mapa" eram duas abas da navbar para o mesmo conteúdo, e quase ninguém
+            entendia que a aba Mapa também trazia pesquisas pra fazer. O mapa virou uma
+            alternância flutuante dentro de Pesquisas, e a vaga na navbar foi para a Carteira,
+            que antes não tinha um lugar próprio: era um atalho no topo das pesquisas e uma tela
+            dentro do Perfil, misturada com as configurações e o "sair da conta".
           </p>
         </div>
+      </div>
 
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel stage-carousel--screens stage-carousel--pairs" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <figure class="case__shot case__shot--before">
+                    <figcaption>Antes</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/old-lista.png" alt="Tela antiga de Pesquisas: lista de estabelecimentos, com um ícone pouco claro no canto superior direito para trocar para o mapa" /></div>
+                  </figure>
+                  <figure class="case__shot case__shot--after">
+                    <figcaption>Depois</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-03-lista-pesquisas.png" alt="Tela nova de pesquisas: navbar com Carteira no lugar do Mapa, botão flutuante para alternar lista e mapa, e uma faixa colorida por proximidade em cada item" /></div>
+                  </figure>
+                </div>
+                <p class="case__figure-caption">Encontrar uma pesquisa. Na lista nova, uma faixa por proximidade em cada item: do verde (perto) ao vermelho (longe).</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <figure class="case__shot case__shot--before">
+                    <figcaption>Antes</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/old-carteira.png" alt="Carteira antiga, dentro da aba Perfil: Minha conta, com saldo total, antecipar pagamento e uma lista de pesquisas recentes" /></div>
+                  </figure>
+                  <figure class="case__shot case__shot--after">
+                    <figcaption>Depois</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-12-carteira-full.png" alt="Carteira nova, com aba própria na navbar: saldo a receber, pesquisas em análise, dados de recebimento e histórico com o status de cada pesquisa" /></div>
+                  </figure>
+                </div>
+                <p class="case__figure-caption">A carteira. De uma tela sem destaque, dentro do Perfil, para uma aba própria na navbar, com saldo a receber, dados de recebimento e o status de cada pesquisa.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <figure class="case__shot case__shot--before">
+                    <figcaption>Antes</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/old-form.png" alt="Formulário antigo do item, com marca, preço, preço de promoção, foto e um segundo produto, tudo numa tela só" /></div>
+                  </figure>
+                  <figure class="case__shot case__shot--after">
+                    <figcaption>Depois</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-08-forms-item.png" alt="Formulário novo do item, um campo por vez, com barra de progresso no topo" /></div>
+                  </figure>
+                </div>
+                <p class="case__figure-caption">Preencher um item: de um formulário único e longo para um passo por vez, com barra de progresso.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <figure class="case__shot case__shot--before">
+                    <figcaption>Antes</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/old-configuracoes.png" alt="Tela antiga de Configurações, escondida atrás de um ícone de engrenagem: lista de itens como editar dados bancários, editar dados do Pix, trocar senha e sair da conta" /></div>
+                  </figure>
+                  <figure class="case__shot case__shot--after">
+                    <figcaption>Depois</figcaption>
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/price-survey/ui-13-perfil.png" alt="Aba Perfil nova, com foto e nome no topo e uma lista de cards: dados pessoais, dados de recebimento, notificações, sugerir novos locais, ajuda, sobre e sair" /></div>
+                  </figure>
+                </div>
+                <p class="case__figure-caption">O Perfil. As configurações saíram de trás de um ícone de engrenagem para uma aba própria, com dados pessoais, recebimento, notificações e ajuda numa lista só.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Comparação anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima comparação">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Encontrar uma pesquisa"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="A carteira"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Preencher um item"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="O perfil"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 12 · TESTAR: OS NÚMEROS ===================== -->
+    <section class="slide" id="slide-12">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">07 · Testar e medir</span>
+          <h2 class="case__section-title">Teste de usabilidade com pricers reais</h2>
+          <p class="case__section-lead">
+            Rodei um teste moderado com cinco participantes navegando pelo protótipo, em tarefas
+            que iam desde alternar entre lista e mapa até entender o status de um pagamento na
+            carteira.
+          </p>
+          <p class="case__note" style="margin-top:1.5rem;">
+            Teste moderado, remoto, com cinco pricers de perfis diferentes. Os nomes foram trocados.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
         <div class="case__stats">
           <div class="case__stat case__stat--positive reveal">
-            <div class="case__stat-value">81,8%</div>
+            <div class="case__stat-value"><span data-countup="82">0</span>%</div>
             <p class="case__stat-label">de sucesso de navegação nas tarefas propostas</p>
           </div>
           <div class="case__stat case__stat--warning reveal">
-            <div class="case__stat-value">12,7%</div>
-            <p class="case__stat-label">de pontos de atenção — tarefas concluídas com hesitação</p>
+            <div class="case__stat-value"><span data-countup="13">0</span>%</div>
+            <p class="case__stat-label">de pontos de atenção, tarefas concluídas com hesitação</p>
           </div>
           <div class="case__stat case__stat--negative reveal">
-            <div class="case__stat-value">5,5%</div>
+            <div class="case__stat-value"><span data-countup="5">0</span>%</div>
             <p class="case__stat-label">de falhas reais de navegação</p>
           </div>
         </div>
-
-        <p class="case__text" style="margin-top:2.5rem; max-width:74ch;">
-          O achado mais valioso não veio dos números, e sim de observar o comportamento. A
-          participante Adriana, por exemplo, não sentiu falta do botão de alternar entre lista
-          e mapa — mas também não o percebeu quando precisou. Ao longo da sessão, ficou claro
-          que ela escaneava a tela em vez de ler os avisos, pulando textos rapidamente. Isso
-          confirmou, na prática, o que as entrevistas de campo já indicavam: para boa parte do
-          público do Price Survey, informação em texto corrido tem muito menos eficácia do que
-          pistas visuais diretas no fluxo.
-        </p>
-        <p class="case__text" style="max-width:74ch;">
-          Outro ponto recorrente foi a dificuldade de diferenciar "enviar um item" de
-          "finalizar a pesquisa" — dois passos que pareciam a mesma ação para quem estava
-          testando pela primeira vez. Isso virou prioridade imediata de ajuste: deixar mais
-          explícito, com estado visual, o que muda na tela depois de cada ação.
-        </p>
-
-        <div class="case__cards" style="margin-top:1rem;">
-          <div class="case__card reveal">
-            <h4>Priorizar pistas visuais</h4>
-            <p>Reduzir a dependência de texto corrido para orientar o pricer durante o fluxo de pesquisa.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Onboarding em carrossel</h4>
-            <p>Substituir blocos de texto explicativo por um tutorial curto e mais visual no primeiro acesso.</p>
-          </div>
-          <div class="case__card reveal">
-            <h4>Separar envio de finalização</h4>
-            <p>Deixar visualmente distinto o que acontece ao enviar um item x. ao concluir a pesquisa inteira.</p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <!-- ===================== RESULTADOS E APRENDIZADOS ===================== -->
-    <section class="case__section">
-      <div class="container">
-        <div class="case__section-head reveal">
-          <span class="case__section-num">08 · Resultados</span>
-          <h2 class="case__section-title">O que ficou desse projeto</h2>
+    <!-- ===================== SLIDE 12b · TESTAR: MATRIZ DE TAREFAS ===================== -->
+    <section class="slide case__section--dark" id="slide-12b">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">07 · Testar e medir</span>
+          <h2 class="case__section-title">Onde a navegação travou</h2>
           <p class="case__section-lead">
-            Como o trabalho foi feito via agência para o time do Price Survey, não acompanhei
-            os números de produto depois do handoff — mas o processo em si deixou uma base
-            sólida para a decisão de design, apoiada em dado real e não em suposição.
+            Cruzando as onze tarefas do roteiro com os cinco participantes, a fricção se
+            concentrou em dois pontos: pesquisar um produto concorrente e decidir entre enviar um
+            item ou finalizar a pesquisa.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Adriana, uma das pricers que eu já tinha entrevistado em campo, foi quem mais hesitou,
+            inclusive na alternância entre lista e mapa, que os outros quatro fizeram sem parar. O
+            resto do fluxo passou quase limpo.
           </p>
         </div>
+      </div>
 
-        <div class="case__learnings">
-          <div class="case__learning reveal">
-            <span class="case__learning-icon">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Zm-2,15-5-5,1.41-1.41L10,14.17l7.59-7.59L19,8Z"/></svg>
-            </span>
-            <p>Toda a priorização de problemas passou a ter rastro direto até uma fala de
-            entrevista — o que tornou muito mais fácil defender decisões de escopo com o time
-            de engenharia e com o cliente.</p>
-          </div>
-          <div class="case__learning reveal">
-            <span class="case__learning-icon">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Zm-2,15-5-5,1.41-1.41L10,14.17l7.59-7.59L19,8Z"/></svg>
-            </span>
-            <p>O teste de usabilidade validou, com número, uma hipótese que só a entrevista
-            qualitativa não teria comprovado sozinha: esse público responde muito mais a
-            hierarquia visual do que a texto explicativo.</p>
-          </div>
-          <div class="case__learning reveal">
-            <span class="case__learning-icon">
-              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10,10-4.48,10-10S17.52,2,12,2Zm-2,15-5-5,1.41-1.41L10,14.17l7.59-7.59L19,8Z"/></svg>
-            </span>
-            <p>Ficou muito claro, na prática, que pesquisar com o time operacional interno é
-            tão importante quanto pesquisar com o usuário final — boa parte dos problemas
-            "invisíveis" só apareceu nas conversas com suporte e qualidade.</p>
-          </div>
+      <div class="slide__stage">
+        <div class="case__matrix-wrap" data-lenis-prevent>
+          <table class="case__matrix">
+            <thead>
+              <tr>
+                <th scope="col">Tarefa</th>
+                <th scope="col">Anderson</th>
+                <th scope="col">Sílvia</th>
+                <th scope="col">Adriana</th>
+                <th scope="col">Cristina</th>
+                <th scope="col">Fábio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Alternar entre lista e mapa</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--fail" title="Não concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Achar a pesquisa mais próxima</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Ver a lista completa de itens</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Fazer uma pesquisa</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Pesquisar um produto concorrente</td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+                <td><span class="case__mk case__mk--fail" title="Não concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Enviar um item ou finalizar a pesquisa</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+                <td><span class="case__mk case__mk--fail" title="Não concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span></td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Encontrar a carteira</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Entender a etapa de análise</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Preencher os dados bancários</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Ver o status de um pagamento</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+              <tr>
+                <td>Entender um motivo de recusa</td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--warn" title="Concluiu com hesitação"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+                <td><span class="case__mk case__mk--ok" title="Concluiu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <p class="case__note">
-          Nota: para preservar a privacidade das pessoas envolvidas, todos os nomes de
-          colaboradores e pricers citados neste case são fictícios. Dados de negócio
-          sensíveis foram generalizados ou omitidos.
+        <p class="case__matrix-legend">
+          <span><span class="case__mk case__mk--ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> concluiu</span>
+          <span><span class="case__mk case__mk--warn"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="10.5" y="4.5" width="3" height="10" rx="1.5"/><circle cx="12" cy="18.6" r="1.9"/></svg></span> concluiu com hesitação</span>
+          <span><span class="case__mk case__mk--fail"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg></span> não concluiu</span>
         </p>
       </div>
     </section>
 
-    <!-- ===================== CTA FINAL ===================== -->
-    <section class="case__next">
-      <div class="container">
+    <!-- ===================== SLIDE 13 · APRENDIZADOS (teste + processo) ===================== -->
+    <section class="slide" id="slide-13">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">08 · Aprendizados</span>
+          <h2 class="case__section-title">O que ficou do projeto</h2>
+          <p class="case__section-lead">
+            O protótipo foi validado no teste antes do handoff: 82% de sucesso de tarefa, com a
+            fricção concentrada em dois pontos que já tinham plano de ajuste. A implementação
+            ficou com o time do Price Survey e não acompanhei as métricas de produto depois disso.
+          </p>
+          <p class="case__note" style="margin-top:1.5rem;">
+            Para preservar a privacidade das pessoas envolvidas, todos os nomes de colaboradores e
+            pricers citados neste case são fictícios. Dados de negócio sensíveis foram
+            generalizados ou omitidos.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <div class="case__cards case__cards--frentes">
+          <div class="case__card reveal">
+            <span class="case__card-tag">Do teste</span>
+            <h4>Uma persona que eu não costumava encontrar</h4>
+            <p>A maioria dos participantes tinha 35 anos ou mais e baixa escolaridade. Foi um exercício de paciência e empatia, e explica por que pistas visuais valem mais que texto corrido: esse público não lia a tela com calma, só queria concluir a pesquisa.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Do teste</span>
+            <h4>Não precisava validar de novo</h4>
+            <p>O suporte já tinha avisado que "enviar um item" e "finalizar a pesquisa" confundiam as pessoas, mas mantive os botões parecidos mesmo assim. O teste só confirmou um problema que eu já conhecia.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Do processo</span>
+            <h4>Manter o cliente por perto</h4>
+            <p>O time do Price Survey entendia de desenvolvimento, o que ajudou, mas o aprendizado foi validar cada decisão com eles no caminho, não só no fim.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Do processo</span>
+            <h4>Entender um negócio que eu não conhecia</h4>
+            <p>Não sabia como funcionava pesquisa de cliente oculto: empresas contratam pra entender o próprio produto no ponto de venda e de olho na concorrência. Aprender a lógica de um negócio novo é uma das partes mais legais de ser designer.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Do processo</span>
+            <h4>Pesquisar pra dentro vale tanto quanto pra fora</h4>
+            <p>Uma parte considerável dos problemas invisíveis só apareceu nas conversas com suporte, operação e qualidade, não nas entrevistas de campo nem no teste.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 16 · CTA FINAL ===================== -->
+    <section class="slide slide--cta case__section--dark" id="slide-16">
+      <div class="case__next">
         <img src="assets/icons/brands/jv-logo.svg" alt="" class="case__next-logo reveal" />
         <h2 class="case__next-title reveal">Quer ver mais algum outro case ou trocar uma ideia?</h2>
         <div class="case__next-actions">
@@ -633,26 +1036,58 @@
       </div>
     </section>
 
+    </div><!-- /.deck -->
+
+    <!-- Botão de sumário fixo no topo direito da tela. Abre a gaveta
+         (.deck-drawer), que entra pela direita e comprime o slide
+         enquanto está aberta. Handler no fim de js/case-split.js. -->
+    <button type="button" class="deck-summary-btn" id="slideNavSummaryBtn" aria-label="Abrir o sumário do case" aria-haspopup="true" aria-expanded="false" aria-controls="deckDrawer">
+      <svg class="deck-summary-btn__ico deck-summary-btn__ico--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      <svg class="deck-summary-btn__ico deck-summary-btn__ico--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+
+    <aside class="deck-drawer" id="deckDrawer" aria-label="Sumário do case" aria-hidden="true">
+      <p class="deck-drawer__title">Sumário</p>
+      <nav class="deck-drawer__list" aria-label="Etapas do case">
+        <button type="button" data-target="slide-0"><span class="deck-drawer__num">—</span>Início</button>
+        <button type="button" data-target="slide-1"><span class="deck-drawer__num">01</span>Contexto</button>
+        <button type="button" data-target="slide-3"><span class="deck-drawer__num">02</span>Processo</button>
+        <button type="button" data-target="slide-4"><span class="deck-drawer__num">03</span>Entender</button>
+        <button type="button" data-target="slide-6"><span class="deck-drawer__num">04</span>Definir</button>
+        <button type="button" data-target="slide-8"><span class="deck-drawer__num">05</span>Idear</button>
+        <button type="button" data-target="slide-10"><span class="deck-drawer__num">06</span>Prototipar</button>
+        <button type="button" data-target="slide-12"><span class="deck-drawer__num">07</span>Testar e medir</button>
+        <button type="button" data-target="slide-13"><span class="deck-drawer__num">08</span>Aprendizados</button>
+      </nav>
+    </aside>
+
+    <div class="slide-nav" id="slideNav">
+      <button type="button" class="slide-nav__btn" data-dir="up" aria-label="Seção anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+      </button>
+      <span class="slide-nav__counter" id="slideNavCounter" aria-hidden="true">01 / 17</span>
+      <button type="button" class="slide-nav__btn" data-dir="down" aria-label="Próxima seção">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="footer" id="contato">
-    <div class="container">
-      <p class="section__tag section__tag--light">Contato</p>
-      <h2 class="footer__title">Vamos construir algo <em>incrível juntos</em>?</h2>
+  <div class="lightbox" id="lightbox">
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Fechar imagem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+    <button type="button" class="lightbox__arrow lightbox__arrow--prev" id="lightboxPrev" aria-label="Imagem anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button type="button" class="lightbox__arrow lightbox__arrow--next" id="lightboxNext" aria-label="Próxima imagem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
 
-      <div class="footer__actions">
-        <a href="mailto:joaoviniciusdarochasilva@gmail.com" class="btn btn--primary">
-          joaoviniciusdarochasilva@gmail.com
-        </a>
-        <a href="#" class="btn btn--ghost"><svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-      </div>
-
-      <p class="footer__copy">© 2026 João Vinícius. Todos os direitos reservados.</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.25/dist/lenis.min.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/case-split.js"></script>
+  <script src="js/case-lightbox.js"></script>
 </body>
 </html>

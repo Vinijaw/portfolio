@@ -69,8 +69,44 @@
       drawer.setAttribute("aria-hidden", "false");
     };
 
+    // Contadores animados: os <span data-countup> de um slide sobem de 0
+    // até o valor toda vez que ele entra em cena — efeito rápido, só pra
+    // dar um comportamento interativo aos números. data-decimals controla
+    // as casas (renderizadas com vírgula).
+    const fmtCount = (n, dec) =>
+      dec ? n.toFixed(dec).replace(".", ",") : String(Math.round(n));
+
+    const runCountUps = (slide) => {
+      if (!slide) return;
+      slide.querySelectorAll("[data-countup]").forEach((el) => {
+        const target = parseFloat(el.dataset.countup);
+        if (Number.isNaN(target)) return;
+        const dec = parseInt(el.dataset.decimals || "0", 10);
+        if (el._countRAF) cancelAnimationFrame(el._countRAF);
+        if (reducedMotion) {
+          el.textContent = fmtCount(target, dec);
+          return;
+        }
+        const duration = 1500;
+        const t0 = performance.now();
+        const step = (now) => {
+          const p = Math.min(1, (now - t0) / duration);
+          const eased = 1 - Math.pow(1 - p, 3);
+          if (p < 1) {
+            el.textContent = fmtCount(target * eased, dec);
+            el._countRAF = requestAnimationFrame(step);
+          } else {
+            el.textContent = fmtCount(target, dec);
+            el._countRAF = null;
+          }
+        };
+        el._countRAF = requestAnimationFrame(step);
+      });
+    };
+
     const render = () => {
       slides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
+      runCountUps(slides[index]);
       if (navUpBtn) navUpBtn.disabled = index === 0;
       if (navDownBtn) navDownBtn.disabled = index === lastIndex;
       markSummaryCurrent();
@@ -101,6 +137,24 @@
     };
 
     render();
+
+    // Na pilha mobile o render() só roda uma vez, então os contadores dos
+    // outros slides sobem quando entram na viewport.
+    if (isMobile()) {
+      const countObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            runCountUps(entry.target);
+            obs.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.35 }
+      );
+      slides.forEach((slide) => {
+        if (slide.querySelector("[data-countup]")) countObserver.observe(slide);
+      });
+    }
 
     navUpBtn?.addEventListener("click", () => goTo(index - 1));
     navDownBtn?.addEventListener("click", () => goTo(index + 1));

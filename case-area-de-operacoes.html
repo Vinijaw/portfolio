@@ -35,7 +35,6 @@
       </span>
       <h1 class="case-lock__title">Esse case é restrito</h1>
       <p class="case-lock__text">
-        Esse case envolve informações sensíveis de um cliente e não pode ficar aberto ao público.
         Se você recebeu um código de acesso, digite abaixo pra entrar.
       </p>
       <form class="case-lock__form" id="caseGateForm" autocomplete="off">
@@ -182,24 +181,24 @@
 
       <div class="slide__stage">
         <p class="case__text"><strong>Problemas encontrados:</strong></p>
-        <div class="case__cards case__cards--square">
-          <div class="case__card case__card--square reveal">
-            <span class="case__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <div class="case__cards case__cards--frentes">
+          <div class="case__card reveal">
+            <span class="case__frente__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </span>
             <h4>Gargalo técnico</h4>
             <p>Grande parte das solicitações dos clientes virava um chamado para o time de desenvolvimento.</p>
           </div>
-          <div class="case__card case__card--square reveal">
-            <span class="case__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div class="case__card reveal">
+            <span class="case__frente__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
             </span>
             <h4>Risco operacional</h4>
             <p>As alterações eram feitas diretamente no código ou banco de dados, possibilitando um alto risco de falha por erro humano.</p>
           </div>
-          <div class="case__card case__card--square reveal">
-            <span class="case__card-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <div class="case__card reveal">
+            <span class="case__frente__ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
             </span>
             <h4>Modelo insustentável</h4>
             <p>A base de clientes crescia mais rápido que a capacidade do time técnico, aumentando o tempo para resolver as solicitações dos usuários.</p>
@@ -988,18 +987,29 @@
             precisariam de ajuda técnica na primeira vez. É a lacuna entre "parece fácil" e
             "confiança pra executar sozinho".
           </p>
-          <div class="case__quotes case__quotes--compact">
-            <blockquote class="case__quote reveal">
-              <span class="case__quote-mark">"</span>
-              <p>Boa visualização, apenas precisaria praticar algumas vezes para editar com
-              tranquilidade.</p>
-              <cite>Participante 1</cite>
-            </blockquote>
-            <blockquote class="case__quote reveal">
-              <span class="case__quote-mark">"</span>
-              <p>Fácil, intuitiva, prática.</p>
-              <cite>Participante 2</cite>
-            </blockquote>
+          <div class="case__voices case__voices--compact">
+            <figure class="case__voice case__voice--neutral reveal">
+              <div class="case__voice__top">
+                <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+                <span class="case__voice__tag">Neutro</span>
+              </div>
+              <blockquote class="case__voice__quote">Boa visualização, apenas precisaria praticar algumas vezes para editar com tranquilidade.</blockquote>
+              <figcaption class="case__voice__person">
+                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__id"><b>Participante 1</b><span>time de atendimento</span></span>
+              </figcaption>
+            </figure>
+            <figure class="case__voice case__voice--positive reveal">
+              <div class="case__voice__top">
+                <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+                <span class="case__voice__tag">Positivo</span>
+              </div>
+              <blockquote class="case__voice__quote">Fácil, intuitiva, prática.</blockquote>
+              <figcaption class="case__voice__person">
+                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__id"><b>Participante 2</b><span>time de Backoffice</span></span>
+              </figcaption>
+            </figure>
           </div>
           <p class="case__text" style="margin-top:1.5rem;">
             <strong>Ainda assim, nem toda fricção virou ajuste de interface:</strong> a estrutura da
@@ -1061,19 +1071,29 @@
             o retorno de quem usa a área é consistente. Numa falha de Pix que derrubou 57
             transações de uma vez, o time reprocessou todas em lote na hora, sem abrir chamado.
           </p>
-          <div class="case__quotes case__quotes--compact">
-            <blockquote class="case__quote reveal">
-              <span class="case__quote-mark">"</span>
-              <p>Antes eu pegava o ID da instrução, entrava em outra máquina e conferia as flags
-              uma a uma. Levava uns 15 a 20 minutos por caso. Agora é um, dois, aperto um botão e
-              tá indo.</p>
-              <cite>Um dos desenvolvedores acionados para os ajustes</cite>
-            </blockquote>
-            <blockquote class="case__quote reveal">
-              <span class="case__quote-mark">"</span>
-              <p>Três, quatro cliques e a ordem tá reprocessada, sem ninguém mexer no banco.</p>
-              <cite>Líder de engenharia, na review da tribo</cite>
-            </blockquote>
+          <div class="case__voices case__voices--compact">
+            <figure class="case__voice case__voice--positive reveal">
+              <div class="case__voice__top">
+                <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+                <span class="case__voice__tag">Positivo</span>
+              </div>
+              <blockquote class="case__voice__quote">Antes eu pegava o ID da instrução, entrava em outra máquina e conferia as flags uma a uma. Levava uns 15 a 20 minutos por caso. Agora é um, dois, aperto um botão e tá indo.</blockquote>
+              <figcaption class="case__voice__person">
+                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__id"><b>Desenvolvedor</b><span>acionado para os ajustes</span></span>
+              </figcaption>
+            </figure>
+            <figure class="case__voice case__voice--positive reveal">
+              <div class="case__voice__top">
+                <span class="case__voice__mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 7 7 12v5h5v-5H9l2-3.5L10 7Zm7 0-3 5v5h5v-5h-3l2-3.5L17 7Z"/></svg></span>
+                <span class="case__voice__tag">Positivo</span>
+              </div>
+              <blockquote class="case__voice__quote">Três, quatro cliques e a ordem tá reprocessada, sem ninguém mexer no banco.</blockquote>
+              <figcaption class="case__voice__person">
+                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__id"><b>Líder de engenharia</b><span>na review da tribo</span></span>
+              </figcaption>
+            </figure>
           </div>
         </div>
       </div>

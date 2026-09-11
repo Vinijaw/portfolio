@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" role="img" aria-label="Silhueta de pessoa">
+  <rect width="40" height="40" fill="#eef1f2"/>
+  <g fill="#8b969c">
+    <circle cx="20" cy="15.5" r="6.8"/>
+    <path d="M20 24.5c6.3 0 11.5 4.5 11.5 10v.6c-3 2.5-7.1 4-11.5 4s-8.5-1.5-11.5-4v-.6c0-5.5 5.2-10 11.5-10Z"/>
+  </g>
+</svg>

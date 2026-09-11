@@ -252,6 +252,14 @@
   color: var(--color-text-on-dark-muted);
 }
 
+/* Segunda linha do rótulo: contexto secundário, em itálico e mais apagado. */
+.case__stat-note {
+  display: block;
+  margin-top: 0.35rem;
+  font-style: italic;
+  opacity: 0.72;
+}
+
 .case__stat--positive .case__stat-value { color: #2fbf71; }
 .case__stat--warning .case__stat-value { color: #e0a83c; }
 .case__stat--negative .case__stat-value { color: #e0625c; }
@@ -813,6 +821,289 @@
 .case__quotes--compact .case__quote cite {
   margin-top: 0.6rem;
   font-size: 0.78rem;
+}
+
+/* -------------------- Falas de pessoas (com avatar) -------------------- */
+/* Card de comentário/fala: aspas coloridas + rótulo de sentimento no
+   topo, texto no meio, e no rodapé um avatar redondo + nome/descrição.
+   Quando não há foto real, usa uma silhueta padrão (fem/masc/neutra) —
+   os nomes e as imagens de perfil são fictícios, só o teor da fala é
+   real. O sentimento (--negative / --positive / --neutral) é opcional:
+   usado quando a fala carrega uma avaliação (pesquisa de campo, teste
+   de usabilidade); nas falas de stakeholder fica sem rótulo. */
+.case__voices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.case__voice {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.4rem 1.5rem;
+  margin: 0;
+}
+
+.case__section--dark .case__voice {
+  background: var(--color-dark-alt);
+  border-color: var(--color-border-on-dark);
+}
+
+.case__voice__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.case__voice__mark {
+  display: inline-flex;
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__voice__mark {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__voice__mark svg {
+  width: 22px;
+  height: 22px;
+}
+
+.case__voice--negative .case__voice__mark { color: #d64f49; }
+.case__voice--positive .case__voice__mark { color: var(--color-accent-dark); }
+.case__voice--neutral .case__voice__mark { color: #8b969c; }
+
+.case__section--dark .case__voice--negative .case__voice__mark { color: #e0625c; }
+.case__section--dark .case__voice--positive .case__voice__mark { color: var(--color-accent); }
+
+.case__voice__tag {
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.case__voice--negative .case__voice__tag { color: #c9514b; }
+.case__voice--positive .case__voice__tag { color: var(--color-accent-dark); }
+
+.case__section--dark .case__voice__tag { color: var(--color-text-on-dark-muted); }
+.case__section--dark .case__voice--negative .case__voice__tag { color: #e0625c; }
+.case__section--dark .case__voice--positive .case__voice__tag { color: var(--color-accent); }
+
+.case__voice__quote {
+  flex: 1;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.case__section--dark .case__voice__quote {
+  color: var(--color-text-on-dark);
+}
+
+.case__voice__person {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.15rem;
+}
+
+.case__voice__avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+}
+
+.case__section--dark .case__voice__avatar {
+  border-color: var(--color-border-on-dark);
+}
+
+.case__voice__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.case__voice__id {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.3;
+}
+
+.case__voice__id b {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.case__section--dark .case__voice__id b {
+  color: var(--color-text-on-dark);
+}
+
+.case__voice__id span {
+  font-size: 0.76rem;
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__voice__id span {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* Variante compacta pro painel de contexto (mesma lógica do
+   .case__quotes--compact). */
+.case__voices--compact {
+  margin-top: 1.25rem;
+  gap: 0.75rem;
+}
+
+.case__voices--compact .case__voice {
+  background: var(--color-bg-alt);
+  padding: 1rem 1.15rem;
+}
+
+.case__section--dark .case__voices--compact .case__voice {
+  background: var(--color-dark-alt);
+}
+
+.case__voices--compact .case__voice__quote {
+  font-size: 0.88rem;
+}
+
+.case__voices--compact .case__voice__person {
+  margin-top: 0.85rem;
+}
+
+/* -------------------- Matriz de tarefas do teste de usabilidade -------------------- */
+/* Linhas = tarefas do roteiro, colunas = participantes. Cada célula é um
+   selo: concluiu / concluiu com hesitação / não concluiu. Os totais das
+   células batem com os percentuais de sucesso, atenção e falha. */
+.case__matrix-wrap {
+  margin-top: 2rem;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+}
+
+.case__section--dark .case__matrix-wrap {
+  border-color: var(--color-border-on-dark);
+  background: var(--color-dark-alt);
+}
+
+.case__matrix {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.case__matrix th,
+.case__matrix td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.case__section--dark .case__matrix th,
+.case__section--dark .case__matrix td {
+  border-bottom-color: var(--color-border-on-dark);
+}
+
+.case__matrix thead th {
+  font-family: var(--font-display);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.case__section--dark .case__matrix thead th {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__matrix tbody th,
+.case__matrix tbody td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.case__section--dark .case__matrix tbody td:first-child {
+  color: var(--color-text-on-dark);
+}
+
+.case__matrix tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.case__mk {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+}
+
+/* Ícone ocupando bem o círculo — o "!" ficava pequeno demais antes. */
+.case__mk svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 3;
+}
+
+/* Cor cheia + ícone branco: leitura firme e os três estados bem
+   separados. */
+.case__mk--ok { background: #1f9d92; }
+.case__mk--warn { background: #cd8a1e; }
+.case__mk--fail { background: #d6524c; }
+
+.case__section--dark .case__mk--ok { background: #23b3a6; }
+.case__section--dark .case__mk--warn { background: #dc9a2f; }
+.case__section--dark .case__mk--fail { background: #e0625c; }
+
+.case__matrix-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1rem;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+.case__section--dark .case__matrix-legend {
+  color: var(--color-text-on-dark-muted);
+}
+
+.case__matrix-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* A legenda mostra o mesmo selo da célula (círculo + ícone), pra separar
+   os três estados pelo desenho e não só pela cor. */
+.case__matrix-legend .case__mk {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }
 
 /* -------------------- Imagem full-bleed dentro do container -------------------- */
