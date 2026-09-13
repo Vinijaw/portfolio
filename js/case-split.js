@@ -154,6 +154,25 @@
       slides.forEach((slide) => {
         if (slide.querySelector("[data-countup]")) countObserver.observe(slide);
       });
+
+      // "Current" do sumário: sem o controle de scroll do deck, marca a
+      // seção atual pela posição real de rolagem (a última que cruzou a
+      // faixa central da tela), em vez de depender do índice do deck
+      // (que nunca muda sozinho fora do modo apresentação).
+      const spyObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const i = slides.indexOf(entry.target);
+            if (i >= 0) {
+              index = i;
+              markSummaryCurrent();
+            }
+          });
+        },
+        { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+      );
+      slides.forEach((slide) => spyObserver.observe(slide));
     }
 
     navUpBtn?.addEventListener("click", () => goTo(index - 1));
@@ -169,7 +188,14 @@
     drawerItems.forEach((item) => {
       item.addEventListener("click", () => {
         const target = slides.findIndex((s) => s.id === item.dataset.target);
-        if (target >= 0) goTo(target);
+        if (target < 0) return;
+        if (isMobile()) {
+          // Pilha mobile: não existe "trocar de slide", é rolar até a
+          // seção clicada.
+          slides[target].scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+        } else {
+          goTo(target);
+        }
         closeSummary();
       });
     });
@@ -267,6 +293,48 @@
   const CAROUSEL_GAP = 3;
   const CAROUSEL_PEEK = (100 - CAROUSEL_SLIDE_WIDTH) / 2;
 
+  // No mobile, o carrossel de "grupos de telas" (--screens) passa a
+  // andar tela por tela em vez de empilhar as 2-3 telas do grupo numa
+  // janela só (o que gerava um scroll enorme). O --pairs (antes/depois)
+  // fica de fora: ali as duas telas precisam aparecer juntas pra
+  // comparar. Cada imagem vira sua própria parada do carrossel; a
+  // legenda do grupo se repete em todas as telas dele, só troca ao
+  // entrar no próximo grupo.
+  if (window.matchMedia("(max-width: 900px)").matches) {
+    document.querySelectorAll(".stage-carousel--screens[data-carousel]:not(.stage-carousel--pairs)").forEach((carousel) => {
+      const track = carousel.querySelector("[data-carousel-track]");
+      const dotsWrap = carousel.querySelector(".stage-carousel__dots");
+      if (!track) return;
+      const groups = Array.from(track.querySelectorAll(":scope > .stage-carousel__slide"));
+      const flatSlides = [];
+      groups.forEach((group) => {
+        const caption = group.querySelector(".case__figure-caption");
+        const figures = Array.from(group.querySelectorAll(".stage-carousel__screens > .case__figure"));
+        figures.forEach((figure) => {
+          const slide = document.createElement("div");
+          slide.className = "stage-carousel__slide";
+          slide.appendChild(figure);
+          if (caption) slide.appendChild(caption.cloneNode(true));
+          flatSlides.push(slide);
+        });
+      });
+      if (!flatSlides.length) return;
+      track.innerHTML = "";
+      flatSlides.forEach((slide) => track.appendChild(slide));
+      if (dotsWrap) {
+        dotsWrap.innerHTML = "";
+        flatSlides.forEach((_, i) => {
+          const dot = document.createElement("button");
+          dot.type = "button";
+          dot.className = "stage-carousel__dot";
+          dot.dataset.carouselDot = String(i);
+          dot.setAttribute("aria-label", `Ir para a tela ${i + 1}`);
+          dotsWrap.appendChild(dot);
+        });
+      }
+    });
+  }
+
   document.querySelectorAll("[data-carousel]").forEach((carousel) => {
     const track = carousel.querySelector("[data-carousel-track]");
     const slides = Array.from(carousel.querySelectorAll(".stage-carousel__slide"));
@@ -299,6 +367,86 @@
     prevBtn?.addEventListener("click", () => goTo(current - 1));
     nextBtn?.addEventListener("click", () => goTo(current + 1));
     dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
+
+    // Arrastar (touch ou mouse) pra trocar de tela — mesmo padrão do
+    // carrossel de mídia da modal do Playground (js/main.js). No mobile é
+    // o único jeito de navegar aqui: as setas ficam escondidas e viram
+    // esse gesto (ver @media max-width:900px em case-study-split.css).
+    const viewport = carousel.querySelector(".stage-carousel__viewport");
+    let dragging = false;
+    let startX = 0;
+    let lastX = 0;
+    let lastTime = 0;
+    let velocity = 0;
+    let deltaPct = 0;
+    let suppressNextClick = false;
+
+    const onPointerDown = (event) => {
+      if (slides.length < 2 || event.button === 2) return;
+      dragging = true;
+      viewport?.classList.add("is-dragging");
+      if (track) track.style.transition = "none";
+      startX = lastX = event.clientX;
+      lastTime = performance.now();
+      velocity = 0;
+      deltaPct = 0;
+    };
+
+    const onPointerMove = (event) => {
+      if (!dragging || !track) return;
+      const now = performance.now();
+      const dt = now - lastTime || 16;
+      velocity = (event.clientX - lastX) / dt;
+      lastX = event.clientX;
+      lastTime = now;
+
+      const viewportWidth = carousel.getBoundingClientRect().width || 1;
+      deltaPct = ((event.clientX - startX) / viewportWidth) * 100;
+
+      const resting = CAROUSEL_PEEK - current * (CAROUSEL_SLIDE_WIDTH + CAROUSEL_GAP);
+      track.style.transform = `translateX(${resting + deltaPct}%)`;
+    };
+
+    const onPointerUp = () => {
+      if (!dragging) return;
+      dragging = false;
+      viewport?.classList.remove("is-dragging");
+      if (track) track.style.transition = "";
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+      suppressNextClick = Math.abs(lastX - startX) > 6;
+
+      const step = CAROUSEL_SLIDE_WIDTH + CAROUSEL_GAP;
+      const draggedSlides = Math.round(-deltaPct / step);
+      let targetIndex = current + draggedSlides;
+      if (draggedSlides === 0 && Math.abs(velocity) > 0.4) {
+        targetIndex = current + (velocity < 0 ? 1 : -1);
+      }
+      goTo(targetIndex);
+    };
+
+    carousel.addEventListener("pointerdown", (event) => {
+      onPointerDown(event);
+      if (!dragging) return;
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("pointercancel", onPointerUp);
+    });
+
+    // Fase de captura: um arraste não pode ser interpretado como clique
+    // (abriria o lightbox da imagem por baixo do dedo/mouse).
+    carousel.addEventListener(
+      "click",
+      (event) => {
+        if (suppressNextClick) {
+          event.stopPropagation();
+          event.preventDefault();
+          suppressNextClick = false;
+        }
+      },
+      true
+    );
   });
 
   // Slide "As três frentes que priorizamos": os botões no painel trocam

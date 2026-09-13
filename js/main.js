@@ -52,13 +52,17 @@ const nav = document.getElementById("nav");
 
 navToggle.addEventListener("click", () => {
   const isOpen = nav.classList.toggle("is-open");
+  navToggle.classList.toggle("is-open", isOpen);
   navToggle.setAttribute("aria-expanded", String(isOpen));
+  document.body.classList.toggle("nav-open", isOpen);
 });
 
 nav.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => {
     nav.classList.remove("is-open");
+    navToggle.classList.remove("is-open");
     navToggle.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("nav-open");
   });
 });
 
@@ -102,6 +106,35 @@ if (hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     requestAnimationFrame(tick);
   };
   requestAnimationFrame(tick);
+}
+
+// Marcas com quem já trabalhei: o carrossel roda sozinho e o CSS já
+// colore + pausa no :hover — mas touch não tem hover de verdade (o
+// navegador simula um hover "preso" no toque, sem jeito confiável de
+// soltar). Aqui a gente assume o controle: tocar numa marca fixa ela
+// colorida e pausa o carrossel; tocar de novo na mesma solta e volta a
+// rodar sozinho.
+{
+  const brandsMarquee = document.querySelector(".hero__brands-marquee");
+  const brandLinks = document.querySelectorAll(".hero__brand-link");
+  if (brandsMarquee && brandLinks.length) {
+    let pinned = null;
+
+    brandLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (pinned === link) {
+          pinned.classList.remove("is-pinned");
+          pinned = null;
+          brandsMarquee.classList.remove("is-paused");
+        } else {
+          pinned?.classList.remove("is-pinned");
+          pinned = link;
+          pinned.classList.add("is-pinned");
+          brandsMarquee.classList.add("is-paused");
+        }
+      });
+    });
+  }
 }
 
 // Playground: dados de cada bloco. "images" aceita mais de uma entrada assim
@@ -181,6 +214,7 @@ if (playgroundModal) {
   const navPrev = playgroundModal.querySelector(".playground-modal__nav--prev");
   const navNext = playgroundModal.querySelector(".playground-modal__nav--next");
   const dotsEl = playgroundModal.querySelector(".playground-modal__dots");
+  const infoEl = playgroundModal.querySelector(".playground-modal__info");
   const titleEl = playgroundModal.querySelector(".playground-modal__title");
   const descEl = playgroundModal.querySelector(".playground-modal__desc");
   const tagsEl = playgroundModal.querySelector(".playground-modal__tags");
@@ -296,8 +330,34 @@ if (playgroundModal) {
     playgroundModal.classList.remove("is-open");
     playgroundModal.setAttribute("aria-hidden", "true");
     document.body.classList.remove("playground-modal-open");
+    mediaEl.style.height = "";
+    carouselEl.style.transform = "";
+    if (infoEl) infoEl.style.transform = "";
     if (lastFocusedEl) lastFocusedEl.focus();
   };
+
+  // TESTE: no layout mobile, rolar o bloco de texto "recolhe" ele e faz
+  // a mídia crescer (efeito de app bar retrátil) — rolar de volta pro
+  // topo desfaz. Ligado só nessa faixa de largura porque no desktop
+  // mídia e texto são colunas de altura fixa lado a lado, não faz
+  // sentido crescer uma redimensionando a outra.
+  if (infoEl && window.matchMedia("(max-width: 780px)").matches) {
+    const MEDIA_MIN_VH = 34;
+    const MEDIA_MAX_VH = 52;
+    const SCROLL_RANGE = 160;
+
+    infoEl.addEventListener(
+      "scroll",
+      () => {
+        const t = Math.min(1, Math.max(0, infoEl.scrollTop / SCROLL_RANGE));
+        mediaEl.style.height = `${MEDIA_MIN_VH + (MEDIA_MAX_VH - MEDIA_MIN_VH) * t}vh`;
+        carouselEl.style.transform = `scale(${1 + t * 0.08})`;
+        infoEl.style.transformOrigin = "top center";
+        infoEl.style.transform = `scale(${1 - t * 0.06})`;
+      },
+      { passive: true }
+    );
+  }
 
   document.querySelectorAll(".playground-block").forEach((block) => {
     block.addEventListener("click", () => openPlaygroundModal(block.dataset.playgroundItem));
@@ -585,6 +645,32 @@ if (heroPhotoImg) {
   }
 }
 
+// Foto do hero: no desktop o hover já "endireita" a moldura. Sem hover em
+// touch, cada toque dá um gesto lúdico (balança e volta) — reaplicando a
+// classe do zero a cada toque (removendo, forçando reflow, recolocando)
+// pra reiniciar a animação mesmo em toques seguidos rápidos.
+{
+  const heroPhoto = document.querySelector(".hero__photo");
+  if (heroPhoto && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    heroPhoto.addEventListener("click", () => {
+      heroPhoto.classList.remove("is-wiggling");
+      void heroPhoto.offsetWidth;
+      heroPhoto.classList.add("is-wiggling");
+    });
+    heroPhoto.addEventListener("animationend", () => heroPhoto.classList.remove("is-wiggling"));
+  }
+}
+
+// Hobbies (cards com flip): no desktop o hover já vira o card. Sem hover
+// em touch — e sem depender de :focus-within, que fica "preso" porque um
+// segundo toque no card já focado não o desfoca — o toque vira um toggle
+// explícito: primeiro toque vira, segundo desvira.
+{
+  document.querySelectorAll(".curiosities__hobby").forEach((hobby) => {
+    hobby.addEventListener("click", () => hobby.classList.toggle("is-flipped"));
+  });
+}
+
 // Card "Top músicas — Spotify": busca via /api/spotify-*, que existem só quando
 // o site roda no Vercel com as env vars configuradas. Se a chamada falhar (ex.:
 // abrindo o index.html direto, ou sem as env vars), o card mantém o placeholder
@@ -634,31 +720,16 @@ if (spotifyCard) {
     return link;
   };
 
-  // Instância própria do Lenis pra lista de faixas ter a mesma inércia do
-  // scroll da página, mas sem entrar em conflito com ela: a própria lista
-  // já é excluída da instância principal via [data-lenis-prevent].
-  let trackListLenis = null;
-  if (typeof Lenis !== "undefined" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    trackListEl.classList.add("curiosities__track-list--lenis");
-    trackListLenis = new Lenis({
-      wrapper: trackListEl,
-      content: trackListInnerEl,
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    const trackListRaf = (time) => {
-      trackListLenis.raf(time);
-      requestAnimationFrame(trackListRaf);
-    };
-    requestAnimationFrame(trackListRaf);
-  }
-
+  // Scroll nativo (não uma instância própria do Lenis): numa lista
+  // pequena dentro de um card, o Lenis aninhado brigava com o scroll por
+  // toque (o gesto de arrastar às vezes não rolava nada), mesmo com
+  // wrapper/content apontados pra ela. [data-lenis-prevent] no HTML já
+  // garante que a instância principal da página não tenta assumir esse
+  // scroll também.
   const renderTopTracks = (tracks) => {
     if (!tracks.length) return;
     trackListInnerEl.innerHTML = "";
     tracks.forEach((track) => trackListInnerEl.appendChild(createTrackLink(track)));
-    trackListLenis?.resize();
   };
 
   fetch("/api/spotify-now-playing")
@@ -719,6 +790,80 @@ if (photoCarousel) {
 
   photoCarousel.addEventListener("mouseenter", stop);
   photoCarousel.addEventListener("mouseleave", start);
+
+  // Arrastar (touch ou mouse) pra trocar de foto — mesmo padrão de
+  // arraste usado nos outros carrosséis do site.
+  let dragging = false;
+  let startX = 0;
+  let lastX = 0;
+  let lastTime = 0;
+  let velocity = 0;
+  let deltaPct = 0;
+  let suppressNextClick = false;
+
+  const onPointerDown = (event) => {
+    if (slides.length < 2 || event.button === 2) return;
+    dragging = true;
+    stop();
+    track.style.transition = "none";
+    startX = lastX = event.clientX;
+    lastTime = performance.now();
+    velocity = 0;
+    deltaPct = 0;
+  };
+
+  const onPointerMove = (event) => {
+    if (!dragging) return;
+    const now = performance.now();
+    const dt = now - lastTime || 16;
+    velocity = (event.clientX - lastX) / dt;
+    lastX = event.clientX;
+    lastTime = now;
+
+    const width = photoCarousel.getBoundingClientRect().width || 1;
+    deltaPct = ((event.clientX - startX) / width) * 100;
+    track.style.transform = `translateX(${-index * 100 + deltaPct}%)`;
+  };
+
+  const onPointerUp = () => {
+    if (!dragging) return;
+    dragging = false;
+    track.style.transition = "";
+    window.removeEventListener("pointermove", onPointerMove);
+    window.removeEventListener("pointerup", onPointerUp);
+    window.removeEventListener("pointercancel", onPointerUp);
+    suppressNextClick = Math.abs(lastX - startX) > 6;
+
+    const draggedSlides = Math.round(-deltaPct / 100);
+    let targetIndex = index + draggedSlides;
+    if (draggedSlides === 0 && Math.abs(velocity) > 0.4) {
+      targetIndex = index + (velocity < 0 ? 1 : -1);
+    }
+    goTo(targetIndex);
+    start();
+  };
+
+  photoCarousel.addEventListener("pointerdown", (event) => {
+    onPointerDown(event);
+    if (!dragging) return;
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
+  });
+
+  // Fase de captura: um arraste não pode virar clique na bolinha/seta por
+  // baixo do dedo.
+  photoCarousel.addEventListener(
+    "click",
+    (event) => {
+      if (suppressNextClick) {
+        event.stopPropagation();
+        event.preventDefault();
+        suppressNextClick = false;
+      }
+    },
+    true
+  );
 
   goTo(0);
   start();

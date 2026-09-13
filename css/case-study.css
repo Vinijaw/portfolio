@@ -299,7 +299,7 @@
   color: var(--color-accent);
 }
 
-.case__test-cell span {
+.case__test-cell > span {
   display: block;
   margin-top: 0.45rem;
   font-size: 0.78rem;
@@ -307,7 +307,7 @@
   color: var(--color-text-muted);
 }
 
-.case__section--dark .case__test-cell span {
+.case__section--dark .case__test-cell > span {
   color: var(--color-text-on-dark-muted);
 }
 

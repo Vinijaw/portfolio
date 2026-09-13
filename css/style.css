@@ -387,8 +387,14 @@ em {
   animation: hero-brands-scroll 24s linear infinite;
 }
 
-.hero__brands-marquee:hover .hero__brands-track {
+.hero__brands-marquee.is-paused .hero__brands-track {
   animation-play-state: paused;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero__brands-marquee:hover .hero__brands-track {
+    animation-play-state: paused;
+  }
 }
 
 .hero__brands-list {
@@ -420,11 +426,23 @@ em {
   transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
 }
 
-.hero__brand-link:hover img,
-.hero__brand-link:focus-visible img {
+.hero__brand-link:focus-visible img,
+.hero__brand-link.is-pinned img {
   filter: grayscale(0);
   opacity: 1;
   transform: translateY(-2px);
+}
+
+/* :hover só em dispositivos com mouse de verdade — em touch o navegador
+   simula um ":hover" que gruda no toque e só solta ao tocar em outro
+   lugar, o que travava o botão "destravado" sem jeito de reverter com
+   um segundo toque. O toggle por toque vive só em .is-pinned (JS). */
+@media (hover: hover) and (pointer: fine) {
+  .hero__brand-link:hover img {
+    filter: grayscale(0);
+    opacity: 1;
+    transform: translateY(-2px);
+  }
 }
 
 @keyframes hero-brands-scroll {
@@ -463,8 +481,25 @@ em {
   transition: transform 0.25s ease;
 }
 
-.hero__photo:hover {
-  transform: rotate(0deg);
+@media (hover: hover) and (pointer: fine) {
+  .hero__photo:hover {
+    transform: rotate(0deg);
+  }
+}
+
+/* Touch não tem hover pra "endireitar" a foto — em vez disso, cada
+   toque dá um gesto lúdico (balança e volta), pra reagir ao toque. */
+@keyframes hero-photo-wiggle {
+  0% { transform: rotate(3deg); }
+  20% { transform: rotate(-4deg) scale(1.03); }
+  40% { transform: rotate(5deg) scale(1.02); }
+  60% { transform: rotate(-3deg) scale(1.015); }
+  80% { transform: rotate(2deg) scale(1.005); }
+  100% { transform: rotate(3deg) scale(1); }
+}
+
+.hero__photo.is-wiggling {
+  animation: hero-photo-wiggle 0.6s ease;
 }
 
 .hero__photo-img {
@@ -1367,6 +1402,12 @@ body.playground-modal-open {
   display: none;
 }
 
+/* Botão de fechar fixo no topo: só no layout mobile — no desktop o "x"
+   já vive no cabeçalho do bloco de informações. */
+.playground-modal__mobile-close {
+  display: none;
+}
+
 @media (max-width: 780px) {
   /* Abaixo de 780px a modal vira uma "página" full-screen: carrossel no
      topo (altura fixa), bloco de informações rolando por baixo, e a
@@ -1398,6 +1439,28 @@ body.playground-modal-open {
     height: 34vh;
     border-radius: 0;
     border-width: 0 0 1px;
+  }
+
+  .playground-modal__mobile-close {
+    display: flex;
+    position: absolute;
+    top: calc(0.75rem + env(safe-area-inset-top));
+    left: 0.75rem;
+    z-index: 5;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.45);
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .playground-modal__mobile-close svg {
+    width: 18px;
+    height: 18px;
   }
 
   .playground-modal__info {
@@ -1573,12 +1636,6 @@ body.playground-modal-open {
   display: none;
 }
 
-/* Aplicada via JS quando o Lenis assume o scroll dessa lista (mesma
-   inércia da página). Sem JS/Lenis, cai no scroll nativo acima. */
-.curiosities__track-list--lenis {
-  overflow: hidden;
-}
-
 .curiosities__now-playing-tag {
   display: inline-flex;
   align-items: center;
@@ -1623,10 +1680,19 @@ body.playground-modal-open {
   transform-style: preserve-3d;
 }
 
-.curiosities__hobby:hover .curiosities__hobby-inner,
-.curiosities__hobby:focus-visible .curiosities__hobby-inner,
-.curiosities__hobby:focus-within .curiosities__hobby-inner {
+.curiosities__hobby.is-flipped .curiosities__hobby-inner,
+.curiosities__hobby:focus-visible .curiosities__hobby-inner {
   transform: rotateY(180deg);
+}
+
+/* :hover só com mouse de verdade — em touch o hover simulado gruda no
+   toque (sem :focus-within: um segundo toque no card já focado não o
+   desfocava, então nunca "desvirava"). O toque agora é um toggle
+   explícito via .is-flipped (JS). */
+@media (hover: hover) and (pointer: fine) {
+  .curiosities__hobby:hover .curiosities__hobby-inner {
+    transform: rotateY(180deg);
+  }
 }
 
 .curiosities__hobby-face {
@@ -2080,23 +2146,72 @@ body.playground-modal-open {
 @media (max-width: 700px) {
   .nav-toggle {
     display: flex;
+    position: relative;
+    z-index: 60;
   }
 
+  /* Hambúrguer vira "x" enquanto o menu tela-cheia está aberto — sem
+     isso não tinha nenhuma pista visual de que tocar de novo fecha. */
+  .nav-toggle span {
+    transition: transform 0.25s ease, opacity 0.2s ease;
+  }
+
+  .nav-toggle.is-open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .nav-toggle.is-open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .nav-toggle.is-open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Menu ocupa a tela inteira (não uma faixinha no topo), com os links
+     centralizados e uma área de toque generosa em cada um. */
   .nav {
-    position: absolute;
-    top: 76px;
-    left: 0;
-    right: 0;
+    position: fixed;
+    inset: 0;
+    z-index: 45;
     background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
     flex-direction: column;
-    padding: 1.5rem;
-    gap: 1.25rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 6rem 1.5rem 3rem;
     display: none;
   }
 
   .nav.is-open {
     display: flex;
+  }
+
+  .nav a {
+    width: 100%;
+    max-width: 320px;
+    padding: 1rem;
+    border-radius: var(--radius);
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  .nav a:active {
+    background: var(--color-bg-alt);
+  }
+
+  body.nav-open {
+    overflow: hidden;
+  }
+
+  /* backdrop-filter no .header cria um "containing block" pros
+     descendentes position:fixed (mesmo efeito de transform/filter) —
+     sem isso, o inset:0 do menu tela-cheia calculava a altura em cima
+     da faixa de 77px do header, não da viewport inteira. Desliga só
+     enquanto o menu está aberto. */
+  body.nav-open .header {
+    backdrop-filter: none;
   }
 }
 
@@ -2250,4 +2365,19 @@ body.playground-modal-open {
   font-size: 0.85rem;
   font-weight: 600;
   color: #e0554f;
+}
+
+/* Em telas ≤400px os 6 dígitos (42px + gaps) não cabem na largura do
+   diálogo (que também encolhe pelo padding do .case-lock/.case-gate) e
+   vazavam pra fora do card. Reduz dígito e gap só nesse recorte. */
+@media (max-width: 400px) {
+  .case-lock__digits {
+    gap: 0.3rem;
+  }
+
+  .case-lock__digit {
+    width: 28px;
+    height: 40px;
+    font-size: 1.05rem;
+  }
 }

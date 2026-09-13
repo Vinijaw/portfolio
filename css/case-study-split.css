@@ -38,7 +38,8 @@ html.case-locked .case-gate {
 html.case-locked .deck,
 html.case-locked .slide-nav,
 html.case-locked .deck-summary-btn,
-html.case-locked .deck-drawer {
+html.case-locked .deck-drawer,
+html.case-locked .case-back-btn {
   display: none;
 }
 
@@ -490,7 +491,12 @@ body.case-split-page .header {
 }
 
 @media (max-width: 900px) {
-  .slide__stage > .case__stats {
+  /* Precisa repetir o seletor com :has() aqui: como ele é mais
+     específico que ".slide__stage > .case__stats" sozinho, uma versão
+     sem :has() dentro do media query nunca venceria a de fora dele —
+     mesmo em telas pequenas continuava forçando 2 colunas. */
+  .slide__stage > .case__stats,
+  .slide__stage > .case__stats:has(.case__stat:nth-child(2):last-child) {
     grid-template-columns: 1fr;
   }
 }
@@ -900,8 +906,11 @@ body.case-split-page .header {
 }
 
 @media (max-width: 900px) {
+  /* Lado a lado, 2-3 telas de celular ficam pequenas demais pra
+     comparar em 320-414px — empilha (o "antes/depois" tem sua própria
+     regra mais abaixo, na pilha mobile). */
   .stage-carousel__screens {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1334,6 +1343,45 @@ body.case-split-page .header {
   display: block;
 }
 
+/* Botão "voltar": só existe na pilha mobile (ver @media abaixo) — no
+   desktop o link já vive dentro do painel de cada slide. Mesma
+   linguagem visual do botão de sumário (círculo branco flutuante),
+   fixo no canto oposto (topo esquerdo). */
+.case-back-btn {
+  display: none;
+  position: fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 60;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: var(--color-text);
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(14, 27, 35, 0.14);
+  transition: color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.case-back-btn:hover,
+.case-back-btn:focus-visible {
+  color: var(--color-accent-dark);
+  box-shadow: 0 10px 24px rgba(14, 27, 35, 0.22);
+}
+
+.case-back-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.case-back-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* Gaveta: fixa na borda direita, altura cheia, sai deslizando pra fora
    da tela quando fechada. */
 .deck-drawer {
@@ -1507,10 +1555,46 @@ body.summary-open .slide-nav {
     display: none;
   }
 
-  /* Gaveta e botão de sumário: também não fazem sentido na pilha mobile. */
-  .deck-summary-btn,
-  .deck-drawer {
+  /* Botão de sumário e gaveta continuam funcionando na pilha mobile:
+     abrem a mesma lista de seções, só que agora rolando até a seção em
+     vez de trocar de slide (handler em js/case-split.js). O botão fixo
+     "voltar" assume o lugar dos links repetidos em cada painel. */
+  .case-back-btn {
+    display: flex;
+  }
+
+  .slide__panel > .case__back {
     display: none;
+  }
+
+  /* No mobile a gaveta cobre a tela inteira em vez da faixa de 264px do
+     desktop — não sobra sentido em "espiar" o conteúdo atrás dela numa
+     tela já estreita. Itens centralizados e com área de toque maior,
+     mesmo padrão do menu principal (.nav) em telas pequenas. */
+  .deck-drawer {
+    width: 100%;
+    align-items: center;
+    padding: 6rem 1.5rem 2rem;
+  }
+
+  .deck-drawer__title {
+    text-align: center;
+  }
+
+  .deck-drawer__list {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .deck-drawer__list button {
+    justify-content: center;
+    width: 100%;
+    max-width: 320px;
+    padding: 1rem;
+    text-align: center;
+    font-size: 1.05rem;
   }
 
   .deck,
@@ -1547,9 +1631,13 @@ body.summary-open .slide-nav {
   .slide__panel {
     height: auto;
     overflow: visible;
+    min-width: 0;
     border-right: none;
     border-bottom: 1px solid var(--color-border);
-    padding: 2.5rem 1.25rem;
+    /* padding-top maior que o padrão pra sobrar espaço abaixo do botão
+       "voltar"/sumário fixos (topo:1.5rem + 44px de altura) — sem isso o
+       título de cada seção nascia embaixo dos círculos flutuantes. */
+    padding: 5.5rem 1.25rem 2.5rem;
   }
 
   .case__section--dark .slide__panel {
@@ -1563,6 +1651,7 @@ body.summary-open .slide-nav {
   .slide__stage {
     height: auto;
     overflow: visible;
+    min-width: 0;
     padding: 2rem 1.25rem 2.5rem;
   }
 
@@ -1572,35 +1661,67 @@ body.summary-open .slide-nav {
     gap: 2rem;
   }
 
-  /* Sem o controle de scroll do deck, o carrossel também vira pilha
-     normal — as duas telas visíveis, uma embaixo da outra. */
+  /* 3 colunas fixas ficavam ilegíveis na pilha mobile (ícone + título +
+     parágrafo espremidos em ~90px) — empilha os cards de "frentes". */
+  .case__cards--frentes {
+    grid-template-columns: 1fr;
+  }
+
+  /* "Antes/depois" também empilha — lado a lado, cada print de celular
+     ficava pequeno demais pra comparar em 320-414px. */
+  .stage-carousel--pairs .stage-carousel__screens {
+    grid-template-columns: 1fr;
+  }
+
+  /* Par de números do teste de usabilidade (tempo médio / telas por
+     participante) — lado a lado ficava espremido, empilha. */
+  .case__test-pair {
+    grid-template-columns: 1fr;
+  }
+
+  /* Tela final "Quer ver mais algum outro case?": ocupa a tela toda em
+     vez de um bloco compacto no meio de uma seção maior. Padding
+     top/bottom igual (em vez do 4.5rem/3rem do desktop) pra centralizar
+     de verdade: com valores diferentes, o miolo (logo+título+botões)
+     ficava centralizado dentro da área sobrando, mas essa área em si já
+     nascia deslocada pra baixo. */
+  .slide.slide--cta {
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* O carrossel continua carrossel no mobile (não vira pilha): mesma
+     "janela" de 84% + prévia da próxima tela espiando na borda, só que
+     arrastável com o dedo em vez de setas (handler de pointerdown/move/up
+     em js/case-split.js). As bolinhas continuam pra indicar a posição. */
   .stage-carousel {
+    padding: 1.5rem 1.25rem 2rem;
+  }
+
+  /* height:100% (herdado do desktop, onde o palco vive dentro de um
+     slide de 100vh) não tinha mais nenhuma altura de referência definida
+     fora do deck — sem isso travado em auto, o navegador "inventava" uma
+     altura enorme pro carrossel (e a página ficava com um vão em branco
+     do tamanho exato dessa diferença, às vezes até vazando visualmente
+     por cima da seção seguinte). */
+  .stage-carousel,
+  .stage-carousel__viewport,
+  .stage-carousel__track,
+  .stage-carousel__slide {
     height: auto;
-    padding: 2rem 1.25rem 2.5rem;
   }
 
   .stage-carousel__viewport {
-    flex: none;
-    overflow: visible;
+    cursor: grab;
   }
 
-  .stage-carousel__track {
-    display: block;
-    transform: none !important;
+  .stage-carousel__viewport.is-dragging {
+    cursor: grabbing;
   }
 
-  .stage-carousel__slide {
-    flex: none;
-    width: 100%;
-    margin-right: 0;
-    opacity: 1;
-    margin-bottom: 2rem;
-    /* Sem prévia lateral no mobile (pilha), volta a centralizar a imagem. */
-    align-items: center;
-  }
-
-  .stage-carousel__arrow,
-  .stage-carousel__dots {
+  .stage-carousel__arrow {
     display: none;
   }
 

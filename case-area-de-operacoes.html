@@ -900,11 +900,11 @@
           <div class="case__test-metrics">
             <div class="case__test-pair">
               <div class="case__test-cell">
-                <b>5m31s</b>
+                <b><span data-countup="5">0</span>m<span data-countup="31">0</span>s</b>
                 <span>tempo médio (4m27s&#8211;6m35s)</span>
               </div>
               <div class="case__test-cell">
-                <b>13&#8211;17</b>
+                <b><span data-countup="13">0</span>&#8211;<span data-countup="17">0</span></b>
                 <span>telas por participante (caminho ideal: 14)</span>
               </div>
             </div>
@@ -995,7 +995,7 @@
               </div>
               <blockquote class="case__voice__quote">Boa visualização, apenas precisaria praticar algumas vezes para editar com tranquilidade.</blockquote>
               <figcaption class="case__voice__person">
-                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/area-de-operacoes/avatares/atendimento.svg" alt="" /></span>
                 <span class="case__voice__id"><b>Participante 1</b><span>time de atendimento</span></span>
               </figcaption>
             </figure>
@@ -1006,7 +1006,7 @@
               </div>
               <blockquote class="case__voice__quote">Fácil, intuitiva, prática.</blockquote>
               <figcaption class="case__voice__person">
-                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/area-de-operacoes/avatares/backoffice.svg" alt="" /></span>
                 <span class="case__voice__id"><b>Participante 2</b><span>time de Backoffice</span></span>
               </figcaption>
             </figure>
@@ -1079,7 +1079,7 @@
               </div>
               <blockquote class="case__voice__quote">Antes eu pegava o ID da instrução, entrava em outra máquina e conferia as flags uma a uma. Levava uns 15 a 20 minutos por caso. Agora é um, dois, aperto um botão e tá indo.</blockquote>
               <figcaption class="case__voice__person">
-                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/area-de-operacoes/avatares/desenvolvedor.svg" alt="" /></span>
                 <span class="case__voice__id"><b>Desenvolvedor</b><span>acionado para os ajustes</span></span>
               </figcaption>
             </figure>
@@ -1090,7 +1090,7 @@
               </div>
               <blockquote class="case__voice__quote">Três, quatro cliques e a ordem tá reprocessada, sem ninguém mexer no banco.</blockquote>
               <figcaption class="case__voice__person">
-                <span class="case__voice__avatar"><img src="assets/icons/avatars/avatar-neutral.svg" alt="" /></span>
+                <span class="case__voice__avatar"><img src="assets/images/cases/Cases selecionados/area-de-operacoes/avatares/lideranca.svg" alt="" /></span>
                 <span class="case__voice__id"><b>Líder de engenharia</b><span>na review da tribo</span></span>
               </figcaption>
             </figure>
@@ -1155,6 +1155,13 @@
     </div>
 
     </div><!-- /.deck -->
+
+    <!-- Botão "voltar" fixo, só visível na pilha mobile (ver CSS
+         @media max-width:900px) — substitui os links repetidos em cada
+         painel, que só fazem sentido no deck de slides do desktop. -->
+    <a href="index.html#cases" class="case-back-btn" aria-label="Voltar para os cases">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+    </a>
 
     <!-- Botão de sumário fixo no topo direito da tela. Abre a gaveta
          (.deck-drawer), que entra pela direita e comprime o slide

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Ilustração de perfil">
+  <rect width="64" height="64" fill="#fdece9"/>
+  <path d="M6 64C6 49.7 17.6 42 32 42s26 7.7 26 22Z" fill="#e0625c"/>
+  <path d="M15 27c0-11 7-19 17-19s17 8 17 19v13c0 3-3 5-6 6 3-9-1-24-11-24s-14 15-11 24c-3-1-6-3-6-6Z" fill="#5b3a29"/>
+  <circle cx="32" cy="29" r="12" fill="#e7b899"/>
+  <path d="M20 24c2-7 6-11 12-11s10 4 12 11c-4-4-8-5-12-5s-8 1-12 5Z" fill="#5b3a29"/>
+</svg>

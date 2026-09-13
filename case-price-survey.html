@@ -1038,6 +1038,13 @@
 
     </div><!-- /.deck -->
 
+    <!-- Botão "voltar" fixo, só visível na pilha mobile (ver CSS
+         @media max-width:900px) — substitui os links repetidos em cada
+         painel, que só fazem sentido no deck de slides do desktop. -->
+    <a href="index.html#cases" class="case-back-btn" aria-label="Voltar para os cases">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+    </a>
+
     <!-- Botão de sumário fixo no topo direito da tela. Abre a gaveta
          (.deck-drawer), que entra pela direita e comprime o slide
          enquanto está aberta. Handler no fim de js/case-split.js. -->
