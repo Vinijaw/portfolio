@@ -111,13 +111,15 @@ if (hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
 // Marcas com quem já trabalhei: o carrossel roda sozinho e o CSS já
 // colore + pausa no :hover — mas touch não tem hover de verdade (o
 // navegador simula um hover "preso" no toque, sem jeito confiável de
-// soltar). Aqui a gente assume o controle: tocar numa marca fixa ela
-// colorida e pausa o carrossel; tocar de novo na mesma solta e volta a
-// rodar sozinho.
+// soltar). Aqui a gente assume o controle só em quem não tem hover de
+// verdade: tocar numa marca fixa ela colorida e pausa o carrossel,
+// tocar de novo solta e volta a rodar. Em telas com mouse, o clique não
+// faz nada — continua só no :hover, como era antes.
 {
   const brandsMarquee = document.querySelector(".hero__brands-marquee");
   const brandLinks = document.querySelectorAll(".hero__brand-link");
-  if (brandsMarquee && brandLinks.length) {
+  const hasRealHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (brandsMarquee && brandLinks.length && !hasRealHover) {
     let pinned = null;
 
     brandLinks.forEach((link) => {
