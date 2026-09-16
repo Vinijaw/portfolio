@@ -18,8 +18,16 @@
 </head>
 <body>
 
+  <!-- Âncora do "topo" separada do header: o header é position:sticky, e
+       um id nele faz o cálculo de scroll (Lenis) medir a posição atual do
+       elemento (sempre ~0 no viewport, por estar grudado no topo) em vez
+       da posição real no documento — na prática, clicar em "Início" não
+       rolava a página nenhuma, porque o alvo já "estava" onde o header
+       está sempre. Um marcador comum, fora do fluxo sticky, resolve. -->
+  <span id="top" aria-hidden="true"></span>
+
   <!-- ===================== HEADER ===================== -->
-  <header class="header" id="top">
+  <header class="header">
     <div class="container header__inner">
       <a href="#top" class="logo">
         <img src="assets/icons/brands/jv-logo.svg" alt="" class="logo__mark" />
@@ -198,58 +206,144 @@
 
     <!-- ===================== CASES ===================== -->
     <section class="section section--dark" id="cases">
-      <div class="container">
-        <p class="section__tag section__tag--light reveal">Projetos</p>
-        <h2 class="section__title section__title--display reveal">
-          Cases <span class="dot">•</span> <em>Selecionados</em>
-        </h2>
+      <!-- Sem título/tag visível de propósito — o carrossel é o bloco
+           inteiro da seção agora. O aria-label na vitrine (ver abaixo)
+           mantém o nome pra leitor de tela. -->
 
-        <div class="cases__grid">
+      <!-- Fora do .container de propósito: a mídia estoura a tela até a borda
+           direita (sem margem cortando), só o texto (número/título/CTA)
+           segue o recuo do grid — ver o padding-left calculado em
+           .cases-showcase no CSS. Inspirado num carrossel editorial (número
+           da ordem + título + CTA de um lado, foto sangrando do outro);
+           dados e assets são os mesmos dos cases reais. -->
+      <!-- Decorativo saindo da borda esquerda da tela (arquivo enviado pelo
+           usuário), atrás de tudo — ver .cases__decor no CSS. -->
+      <img class="cases__decor" src="assets/images/cases-decor.svg" alt="" aria-hidden="true" />
 
-          <article class="case-card case-card--locked reveal" data-locked-href="case-area-de-operacoes.html">
-            <div class="case-card__thumb" aria-hidden="true">
-              <img src="assets/images/cases/Cases selecionados/area-de-operacoes/cover.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
-            </div>
-            <p class="case-card__category">Plataforma B2B interna · Backoffice</p>
-            <h3 class="case-card__title">Área de Operações: autonomia para o backoffice do Santander Escrow</h3>
-            <p class="case-card__desc">
-              Discovery com dev, atendimento e produto para reduzir a dependência de engenharia em
-              ajustes do dia a dia: reprocessar transferências, pausar movimentações programadas e
-              corrigir comissões.
-            </p>
-            <a href="case-area-de-operacoes.html" class="case-card__link" data-locked-link>Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
-          </article>
+      <div class="cases-showcase reveal" data-cases-showcase tabindex="0" role="region" aria-roledescription="carousel" aria-label="Cases selecionados">
+        <div class="cases-showcase__text">
+          <div class="cases-showcase__number" data-cases-number aria-hidden="true">
+            <span class="cases-showcase__number-slot is-active">01</span>
+            <span class="cases-showcase__number-slot">01</span>
+          </div>
 
-          <article class="case-card reveal">
-            <div class="case-card__thumb" aria-hidden="true">
-              <img src="assets/images/cases/Cases selecionados/price-survey/cover.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
-            </div>
-            <p class="case-card__category">Produto B2C · App mobile</p>
-            <h3 class="case-card__title">Price Survey: redesenho da jornada do pricer</h3>
-            <p class="case-card__desc">
-              Pesquisa com time interno e usuários, redesenho do fluxo de coleta de preços e
-              teste de usabilidade num app onde só 40% das pesquisas disponíveis eram
-              concluídas.
-            </p>
-            <a href="case-price-survey.html" class="case-card__link">Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
-          </article>
+          <p class="cases-showcase__eyebrow" data-cases-eyebrow>Plataforma B2B interna · Backoffice</p>
 
-          <!-- Oculto por enquanto — case do próprio portfólio feito com apoio de IA.
-          <article class="case-card reveal">
-            <div class="case-card__thumb" aria-hidden="true">
-              <img src="assets/images/cases/Cases selecionados/portfolio-com-ia/cover.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
-            </div>
-            <p class="case-card__category">Projeto pessoal · Vibe coding</p>
-            <h3 class="case-card__title">Portfólio: construindo meu site com apoio de IA</h3>
-            <p class="case-card__desc">
-              Como direcionei e revisei o design e o código deste portfólio junto com o Claude
-              Code e o Gemini, sem escrever a implementação do zero.
-            </p>
-            <a href="case-portfolio-com-ia.html" class="case-card__link">Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
-          </article>
-          -->
+          <div class="cases-showcase__title-mask">
+            <h3 class="cases-showcase__title" data-cases-title>Área de Operações: autonomia para o backoffice do Santander Escrow</h3>
+          </div>
 
+          <a href="case-area-de-operacoes.html" class="cases-showcase__cta" data-cases-cta data-locked-href="case-area-de-operacoes.html">
+            Ver case completo
+            <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg>
+          </a>
+
+          <div class="cases-showcase__progress" data-cases-progress>
+            <button type="button" class="cases-showcase__dash is-active" data-cases-dash="0" aria-label="Ir para o case Área de Operações"><span class="cases-showcase__dash-fill"></span></button>
+            <button type="button" class="cases-showcase__dash" data-cases-dash="1" aria-label="Ir para o case Price Survey"><span class="cases-showcase__dash-fill"></span></button>
+            <button type="button" class="cases-showcase__dash" data-cases-dash="2" aria-label="Ir para o case Zélia"><span class="cases-showcase__dash-fill"></span></button>
+          </div>
         </div>
+
+        <div class="cases-showcase__media">
+          <!-- Setas discretas: só aparecem no hover/foco, por cima da mídia
+               (mesma ideia do carrossel de referência) — as dashes ao lado
+               continuam como a navegação sempre visível. -->
+          <button type="button" class="cases-showcase__hit cases-showcase__hit--prev" data-cases-prev aria-label="Case anterior">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          </button>
+          <button type="button" class="cases-showcase__hit cases-showcase__hit--next" data-cases-next aria-label="Próximo case">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg>
+          </button>
+
+          <div class="cases-showcase__media-track" data-cases-media-track>
+            <button type="button" class="cases-showcase__media-slide is-active" data-cases-media-slide="0" data-href="case-area-de-operacoes.html" data-locked-href="case-area-de-operacoes.html" aria-label="Abrir o case Área de Operações">
+              <img src="assets/images/cases/Cases selecionados/area-de-operacoes/cover.png" alt="" loading="lazy" />
+            </button>
+            <button type="button" class="cases-showcase__media-slide" data-cases-media-slide="1" data-href="case-price-survey.html" aria-label="Abrir o case Price Survey">
+              <img src="assets/images/cases/Cases selecionados/price-survey/cover.jpg" alt="" loading="lazy" />
+            </button>
+            <button type="button" class="cases-showcase__media-slide" data-cases-media-slide="2" data-href="case-zelia.html" aria-label="Abrir o case Zélia">
+              <img src="assets/images/cases/Cases selecionados/zelia/cover.png" alt="" loading="lazy" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Dados de cada case, lidos pelo JS pra preencher número/eyebrow/
+             título/link a cada troca de slide (mesmo conteúdo dos cards
+             antigos, só reorganizado pro layout novo). -->
+        <script type="application/json" data-cases-data>
+          [
+            {
+              "number": "01",
+              "eyebrow": "Plataforma B2B interna · Backoffice",
+              "title": "Área de Operações: autonomia para o backoffice do Santander Escrow",
+              "href": "case-area-de-operacoes.html",
+              "lockedHref": "case-area-de-operacoes.html"
+            },
+            {
+              "number": "02",
+              "eyebrow": "Produto B2C · App mobile",
+              "title": "Price Survey: redesenho da jornada do pricer",
+              "href": "case-price-survey.html"
+            },
+            {
+              "number": "03",
+              "eyebrow": "Produto B2C · App mobile",
+              "title": "Zélia: guarda-roupa virtual com consultoria de moda dentro do app",
+              "href": "case-zelia.html"
+            }
+          ]
+        </script>
+      </div>
+
+      <!-- Grid estático (sem carrossel), só pra telas pequenas — ver
+           .cases-grid-mobile no CSS: escondido no desktop, a vitrine acima
+           é quem escondida no mobile. Mesmo conteúdo/links dos cases, no
+           formato de card que a home já usava antes da vitrine. Ajuste
+           fino de mobile fica pra depois. -->
+      <div class="container cases-grid-mobile">
+        <article class="case-card case-card--locked reveal" data-locked-href="case-area-de-operacoes.html">
+          <div class="case-card__thumb" aria-hidden="true">
+            <img src="assets/images/cases/Cases selecionados/area-de-operacoes/cover.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
+          </div>
+          <p class="case-card__category">Plataforma B2B interna · Backoffice</p>
+          <h3 class="case-card__title">Área de Operações: autonomia para o backoffice do Santander Escrow</h3>
+          <p class="case-card__desc">
+            Discovery com dev, atendimento e produto para reduzir a dependência de engenharia em
+            ajustes do dia a dia: reprocessar transferências, pausar movimentações programadas e
+            corrigir comissões.
+          </p>
+          <a href="case-area-de-operacoes.html" class="case-card__link" data-locked-link>Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
+        </article>
+
+        <article class="case-card reveal">
+          <div class="case-card__thumb" aria-hidden="true">
+            <img src="assets/images/cases/Cases selecionados/price-survey/cover.jpg" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
+          </div>
+          <p class="case-card__category">Produto B2C · App mobile</p>
+          <h3 class="case-card__title">Price Survey: redesenho da jornada do pricer</h3>
+          <p class="case-card__desc">
+            Pesquisa com time interno e usuários, redesenho do fluxo de coleta de preços e
+            teste de usabilidade num app onde só 40% das pesquisas disponíveis eram
+            concluídas.
+          </p>
+          <a href="case-price-survey.html" class="case-card__link">Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
+        </article>
+
+        <article class="case-card reveal">
+          <div class="case-card__thumb" aria-hidden="true">
+            <img src="assets/images/cases/Cases selecionados/zelia/cover.png" alt="" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:calc(var(--radius) - 4px);" />
+          </div>
+          <p class="case-card__category">Produto B2C · App mobile</p>
+          <h3 class="case-card__title">Zélia: guarda-roupa virtual com consultoria de moda dentro do app</h3>
+          <p class="case-card__desc">
+            Design Sprint de 4 dias para transformar benchmarking, personas e um roadmap em MoSCoW
+            em 88 telas: guarda-roupa virtual, looks automáticos e um chat com consultoras de moda
+            reais.
+          </p>
+          <a href="case-zelia.html" class="case-card__link">Ver case completo <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.29,17.3a1,1,0,0,0,1.41,0L16,12,10.7,6.7A1,1,0,1,0,9.29,8.11L13.17,12,9.29,15.89A1,1,0,0,0,9.29,17.3Z"/></svg></a>
+        </article>
       </div>
     </section>
 
@@ -563,14 +657,6 @@
               <span class="playground-block__footer">
                 <span class="playground-block__name">Gerenciamento de Assinaturas</span>
                 <span class="playground-block__category">Desktop</span>
-              </span>
-            </button>
-
-            <button type="button" class="playground-block" data-playground-item="zelia">
-              <img class="playground-block__media" src="assets/images/cases/Playground/Zélia/zelia-cover.jpg" alt="" loading="lazy" />
-              <span class="playground-block__footer">
-                <span class="playground-block__name">Zelia App</span>
-                <span class="playground-block__category">App</span>
               </span>
             </button>
 

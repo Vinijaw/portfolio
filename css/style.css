@@ -197,7 +197,7 @@ em {
 }
 
 .section__title--display {
-  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
   font-weight: 800;
   line-height: 1.05;
   letter-spacing: -0.01em;
@@ -215,9 +215,19 @@ em {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.85);
+  /* Fundo bem discreto (não é mais o vidro branco de antes) só pra dar um
+     mínimo de contraste — sem ele, o texto some quando passa por cima de
+     uma foto/conteúdo com brilho parecido. A cor do fundo também troca
+     junto com a cor do texto (clara/escura) via .header--on-dark, ver JS,
+     senão um fundo claro por cima de texto claro (ou vice-versa) piora
+     em vez de ajudar. */
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s ease;
+}
+
+.header--on-dark {
+  background: rgba(14, 27, 35, 0.4);
 }
 
 .header__inner {
@@ -252,14 +262,34 @@ em {
 }
 
 .nav a {
+  position: relative;
+  padding-bottom: 3px;
   font-size: 0.9rem;
   font-weight: 500;
   color: var(--color-text-muted);
   transition: color 0.15s ease;
 }
 
+/* Sublinhado que "desenha" da esquerda pra direita no hover, em vez de só
+   aparecer — right:100% -> right:0 faz a linha crescer (mesmo efeito do
+   menu do carrossel de referência). */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: right 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .nav a:hover {
   color: var(--color-accent);
+}
+
+.nav a:hover::after {
+  right: 0;
 }
 
 .nav-toggle {
@@ -277,6 +307,23 @@ em {
   height: 2px;
   background: var(--color-text);
   border-radius: 2px;
+  transition: background 0.2s ease;
+}
+
+/* Quando uma seção escura passa por baixo do header (ver JS), só o texto
+   clareia — o fundo de vidro continua o mesmo, discreto. */
+.header--on-dark .logo,
+.header--on-dark .nav a {
+  color: var(--color-text-on-dark);
+  transition: color 0.2s ease;
+}
+
+.header--on-dark .nav a:hover {
+  color: var(--color-accent);
+}
+
+.header--on-dark .nav-toggle span {
+  background: var(--color-text-on-dark);
 }
 
 /* ==========================================================================
@@ -1165,11 +1212,6 @@ body.playground-modal-open {
     linear-gradient(160deg, #1a2530 0%, #0e1b23 75%);
 }
 
-.playground-modal__media[data-project="zelia"] .playground-modal__glow {
-  background: radial-gradient(60% 50% at 75% 18%, rgba(217, 165, 68, 0.35) 0%, transparent 65%),
-    linear-gradient(165deg, #232323 0%, #0a0a0a 75%);
-}
-
 /* "Viewport" da trilha: recorta a mídia, o fundo gradiente fica atrás dela
    (fora do carrossel) e por isso nunca se move junto com as telas. */
 .playground-modal__carousel {
@@ -1957,13 +1999,350 @@ body.playground-modal-open {
 /* ==========================================================================
    CASES
    ========================================================================== */
-.cases__grid {
-  margin-top: 3.5rem;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.75rem;
+/* Iluminação/esfumaçado no canto superior direito de todo o bloco (título +
+   vitrine), não só do carrossel — mesma receita (cor e transparência) do
+   brilho usado nas seções escuras dos cases (.case__section--dark
+   .slide__stage em case-study-split.css). */
+#cases {
+  position: relative;
+  background-image:
+    radial-gradient(55% 55% at 100% 0%, rgba(31, 173, 160, 0.16), transparent 70%),
+    radial-gradient(40% 40% at 80% 0%, rgba(255, 255, 255, 0.05), transparent 70%);
 }
 
+/* Vitrine editorial: número da ordem + título + CTA de um lado (seguindo o
+   recuo do grid via o padding-left calculado abaixo), foto sangrando até a
+   borda direita da tela do outro — sem margem cortando. Inspirado num
+   carrossel de referência (ver conversa), com transição própria: a foto
+   desliza na horizontal, o número troca com um crossfade+escala, e o
+   título "rola" na vertical (sai por baixo, o próximo entra por cima).
+   Lógica em js/main.js. */
+.cases-showcase {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  min-height: 560px;
+  /* 100% aqui, não 100vw: como o .cases-showcase já ocupa a largura real da
+     seção (sem padding/max-width próprio), 100% já é a largura visível de
+     verdade. 100vw inclui a faixa da barra de rolagem vertical em
+     navegadores com scrollbar "clássica" (não some no Chromium headless,
+     por isso não pegava nos meus testes) — ficava alguns pixels maior que
+     a tela e empurrava a página inteira pra um scroll horizontal indevido. */
+  padding-left: max(1.5rem, calc((100% - var(--container-width)) / 2 + 1.5rem));
+}
+
+.cases-showcase__text {
+  position: relative;
+  flex: 0 0 clamp(280px, 30vw, 440px);
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: 3rem;
+}
+
+/* Decorativo saindo da borda esquerda da seção (não só da coluna de
+   texto), atrás de tudo. Fica de pé no meio da seção e escala pela altura
+   — a arte já é alta e estreita (339×1694), então largura automática
+   preserva a proporção. Como vem ANTES da vitrine no HTML e as duas são
+   "position", a ordem no DOM já garante que a vitrine desenha por cima,
+   sem precisar de z-index. */
+.cases__decor {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 100%;
+  width: auto;
+  max-width: none;
+  pointer-events: none;
+}
+
+/* Número gigante "fantasma" atrás do título — preenchido, bem baixo
+   contraste (não é contorno): é só uma referência de profundidade atrás do
+   título, não um elemento pra chamar atenção sozinho. */
+.cases-showcase__number {
+  position: relative;
+  height: clamp(3.5rem, 8vw, 6rem);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.055);
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cases-showcase__number-slot {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.86);
+}
+
+.cases-showcase__number-slot.is-active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cases-showcase__eyebrow {
+  position: relative;
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Nossos títulos são bem mais longos que os da referência original (que
+   tinha só 2-3 palavras) — a máscara precisa caber até 3 linhas pra não
+   cortar o fim do título das descrições mais compridas. */
+.cases-showcase__title-mask {
+  position: relative;
+  overflow: hidden;
+  margin-top: 0.6rem;
+  height: 4.2em;
+  font-size: clamp(1.3rem, 2.3vw, 1.85rem);
+}
+
+.cases-showcase__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: inherit;
+  font-weight: 700;
+  line-height: 1.18;
+  color: var(--color-text-on-dark);
+}
+
+/* Revelação palavra por palavra (não por linha): como o título quebra em
+   número de linhas diferente conforme a largura da tela (ver o cálculo de
+   altura da máscara acima), animar por palavra funciona em qualquer
+   quebra, ao contrário de um "rolo" por linha fixa. Cada palavra tem sua
+   própria máscara (recorte) + span interno que sobe com um delay
+   escalonado (ver JS), criando o efeito de cascata. */
+.cases-showcase__word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+
+.cases-showcase__word {
+  display: inline-block;
+  transform: translateY(115%);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+}
+
+.cases-showcase__word.is-in {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.cases-showcase__cta {
+  position: relative;
+  margin-top: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--color-text-on-dark);
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--color-border-on-dark);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: color 0.15s ease, border-color 0.15s ease, opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cases-showcase__cta.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cases-showcase__cta:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.cases-showcase__cta .icon {
+  width: 16px;
+  height: 16px;
+}
+
+.cases-showcase__progress {
+  position: relative;
+  margin-top: 2.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cases-showcase__dash {
+  position: relative;
+  width: 26px;
+  height: 3px;
+  padding: 0;
+  border: none;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.22);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.2s ease, width 0.2s ease;
+}
+
+.cases-showcase__dash.is-active {
+  width: 40px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Preenchimento do autoplay: só a dash ativa enche da esquerda pra
+   direita ao longo da duração do slide (ver --cases-autoplay-ms no JS).
+   Escalar em vez de animar width evita recalcular layout a cada frame. */
+.cases-showcase__dash-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.cases-showcase__dash-fill.is-filling {
+  transform: scaleX(1);
+  transition: transform var(--cases-autoplay-ms, 6500ms) linear;
+}
+
+.cases-showcase__dash-fill.is-full {
+  transform: scaleX(1);
+}
+
+.cases-showcase__media {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+.cases-showcase__media-track {
+  display: flex;
+  height: 100%;
+  touch-action: pan-y;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.cases-showcase.is-dragging .cases-showcase__media-track {
+  transition: none;
+}
+
+.cases-showcase__media-slide {
+  position: relative;
+  flex: 0 0 90%;
+  margin-right: 2%;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.cases-showcase__media-slide:last-child {
+  margin-right: 0;
+}
+
+.cases-showcase__media-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.cases-showcase__media-slide.is-active:hover img {
+  transform: scale(1.03);
+}
+
+/* Vizinho espiado no fim da fita: escurecido por um gradiente que funde
+   com a borda, mesma leitura do "tem mais, mas não é o foco agora". */
+.cases-showcase__media-slide:not(.is-active)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(6, 12, 16, 0.1) 0%, rgba(6, 12, 16, 0.85) 100%);
+  pointer-events: none;
+}
+
+/* Setas sempre visíveis por cima da mídia — círculo com borda, não só um
+   ícone solto, pra ler como botão de longe (as dashes ao lado do texto
+   continuam sendo a navegação "sempre visível" também, isso aqui é reforço,
+   não substituto). */
+.cases-showcase__hit {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  background: rgba(6, 12, 16, 0.45);
+  backdrop-filter: blur(4px);
+  color: var(--color-text-on-dark);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.cases-showcase__hit:hover,
+.cases-showcase__hit:focus-visible {
+  border-color: var(--color-accent);
+  background: rgba(6, 12, 16, 0.68);
+  color: var(--color-accent);
+}
+
+.cases-showcase__hit--prev { left: 1rem; }
+.cases-showcase__hit--next { right: 1rem; }
+
+.cases-showcase__hit .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.cases-showcase__hit:disabled {
+  display: none;
+}
+
+/* Grid estático dos cases, só pra mobile (ver .cases-showcase acima, que é
+   quem some nessa faixa) — mantém o formato de card que a home já usava
+   antes da vitrine, enquanto o mobile não recebe um tratamento próprio. */
+.cases-grid-mobile {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .cases-showcase {
+    display: none;
+  }
+
+  .cases-grid-mobile {
+    display: grid;
+    gap: 1.25rem;
+    margin-top: var(--space-section);
+  }
+}
+
+/* Cards do grid mobile: mesmo componente visual usado antes da vitrine
+   virar o carrossel principal do desktop. */
 .case-card {
   background: var(--color-dark-alt);
   border: 1px solid var(--color-border-on-dark);
@@ -1980,6 +2359,7 @@ body.playground-modal-open {
 }
 
 .case-card__thumb {
+  position: relative;
   aspect-ratio: 16 / 10;
   border-radius: calc(var(--radius) - 4px);
   background: linear-gradient(135deg, #1c333f, #0e1b23);
@@ -2028,38 +2408,6 @@ body.playground-modal-open {
   color: var(--color-accent);
 }
 
-/* Case ainda não publicado: mantém o card na grid (pra dar contexto do
-   que vem a seguir), mas sem convidar pro clique — sem hover, sem
-   levantar no hover, e o link vira texto morto em vez de <a>. */
-.case-card--disabled:hover {
-  transform: none;
-  border-color: var(--color-border-on-dark);
-}
-
-.case-card__thumb {
-  position: relative;
-}
-
-.case-card__badge {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  background: #f5b544;
-  color: #16222b;
-  font-family: var(--font-display);
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-}
-
-.case-card__link--disabled {
-  color: var(--color-text-on-dark-muted);
-  cursor: default;
-  pointer-events: none;
-}
 
 /* ==========================================================================
    FOOTER / CONTATO
@@ -2107,7 +2455,6 @@ body.playground-modal-open {
 @media (max-width: 860px) {
   .hero,
   .about__layout,
-  .cases__grid,
   .curiosities__grid,
   .experience__layout {
     grid-template-columns: 1fr;

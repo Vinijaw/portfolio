@@ -66,6 +66,39 @@ nav.querySelectorAll("a").forEach((link) => {
   });
 });
 
+// Header sem fundo: o texto escuro (pensado pra sobrar em cima de conteúdo
+// claro) fica ilegível quando um bloco escuro passa por baixo dele. Troca
+// só a cor do texto pra clara nesse momento. ".section--dark" cobre a
+// maioria, mas ".logos--tools" (a faixa de ferramentas) e o rodapé também
+// são escuros e usam classes próprias, sem herdar ".section--dark" — por
+// isso entram explícitos aqui também. Detecta com IntersectionObserver:
+// observa os blocos escuros com uma rootMargin que vira uma faixa fina
+// exatamente na altura do header, então o "isIntersecting" já diz se tem
+// bloco escuro ali embaixo, sem precisar de listener de scroll.
+{
+  const header = document.querySelector(".header");
+  const darkSections = document.querySelectorAll(".section--dark, .logos--tools, .footer");
+
+  if (header && darkSections.length) {
+    const updateHeaderTone = () => {
+      const headerHeight = header.getBoundingClientRect().height;
+      const onDark = Array.from(darkSections).some((section) => {
+        const rect = section.getBoundingClientRect();
+        return rect.top <= headerHeight && rect.bottom >= headerHeight;
+      });
+      header.classList.toggle("header--on-dark", onDark);
+    };
+
+    const headerHeight = header.getBoundingClientRect().height;
+    const observer = new IntersectionObserver(updateHeaderTone, {
+      rootMargin: `-${headerHeight}px 0px -${Math.max(window.innerHeight - headerHeight - 1, 0)}px 0px`,
+      threshold: [0, 1],
+    });
+    darkSections.forEach((section) => observer.observe(section));
+    updateHeaderTone();
+  }
+}
+
 // Fundo geométrico do hero: formas se movem com o mouse e com o scroll (parallax por profundidade)
 const hero = document.querySelector(".hero");
 if (hero && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
@@ -158,23 +191,6 @@ const PLAYGROUND_ITEMS = {
       "assets/images/cases/Playground/Gerenciamento de assinaturas/Telas/slide-4.jpg",
       "assets/images/cases/Playground/Gerenciamento de assinaturas/Telas/slide-5.jpg",
       "assets/images/cases/Playground/Gerenciamento de assinaturas/Telas/slide-6.jpg",
-    ],
-  },
-  zelia: {
-    title: "Zelia App",
-    descriptionHtml:
-      "<p>Um aplicativo com objetivo de revolucionar a forma como as pessoas gerenciam suas roupas e lookinhos.</p>" +
-      "<p>No Zelia você pode selecionar ou tirar fotos das suas peças de roupas e o próprio sistema remove o fundo da imagem.</p>" +
-      "<p>Você pode visualizar looks criando-os através das peças salvas no seu guarda-roupas virtual ou fazendo o próprio aplicativo gerar automaticamente para você.</p>",
-    tags: ["Rede social", "Aplicativo", "Mobile", "Figma"],
-    prototypeUrl:
-      "https://www.figma.com/proto/MWejRJiquXokAau1LFCC4v/Zelia_Layout_1.0?node-id=11130-15466&viewport=-711%2C517%2C0.3&t=Z5XmpfceGP7ygwG5-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=10738%3A4901&page-id=991%3A4867",
-    images: [
-      "assets/images/cases/Playground/Zélia/Telas/slide-1.jpg",
-      "assets/images/cases/Playground/Zélia/Telas/slide-2.jpg",
-      "assets/images/cases/Playground/Zélia/Telas/slide-3.jpg",
-      "assets/images/cases/Playground/Zélia/Telas/slide-4.jpg",
-      "assets/images/cases/Playground/Zélia/Telas/slide-5.jpg",
     ],
   },
   orbit: {
@@ -871,31 +887,60 @@ if (photoCarousel) {
   start();
 }
 
-// Cards de case na home: o card inteiro fica clicável, não só o link
-// "Ver case completo" — o link de verdade continua lá (acessibilidade,
-// clique do meio pra abrir em nova aba), só ganha companhia. Cards
-// marcados como em construção (.case-card--disabled) ou restritos
-// (.case-card--locked, ver bloco da modal de senha logo abaixo) ficam
-// de fora dessa navegação direta.
-document.querySelectorAll(".case-card:not(.case-card--disabled):not(.case-card--locked)").forEach((card) => {
-  const link = card.querySelector(".case-card__link");
-  if (!link || !link.getAttribute("href")) return;
-  card.style.cursor = "pointer";
-  card.addEventListener("click", (event) => {
-    if (event.target.closest("a")) return;
-    window.location.href = link.getAttribute("href");
-  });
-});
-
-// Modal de código pra cases restritos (.case-card--locked): não é
-// segurança de verdade (quem souber a URL do case ainda acessa direto),
-// só evita deixar o link clicável pra qualquer visitante casual ou
-// motor de busca. O clique — no card inteiro ou direto no link "Ver
-// case completo" — abre a modal em vez de navegar; só o código certo
-// libera o redirecionamento. Grava o desbloqueio no sessionStorage
-// (mesma chave usada pelo gate da própria página do case, em
-// js/case-lock.js) pra não pedir a senha de novo ao chegar lá.
+// Vitrine dos "Cases Selecionados": número + título + CTA de um lado, foto
+// sangrando até a borda da tela do outro. Três transições próprias por
+// troca de slide — foto desliza na horizontal, número troca com
+// crossfade+escala, título "rola" saindo por baixo e entrando por cima —
+// mais setas, dashes de progresso e arraste (touch ou mouse) na foto. A
+// modal de senha do case restrito (Área de Operações) também mora aqui,
+// já que o gatilho dela agora é o CTA/mídia da vitrine, não mais um card.
 {
+  const showcase = document.querySelector("[data-cases-showcase]");
+  const dataScript = document.querySelector("[data-cases-data]");
+  const cases = dataScript ? JSON.parse(dataScript.textContent) : [];
+
+  const mediaTrack = document.querySelector("[data-cases-media-track]");
+  const mediaSlides = mediaTrack ? Array.from(mediaTrack.children) : [];
+  const prevBtn = document.querySelector("[data-cases-prev]");
+  const nextBtn = document.querySelector("[data-cases-next]");
+  const dashes = Array.from(document.querySelectorAll("[data-cases-dash]"));
+  const numberSlots = Array.from(document.querySelectorAll(".cases-showcase__number-slot"));
+  const eyebrowEl = document.querySelector("[data-cases-eyebrow]");
+  const titleEl = document.querySelector("[data-cases-title]");
+  const titleMask = document.querySelector(".cases-showcase__title-mask");
+  const ctaEl = document.querySelector("[data-cases-cta]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // A altura da "máscara" do título precisa caber o maior título de todos
+  // os cases, na largura de coluna atual — um valor fixo em em/rem não dá
+  // conta porque cada título quebra num número de linhas diferente
+  // dependendo da largura da tela. Mede de verdade: clona um título "de
+  // mentira" dentro da máscara, testa o texto de cada case, e usa a maior
+  // altura encontrada. Roda de novo no resize (a coluna muda de largura)
+  // e quando a fonte termina de carregar (métrica muda um pouco).
+  const fitTitleMask = () => {
+    if (!titleMask || !titleEl || !cases.length) return;
+    const probe = titleEl.cloneNode(false);
+    probe.removeAttribute("data-cases-title");
+    probe.style.position = "static";
+    probe.style.visibility = "hidden";
+    probe.style.pointerEvents = "none";
+    titleMask.appendChild(probe);
+    let max = 0;
+    cases.forEach((data) => {
+      probe.textContent = data.title;
+      max = Math.max(max, probe.scrollHeight);
+    });
+    titleMask.removeChild(probe);
+    if (max > 0) titleMask.style.height = `${max}px`;
+  };
+
+  // Modal de código pra cases restritos: não é segurança de verdade (quem
+  // souber a URL do case ainda acessa direto), só evita deixar o link
+  // clicável pra qualquer visitante casual ou motor de busca. Grava o
+  // desbloqueio no sessionStorage (mesma chave usada pelo gate da própria
+  // página do case, em js/case-lock.js) pra não pedir a senha de novo ao
+  // chegar lá.
   const UNLOCK_KEY = "caseUnlocked:area-de-operacoes";
   const lock = document.getElementById("caseLock");
   const digitsWrap = document.getElementById("caseLockDigits");
@@ -903,11 +948,12 @@ document.querySelectorAll(".case-card:not(.case-card--disabled):not(.case-card--
   const errorEl = document.getElementById("caseLockError");
   const CODE = "405671";
   let pendingHref = null;
+  let openLock = () => {};
 
   if (lock && digits.length) {
     const clearDigits = () => digits.forEach((input) => (input.value = ""));
 
-    const openLock = (href) => {
+    openLock = (href) => {
       pendingHref = href;
       clearDigits();
       errorEl.hidden = true;
@@ -971,13 +1017,247 @@ document.querySelectorAll(".case-card:not(.case-card--disabled):not(.case-card--
     window.addEventListener("keydown", (event) => {
       if (event.key === "Escape" && lock.classList.contains("is-open")) closeLock();
     });
+  }
 
-    document.querySelectorAll(".case-card--locked").forEach((card) => {
-      card.style.cursor = "pointer";
-      card.addEventListener("click", (event) => {
-        event.preventDefault();
-        openLock(card.dataset.lockedHref || card.querySelector(".case-card__link")?.getAttribute("href"));
+  // Grid estático do mobile (ver .cases-grid-mobile no CSS): mesmo padrão
+  // de sempre — o card inteiro fica clicável, e o restrito abre a modal de
+  // senha em vez de navegar. Independente da vitrine (que cuida só da
+  // própria mídia/CTA), mas compartilha o mesmo openLock.
+  document.querySelectorAll(".cases-grid-mobile .case-card:not(.case-card--locked)").forEach((card) => {
+    const link = card.querySelector(".case-card__link");
+    if (!link || !link.getAttribute("href")) return;
+    card.style.cursor = "pointer";
+    card.addEventListener("click", (event) => {
+      if (event.target.closest("a")) return;
+      window.location.href = link.getAttribute("href");
+    });
+  });
+
+  document.querySelectorAll(".cases-grid-mobile .case-card--locked").forEach((card) => {
+    card.style.cursor = "pointer";
+    card.addEventListener("click", (event) => {
+      event.preventDefault();
+      openLock(card.dataset.lockedHref || card.querySelector(".case-card__link")?.getAttribute("href"));
+    });
+  });
+
+  if (showcase && mediaTrack && mediaSlides.length && cases.length) {
+    const SLIDE_WIDTH = 90;
+    const GAP = 2;
+    const AUTOPLAY_MS = 6500;
+    let current = 0;
+    let activeNumberSlot = 0;
+    let autoplayTimer = null;
+
+    showcase.style.setProperty("--cases-autoplay-ms", `${AUTOPLAY_MS}ms`);
+
+    const swapNumber = (value) => {
+      const incoming = numberSlots[1 - activeNumberSlot];
+      const outgoing = numberSlots[activeNumberSlot];
+      incoming.textContent = value;
+      outgoing.classList.remove("is-active");
+      incoming.classList.add("is-active");
+      activeNumberSlot = 1 - activeNumberSlot;
+    };
+
+    // Título revela palavra por palavra: cada palavra ganha sua própria
+    // máscara (recorte) + um span que sobe do zero com um delay
+    // escalonado — funciona em qualquer quebra de linha, ao contrário de
+    // animar a linha inteira (ver CSS pra mais contexto).
+    const renderWords = (text, animate) => {
+      titleEl.innerHTML = text
+        .split(" ")
+        .map((word, i) => {
+          const delay = (i * 0.05).toFixed(2);
+          return `<span class="cases-showcase__word-mask"><span class="cases-showcase__word" style="transition-delay:${delay}s">${word}</span></span>`;
+        })
+        .join(" ");
+      const words = titleEl.querySelectorAll(".cases-showcase__word");
+      if (!animate || reducedMotion) {
+        words.forEach((w) => w.classList.add("is-in"));
+        ctaEl?.classList.add("is-in");
+        return;
+      }
+      ctaEl?.classList.remove("is-in");
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          words.forEach((w) => w.classList.add("is-in"));
+          ctaEl?.classList.add("is-in");
+        });
+      });
+    };
+
+    // Preenchimento das dashes: só a ativa enche da esquerda pra direita
+    // ao longo de AUTOPLAY_MS. Reinicia sempre — troca manual ou
+    // automática — pra nunca mostrar um progresso de um slide antigo.
+    const restartFill = () => {
+      dashes.forEach((dash) => {
+        const fill = dash.querySelector(".cases-showcase__dash-fill");
+        fill.classList.remove("is-filling", "is-full");
+        void fill.offsetHeight;
+      });
+      const activeFill = dashes[current].querySelector(".cases-showcase__dash-fill");
+      if (reducedMotion) activeFill.classList.add("is-full");
+      else activeFill.classList.add("is-filling");
+    };
+
+    const restingOffset = () => -current * (SLIDE_WIDTH + GAP);
+
+    const render = (previous) => {
+      const data = cases[current];
+
+      mediaTrack.style.transform = `translateX(${restingOffset()}%)`;
+      mediaSlides.forEach((slide, i) => slide.classList.toggle("is-active", i === current));
+      dashes.forEach((dash, i) => dash.classList.toggle("is-active", i === current));
+
+      if (eyebrowEl) eyebrowEl.textContent = data.eyebrow;
+      if (ctaEl) {
+        ctaEl.setAttribute("href", data.href);
+        if (data.lockedHref) ctaEl.dataset.lockedHref = data.lockedHref;
+        else delete ctaEl.dataset.lockedHref;
+      }
+
+      if (previous === undefined) {
+        // Primeira renderização: já visível, sem animar a troca (a vitrine
+        // precisa estar legível assim que a página carrega).
+        numberSlots[activeNumberSlot].textContent = data.number;
+        renderWords(data.title, false);
+      } else {
+        swapNumber(data.number);
+        renderWords(data.title, true);
+      }
+      restartFill();
+    };
+
+    const goTo = (next) => {
+      // Roda em loop: com autoplay ligado, parar nas pontas ficaria
+      // estranho — o reel segue girando como uma rolagem de trabalhos.
+      const clamped = ((next % cases.length) + cases.length) % cases.length;
+      if (clamped === current) { restartFill(); return; }
+      const previous = current;
+      current = clamped;
+      render(previous);
+      scheduleAutoplay();
+    };
+
+    function scheduleAutoplay() {
+      window.clearTimeout(autoplayTimer);
+      if (reducedMotion) return;
+      autoplayTimer = window.setTimeout(() => goTo(current + 1), AUTOPLAY_MS);
+    }
+
+    render();
+    fitTitleMask();
+    scheduleAutoplay();
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(fitTitleMask, 150);
+    });
+
+    if (document.fonts?.ready) document.fonts.ready.then(fitTitleMask);
+
+    // Autoplay pausa enquanto a vitrine está sob o mouse/foco, e retoma
+    // (do zero) assim que a pessoa sai — não briga com quem está de fato
+    // olhando ou navegando por teclado.
+    showcase.addEventListener("mouseenter", () => window.clearTimeout(autoplayTimer));
+    showcase.addEventListener("mouseleave", scheduleAutoplay);
+    showcase.addEventListener("focusin", () => window.clearTimeout(autoplayTimer));
+    showcase.addEventListener("focusout", scheduleAutoplay);
+
+    showcase.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight") { goTo(current + 1); event.preventDefault(); }
+      if (event.key === "ArrowLeft") { goTo(current - 1); event.preventDefault(); }
+    });
+
+    prevBtn?.addEventListener("click", () => goTo(current - 1));
+    nextBtn?.addEventListener("click", () => goTo(current + 1));
+    dashes.forEach((dash, i) => dash.addEventListener("click", () => goTo(i)));
+
+    // Clique na mídia: se já é o slide em foco, navega (ou abre a modal de
+    // senha, se for o case restrito); se é o vizinho espiado, só traz ele
+    // pro foco.
+    mediaSlides.forEach((slide, i) => {
+      slide.addEventListener("click", (event) => {
+        if (i !== current) {
+          event.preventDefault();
+          event.stopPropagation();
+          goTo(i);
+          return;
+        }
+        const data = cases[i];
+        if (data.lockedHref) {
+          event.preventDefault();
+          openLock(data.lockedHref);
+        } else {
+          window.location.href = data.href;
+        }
       });
     });
+
+    // CTA "Ver case completo": mesmo gate — se o case ativo no momento do
+    // clique é o restrito, abre a modal em vez de seguir o link.
+    ctaEl?.addEventListener("click", (event) => {
+      if (ctaEl.dataset.lockedHref) {
+        event.preventDefault();
+        openLock(ctaEl.dataset.lockedHref);
+      }
+    });
+
+    let dragging = false;
+    let startX = 0;
+    let lastX = 0;
+    let suppressNextClick = false;
+
+    const onPointerMove = (event) => {
+      if (!dragging) return;
+      lastX = event.clientX;
+      const width = showcase.getBoundingClientRect().width || 1;
+      const deltaPct = ((event.clientX - startX) / width) * 100;
+      mediaTrack.style.transform = `translateX(${restingOffset() + deltaPct}%)`;
+    };
+
+    const onPointerUp = () => {
+      if (!dragging) return;
+      dragging = false;
+      showcase.classList.remove("is-dragging");
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
+      suppressNextClick = Math.abs(lastX - startX) > 6;
+
+      const width = showcase.getBoundingClientRect().width || 1;
+      const deltaPct = ((lastX - startX) / width) * 100;
+      const DRAG_THRESHOLD = 8;
+      if (deltaPct <= -DRAG_THRESHOLD) goTo(current + 1);
+      else if (deltaPct >= DRAG_THRESHOLD) goTo(current - 1);
+      else mediaTrack.style.transform = `translateX(${restingOffset()}%)`; // arraste curto: só reassenta a trilha, sem trocar número/título
+    };
+
+    mediaTrack.addEventListener("pointerdown", (event) => {
+      if (mediaSlides.length < 2 || event.button === 2) return;
+      dragging = true;
+      showcase.classList.add("is-dragging");
+      startX = lastX = event.clientX;
+      window.addEventListener("pointermove", onPointerMove);
+      window.addEventListener("pointerup", onPointerUp);
+      window.addEventListener("pointercancel", onPointerUp);
+    });
+
+    // Fase de captura: um arraste não pode virar clique numa mídia por
+    // baixo do dedo/mouse (levaria pro case errado ao soltar em cima de
+    // outro slide).
+    mediaTrack.addEventListener(
+      "click",
+      (event) => {
+        if (suppressNextClick) {
+          event.stopPropagation();
+          event.preventDefault();
+          suppressNextClick = false;
+        }
+      },
+      true
+    );
   }
 }

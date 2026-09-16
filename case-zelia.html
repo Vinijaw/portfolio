@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zélia — Case | João Vinícius, Product Designer</title>
+  <meta name="description" content="Case da Zélia: como um Design Sprint de 4 dias transformou um app de guarda-roupa virtual num produto que também aproxima usuárias de consultoras de moda reais." />
+
+  <link rel="icon" type="image/svg+xml" href="assets/icons/brands/jv-logo.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/case-study.css" />
+  <link rel="stylesheet" href="css/case-study-split.css" />
+</head>
+<body class="case-split-page">
+
+  <!-- ===================== HEADER (oculto nessa página — ver .case-split-page .header) ===================== -->
+  <header class="header" id="top">
+    <div class="container header__inner">
+      <a href="index.html#top" class="logo">João<span>Vinícius</span></a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="nav">
+        <a href="index.html#top">Início</a>
+        <a href="index.html#cases">Cases</a>
+        <a href="index.html#experiencia">Experiência</a>
+        <a href="index.html#sobre">Sobre</a>
+        <a href="index.html#playground">Playground</a>
+        <a href="index.html#curiosidades">Curiosidades</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="case case--split">
+
+    <div class="deck" id="deck">
+
+    <!-- ===================== SLIDE 0 · HERO ===================== -->
+    <section class="slide" id="slide-0">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <h1 class="case__title reveal">Zélia: guarda-roupa virtual com consultoria de moda</h1>
+
+          <p class="case__lead reveal">
+            Zélia era um app de guarda-roupa virtual: cadastrar as próprias roupas, montar looks e
+            compartilhar tudo num feed social. O diferencial que o projeto queria validar não estava em
+            mais uma funcionalidade de armário (isso o mercado já cobria bem), mas em aproximar quem não
+            entende nada de moda de consultoras de estilo profissionais.
+          </p>
+        </div>
+
+        <dl class="slide__meta reveal">
+          <div class="slide__meta-item">
+            <dt>Ano</dt>
+            <dd>2021</dd>
+          </div>
+          <div class="slide__meta-item">
+            <dt>Meu papel</dt>
+            <dd>Product Designer</dd>
+          </div>
+          <div class="slide__meta-item">
+            <dt>Formato</dt>
+            <dd>Projeto de agência para a Zélia</dd>
+          </div>
+          <div class="slide__meta-item">
+            <dt>Entregas</dt>
+            <dd>Layout, fluxos e protótipo</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+        <img class="slide__stage-img reveal" src="assets/images/cases/Cases selecionados/zelia/cover.png" alt="Colagem de telas do app Zélia em mockups de smartphone: login, feed, closet e edição de peça" />
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 1 · CONTEXTO ===================== -->
+    <section class="slide" id="slide-1">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">01 · Contexto</span>
+          <h2 class="case__section-title">Guarda-roupa virtual não era uma ideia nova</h2>
+          <p class="case__text" style="margin-top:1.25rem;">
+            O mercado tinha vários concorrentes cobrindo bem o cadastro de peças, mas a montagem do
+            look continuava manual, escolhida peça por peça pela própria pessoa. Porém, através de
+            pesquisas feitas pela própria cliente, identificamos uma oportunidade de aproximar quem
+            entende de moda de pessoas que têm dificuldade de montar looks. Dessa forma, a aposta do
+            projeto foi em duas frentes:
+          </p>
+          <ul class="case__premises">
+            <li><strong>Conexão:</strong> aproximar quem não entende nada de moda de consultoras de estilo reais.</li>
+            <li><strong>Automação:</strong> montar o look automaticamente* pelo aplicativo, a partir de regras de combinação de cor e textura, sem precisar escolher peça por peça.</li>
+          </ul>
+          <p class="case__note" style="margin-top:1.5rem;">
+            * Essa montagem automática seguia regras programadas de combinação (cor, textura, ocasião),
+            sem nenhuma inteligência artificial envolvida. Levantamos a possibilidade de usar IA pra
+            fazer isso, mas ficou nos planos futuros do produto, visto que na época o custo era alto
+            demais pra esse momento de MVP.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <p class="case__text"><strong>Duas pessoas, o mesmo problema:</strong></p>
+        <div class="case__cards case__cards--frentes">
+          <div class="case__card reveal">
+            <h4>Quem já entende de moda</h4>
+            <p>Está sempre ajudando as amigas a montar looks, mas não tem uma forma prática de fazer isso.</p>
+          </div>
+          <div class="case__card reveal">
+            <h4>Quem não entende nada</h4>
+            <p>Sente insegurança pra comprar roupas ou combinar o que já tem, e na maioria das vezes depende de outra pessoa pra decidir o que vestir.</p>
+          </div>
+          <div class="case__card reveal">
+            <h4>Montar o look dava trabalho</h4>
+            <p>Mesmo com as peças cadastradas, montar um look continuava sendo feito de forma manual, uma peça de cada vez.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 2 · PROCESSO ===================== -->
+    <section class="slide" id="slide-2">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">02 · Processo</span>
+          <h2 class="case__section-title">Um Design Sprint de 4 dias</h2>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Um PO/PM do time moderava as dinâmicas de descoberta (benchmarking, personas, É / Não é /
+            Faz / Não faz). Eu participei ativamente de todas elas, contribuindo com pesquisa de apps
+            parecidos e ideias, mas minha atuação principal ficou concentrada em layout e experiência:
+            as 88 telas, os fluxos e o protótipo final.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <ol class="case__timeline">
+          <li class="case__timeline-step reveal">
+            <span class="case__timeline-marker">1</span>
+            <div class="case__timeline-body">
+              <span class="case__timeline-phase">Dia 1</span>
+              <h3 class="case__timeline-title">Visão e benchmark</h3>
+              <p class="case__timeline-text">Visão de produto, "É / Não é / Faz / Não faz", objetivos e desk research dos concorrentes.</p>
+            </div>
+          </li>
+          <li class="case__timeline-step reveal">
+            <span class="case__timeline-marker">2</span>
+            <div class="case__timeline-body">
+              <span class="case__timeline-phase">Dia 2</span>
+              <h3 class="case__timeline-title">Personas e funcionalidades</h3>
+              <p class="case__timeline-text">Apresentação do benchmarking, jornadas e personas, e levantamento de funcionalidades.</p>
+            </div>
+          </li>
+          <li class="case__timeline-step reveal">
+            <span class="case__timeline-marker">3</span>
+            <div class="case__timeline-body">
+              <span class="case__timeline-phase">Dia 3</span>
+              <h3 class="case__timeline-title">Nivelamento e MVP</h3>
+              <p class="case__timeline-text">Fechamento de jornadas e personas, nivelamento do time e canvas de MVP.</p>
+            </div>
+          </li>
+          <li class="case__timeline-step reveal">
+            <span class="case__timeline-marker">4</span>
+            <div class="case__timeline-body">
+              <span class="case__timeline-phase">Dia 4</span>
+              <h3 class="case__timeline-title">Wireframe</h3>
+              <p class="case__timeline-text">Apresentação final, marcação de entrevistas com usuárias e início do wireframe.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 3 · DESCOBERTA: BENCHMARKING ===================== -->
+    <section class="slide" id="slide-3">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">03 · Descoberta</span>
+          <h2 class="case__section-title">Benchmarking</h2>
+          <p class="case__section-lead">
+            Baixamos e usamos quatro aplicativos concorrentes com a mesma proposta de montar looks
+            (ACloset, Combyne, Cladwell, Shoplook). Depois da análise, definimos, com base na nossa
+            experiência e no apoio das avaliações dos usuários, o que poderíamos aumentar, incluir,
+            eliminar e reduzir no Zélia.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            A interação entre usuários e a recomendação automática de looks foram os pontos mais
+            relevantes para aumentar dentro do app. Já pra reduzir, queríamos resolver as falhas de
+            usabilidade e a falta de um guarda-roupa virtual pra salvar as peças do usuário.
+          </p>
+          <p class="case__text">
+            Em Incluir, levamos em conta os conteúdos sobre moda pra orientar o usuário na hora de
+            escolher roupas e montar combinações, além de uma forma de monetização através de
+            consultorias pagas. Pra aumentar as chances de sucesso, decidimos eliminar os problemas
+            mais relatados nas avaliações dos usuários: ausência de customização e bugs no app.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/canvas.jpg" alt="Quadro de benchmarking com quatro quadrantes: Aumentar, Incluir, Eliminar e Reduzir, cada um com pontos extraídos da análise de ACloset, Combyne, Cladwell e Shoplook" />
+                </div>
+                <p class="case__figure-caption">Resultado final: interação entre usuários e recomendação automática de looks para aumentar, conteúdos sobre moda e consultorias pagas para incluir: os pontos marcados como mais relevantes do quadro.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/bench-acloset.png" alt="Board de benchmarking do ACloset: nota neutra, negativa e positiva sobre o app, mais a matriz de pontos a melhorar, reduzir, aumentar e manter" />
+                </div>
+                <p class="case__figure-caption">ACloset: fácil de usar e com boas ferramentas de edição, mas sem consultoria de estilo e com pouca interação entre usuárias.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/bench-combyne.png" alt="Board de benchmarking do Combyne: nota neutra, negativa e positiva sobre o app, mais a matriz de pontos a melhorar, reduzir, aumentar e manter" />
+                </div>
+                <p class="case__figure-caption">Combyne: bom em interação social e gamificação entre usuárias, mas limitado só à criação de looks e com bugs de travamento frequentes.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/bench-cladwell.png" alt="Board de benchmarking do Cladwell: nota neutra, negativa e positiva sobre o app, mais a matriz de pontos a melhorar, reduzir, aumentar e manter" />
+                </div>
+                <p class="case__figure-caption">Cladwell: recomendação automática de looks e consultoria paga já inclusas, mas as combinações se repetiam depois de 2 a 3 semanas por falta de variedade no catálogo.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/bench-shoplook.png" alt="Board de benchmarking do Shoplook: nota neutra, negativa e positiva sobre o app, mais a matriz de pontos a melhorar, reduzir, aumentar e manter" />
+                </div>
+                <p class="case__figure-caption">Shoplook, o líder do grupo: app completo e com consultoria de estilo, mas cheio de bugs na edição de looks.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o resultado final"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o ACloset"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para o Combyne"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para o Cladwell"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="4" aria-label="Ir para o Shoplook"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 4 · DESCOBERTA: PERSONAS E JORNADA ===================== -->
+    <section class="slide case__section--dark" id="slide-4">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">03 · Descoberta</span>
+          <h2 class="case__section-title">Da persona à jornada completa</h2>
+          <p class="case__section-lead">
+            As personas vieram de uma pesquisa que a própria cliente já tinha feito antes do sprint,
+            com um grupo de pessoas reais. A partir desse material, o time desenhou Gustavo e Sara e
+            completou o mapeamento de jornada de cada um, dos primeiros sinais de interesse até o
+            momento de voltar a usar o produto.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+        <div class="stage-carousel" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/persona-iniciante.jpg" alt="Persona Gustavo Freire, 26 anos, estudante de análise de sistemas, com oportunidades, metas e dores mapeadas" />
+                </div>
+                <p class="case__figure-caption">Gustavo, a persona iniciante em moda: insegurança na hora de comprar e combinar roupas.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/persona-experiente.jpg" alt="Persona Sara Aguiar, 22 anos, estudante de nutrição, com oportunidades, metas e dores mapeadas" />
+                </div>
+                <p class="case__figure-caption">Sara, a persona experiente: já ajuda as amigas, mas sem ferramenta pra escalar isso.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/jornada-gustavo.jpg" alt="Jornada do usuário de Gustavo Freire em 5 fases: Entusiasmo, Entrada, Experiência, Evasão e Extensão, com curva de emoção" />
+                </div>
+                <p class="case__figure-caption">Jornada de Gustavo em 5 fases.</p>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="case__figure" style="background:#fff;">
+                  <img src="assets/images/cases/Cases selecionados/zelia/jornada.jpg" alt="Jornada do usuário de Sara Aguiar em 5 fases: Entusiasmo, Entrada, Experiência, Evasão e Extensão, com curva de emoção" />
+                </div>
+                <p class="case__figure-caption">Jornada de Sara em 5 fases.</p>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próximo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para a persona iniciante"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para a persona experiente"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para a jornada de Gustavo"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="3" aria-label="Ir para a jornada de Sara"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 5 · DEFINIR: ESCOPO ===================== -->
+    <section class="slide" id="slide-5">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">04 · Definir</span>
+          <h2 class="case__section-title">Definindo o que o produto é e o que não é</h2>
+          <p class="case__section-lead">
+            Antes de desenhar qualquer tela, o time alinhou escopo com o clássico exercício É / Não é /
+            Faz / Não faz.
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Duas exclusões deliberadas ficaram marcadas: Zélia não é substituto de consultoras de moda, e
+            não faz consultoria de imagem. O produto aproxima consultoras e usuárias, não terceiriza a
+            decisão de estilo pra um algoritmo, nem substitui o trabalho da profissional. Esse
+            alinhamento virou três objetivos formais.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <div class="case__cards case__cards--frentes">
+          <div class="case__card reveal">
+            <h4>Facilitar o match de roupa</h4>
+            <p>Ajudar a pessoa a decidir o que vestir com o que já tem, sem depender de terceiros.</p>
+          </div>
+          <div class="case__card reveal">
+            <h4>Centralizar o contato</h4>
+            <p>Aproximar pessoas, consultores de moda e lojas de roupa num só lugar.</p>
+          </div>
+          <div class="case__card reveal">
+            <h4>Facilitar e engajar</h4>
+            <p>Deixar o processo dentro do app simples o bastante pra virar hábito, não só uma tentativa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 6 · DEFINIR: ARQUITETURA E ROADMAP ===================== -->
+    <section class="slide" id="slide-6">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">04 · Definir</span>
+          <h2 class="case__section-title">Duas personas de produto, um roadmap em 4 releases</h2>
+          <p class="case__section-lead">
+            O backlog de funcionalidades foi dividido por persona: usuárias no geral de um lado,
+            consultoras de estilo do outro, cada uma com necessidades próprias (a consultora, por
+            exemplo, precisava de badge de verificação, cronograma de atendimentos e exportar imagens
+            pra fora do app).
+          </p>
+          <p class="case__text" style="margin-top:1.25rem;">
+            Priorizado num MoSCoW e distribuído em 4 releases, cada um amarrado a uma hipótese de
+            negócio a validar: não só o que construir, mas o que precisava ser provado antes de seguir
+            em frente.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <div class="case__cards">
+          <div class="case__card reveal">
+            <span class="case__card-tag">Release 1</span>
+            <h4>Facilitar o match de roupa</h4>
+            <p>Cadastro, montagem de look manual e automática, guarda-roupa. Hipótese: entender a adesão entre usuárias comuns e consultoras.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Release 2</span>
+            <h4>Centralizar o contato</h4>
+            <p>Chat com consultora, portfólio, acesso ao guarda-roupa da usuária. Hipótese: validar a demanda com um processo manual no início, pagamento informal com os primeiros early adopters, um MVP tipo "Mágico de Oz" antes de automatizar o matching.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Release 3</span>
+            <h4>Melhorar a busca por profissionais</h4>
+            <p>Quiz de estilo, wishlist, filtros de busca e pesquisa.</p>
+          </div>
+          <div class="case__card reveal">
+            <span class="case__card-tag">Release 4</span>
+            <h4>Aperfeiçoamento</h4>
+            <p>Gamificação, calendário de roupas, mala de viagem, histórico de notificações.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 7 · DESIGN: TELAS POR FLUXO ===================== -->
+    <section class="slide case__section--dark" id="slide-7">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">05 · Design</span>
+          <h2 class="case__section-title">88 telas, seis fluxos principais</h2>
+          <p class="flow-hint">Selecione o fluxo que quer ver:</p>
+          <div class="flow-tabs">
+            <button type="button" class="flow-tab is-active" data-flow="cadastro" aria-pressed="true">Login e Cadastro</button>
+            <button type="button" class="flow-tab" data-flow="feed" aria-pressed="false">Feed</button>
+            <button type="button" class="flow-tab" data-flow="guarda-roupa" aria-pressed="false">Guarda-roupa</button>
+            <button type="button" class="flow-tab" data-flow="montar-look" aria-pressed="false">Montar look</button>
+            <button type="button" class="flow-tab" data-flow="chat" aria-pressed="false">Chat com consultora</button>
+            <button type="button" class="flow-tab" data-flow="perfil" aria-pressed="false">Perfil</button>
+          </div>
+
+          <div class="flow-texts">
+            <div class="flow-text" data-flow="cadastro">
+              <h3 class="flow-text__title">Contas com base no perfil de usuário</h3>
+              <p class="case__section-lead">
+                Antes de criar a conta, a pessoa escolhe entre dois papéis: quem quer se vestir
+                melhor, ou quem é consultora e lojista.
+              </p>
+              <p class="case__text" style="margin-top:1.5rem;">
+                Consultoras e lojistas passam por uma etapa a mais no cadastro, com contato e
+                Instagram, usada depois pra dar o selo de verificação no perfil.
+              </p>
+            </div>
+
+            <div class="flow-text" data-flow="feed" hidden>
+              <h3 class="flow-text__title">Um feed pra inspirar, não só publicar</h3>
+              <p class="case__section-lead">
+                O feed é onde a comunidade interage entre si, criando conexões e novas
+                inspirações: postar um look, receber reações e comentar o de outra pessoa.
+              </p>
+              <p class="case__text" style="margin-top:1.5rem;">
+                Cada peça do look publicado vira uma tag navegável, e dá pra marcar uma peça
+                específica como privada, escondida das outras pessoas.
+              </p>
+            </div>
+
+            <div class="flow-text" data-flow="guarda-roupa" hidden>
+              <h3 class="flow-text__title">Cadastrando roupas</h3>
+              <p class="case__section-lead">
+                O primeiro passo do guarda-roupa virtual é cadastrar as peças que a pessoa já
+                possui: escolher a categoria, subir a foto e remover o fundo pra deixar a peça
+                isolada, pronta pra entrar num look.
+              </p>
+              <p class="case__text" style="margin-top:1.5rem;">
+                Depois de cadastrada, a peça fica organizada no closet, pronta tanto pra montagem
+                manual quanto pra sugestão automática de looks.
+              </p>
+            </div>
+
+            <div class="flow-text" data-flow="montar-look" hidden>
+              <h3 class="flow-text__title">Duas formas de montar um look</h3>
+              <p class="case__section-lead">
+                Quem já tem repertório de estilo monta o look manualmente, escolhendo e
+                posicionando cada peça na tela. Quem não tem, escolhe as peças que quer usar e
+                deixa o app sugerir a combinação automaticamente.
+              </p>
+              <p class="case__text" style="margin-top:1.5rem;">
+                Nos dois casos, o resultado fica salvo no closet de looks, pronto pra usar de novo
+                ou compartilhar no feed.
+              </p>
+            </div>
+
+            <div class="flow-text" data-flow="chat" hidden>
+              <h3 class="flow-text__title">O diferencial: consultoria dentro do chat</h3>
+              <p class="case__section-lead">
+                O ponto que o benchmarking apontou como o que mais valia a pena incluir ganhou uma
+                tela própria: um chat em grupo onde a consultora participa como um papel
+                identificado na conversa, ao lado das amigas.
+              </p>
+            </div>
+
+            <div class="flow-text" data-flow="perfil" hidden>
+              <h3 class="flow-text__title">Perfis dentro do app</h3>
+              <p class="case__section-lead">
+                O perfil de usuária mostra só os Looks e o Closet (você pode pedir para
+                visualizar o closet de outra pessoa caso seja aprovado). Já o perfil de
+                consultora ganhou a aba de "Avaliações", uma forma de dar credibilidade pra quem
+                presta o serviço dentro do próprio produto.
+              </p>
+            </div>
+          </div>
+
+          <a href="https://www.figma.com/proto/MWejRJiquXokAau1LFCC4v/Zelia_Layout_1.0?page-id=991%3A4867&node-id=10738-4901&viewport=-711%2C517%2C0.3&t=YzMZMMnMPo4mmo0M-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=10738%3A4901" class="btn btn--ghost" style="margin-top:1.75rem;" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon--inline" viewBox="0 0 24 24" aria-hidden="true"><path d="M19,3H5A2,2,0,0,0,3,5V9H5V5H19V19H5V15H3v4a2,2,0,0,0,2,2H19a2,2,0,0,0,2-2V5A2,2,0,0,0,19,3Z"/><path d="M3,12a1,1,0,0,0,1,1h9.17l-2.34,2.34a1,1,0,0,0,1.41,1.42L17,12,12.24,7.24a1,1,0,0,0-1.41,0,1,1,0,0,0,0,1.41L13.17,11H4A1,1,0,0,0,3,12Z"/></svg>
+            Abrir protótipo navegável
+          </a>
+        </div>
+      </div>
+
+      <div class="slide__stage slide__stage--flush">
+
+        <div class="flow-carousel" data-flow="cadastro">
+        <div class="stage-carousel stage-carousel--screens stage-carousel--duo" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-cadastro-login.png" alt="Tela de login do Zélia, com opção de ir para o cadastro" /></div>
+                    <p class="case__figure-caption">Login: ponto de entrada pras duas contas.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-cadastro-escolha-usuaria.png" alt="Tela de cadastro perguntando em qual perfil a pessoa se encaixa, com a opção Quero me vestir melhor selecionada" /></div>
+                    <p class="case__figure-caption">Escolha do perfil: usuária, que quer se vestir melhor.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-cadastro-escolha-consultora.png" alt="Mesma tela de escolha de perfil, agora com a opção Sou consultora ou lojista selecionada" /></div>
+                    <p class="case__figure-caption">Escolha do perfil: consultora ou lojista, que quer vender produtos e serviços.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-cadastro-usuaria.png" alt="Formulário de cadastro de usuária: e-mail, nome completo e senha" /></div>
+                    <p class="case__figure-caption">Cadastro da usuária: e-mail, nome e senha.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-cadastro-consultora.png" alt="Formulário de cadastro de consultora ou lojista" /></div>
+                    <p class="case__figure-caption">Cadastro de consultora/lojista, mesmo formulário base.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-cadastro-documentacao.png" alt="Etapa extra do cadastro de parceiro, pedindo contato e Instagram" /></div>
+                    <p class="case__figure-caption">Etapa extra só pra consultoras e lojistas: contato e Instagram, base do selo de verificação.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o grupo 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o grupo 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para o grupo 3"></button>
+          </div>
+        </div>
+        </div>
+
+        <div class="flow-carousel" data-flow="feed" hidden>
+          <div class="stage-carousel__screens stage-carousel__screens--duo">
+            <div class="stage-carousel__screen-item">
+              <div class="case__figure" style="background:#fff;"><img src="assets/images/cases/Cases selecionados/zelia/flow-feed-01.png" alt="Feed social com um look postado, peças com tags navegáveis, curtidas e comentários" /></div>
+              <p class="case__figure-caption">Feed: peças marcadas com tag, curtidas e comentários.</p>
+            </div>
+            <div class="stage-carousel__screen-item">
+              <div class="case__figure" style="background:#fff;"><img src="assets/images/cases/Cases selecionados/zelia/flow-feed-02.png" alt="Peças de um look expandidas sobre o feed, com uma marcada como privada e borrada" /></div>
+              <p class="case__figure-caption">Toca numa peça e vê o detalhe: dá pra deixar uma peça privada, escondida das outras pessoas.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flow-carousel" data-flow="guarda-roupa" hidden>
+        <div class="stage-carousel stage-carousel--screens stage-carousel--duo" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/ui-03-cadastrar-roupa.png" alt="Tela de cadastro de uma peça de roupa nova" /></div>
+                    <p class="case__figure-caption">Cadastrar uma peça nova, por categoria.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-guarda-roupa-recorte.png" alt="Edição de imagem removendo manualmente o fundo da foto de uma jaqueta" /></div>
+                    <p class="case__figure-caption">Recorte manual do fundo, deixando só a peça.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screen-item">
+                  <div class="case__figure" style="background:#fff;">
+                    <img src="assets/images/cases/Cases selecionados/zelia/flow-guarda-roupa-closet.png" alt="Closet com a peça recém-cadastrada, marcada como privada" />
+                  </div>
+                  <p class="case__figure-caption">A peça cadastrada, já disponível no closet.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o grupo 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para a tela 3"></button>
+          </div>
+        </div>
+        </div>
+
+        <div class="flow-carousel" data-flow="montar-look" hidden>
+        <div class="stage-carousel stage-carousel--screens stage-carousel--duo" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/ui-06-montagem-look.png" alt="Montagem manual de um look, posicionando as peças na tela" /></div>
+                    <p class="case__figure-caption">Montagem manual: arrasta e posiciona cada peça.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-look-pecas-escolhidas.png" alt="Peças do closet selecionadas para gerar um look automaticamente" /></div>
+                    <p class="case__figure-caption">Pra montagem automática, escolhe as peças que quer usar.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-look-automatico.png" alt="Carrossel de looks recomendados automaticamente, com opção de editar antes de escolher" /></div>
+                    <p class="case__figure-caption">Depois, escolhe entre as combinações recomendadas, podendo editar antes de confirmar.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-look-closet.png" alt="Aba Closet com os looks salvos, manual e automático lado a lado" /></div>
+                    <p class="case__figure-caption">Os dois looks salvos no closet, manual e automático.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o grupo 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o grupo 2"></button>
+          </div>
+        </div>
+        </div>
+
+        <div class="flow-carousel" data-flow="chat" hidden>
+          <div class="case__figure" style="background:#fff;">
+            <img src="assets/images/cases/Cases selecionados/zelia/chat-consultora.png" alt="Chat em grupo com quatro membros, incluindo a consultora, comentando um look e sugerindo referências externas" />
+          </div>
+          <p class="case__figure-caption">Chat em grupo com a consultora participando ao lado das amigas, sugerindo referências externas.</p>
+        </div>
+
+        <div class="flow-carousel" data-flow="perfil" hidden>
+        <div class="stage-carousel stage-carousel--screens stage-carousel--duo" data-carousel>
+          <div class="stage-carousel__viewport">
+            <div class="stage-carousel__track" data-carousel-track>
+              <div class="stage-carousel__slide is-active">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-perfil-usuaria-looks.png" alt="Perfil de outra usuária, com abas de Looks e Closet" /></div>
+                    <p class="case__figure-caption">Perfil de usuária: só Looks e Closet.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-perfil-usuaria-closet.png" alt="Aba Closet de outra usuária bloqueada, com botão para pedir acesso" /></div>
+                    <p class="case__figure-caption">O closet de outra pessoa fica bloqueado: precisa pedir acesso pra ver as peças.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screens">
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/perfil-consultora.png" alt="Perfil de consultora verificada, com abas de Looks, Closet e Avaliações separadas" /></div>
+                    <p class="case__figure-caption">Perfil de consultora: aba Looks.</p>
+                  </div>
+                  <div class="stage-carousel__screen-item">
+                    <div class="case__figure"><img src="assets/images/cases/Cases selecionados/zelia/flow-perfil-consultora-closet.png" alt="Aba Closet do perfil da consultora" /></div>
+                    <p class="case__figure-caption">Perfil de consultora: aba Closet.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="stage-carousel__slide">
+                <div class="stage-carousel__screen-item">
+                  <div class="case__figure" style="background:#fff;">
+                    <img src="assets/images/cases/Cases selecionados/zelia/flow-perfil-consultora-avaliacoes.png" alt="Aba de Avaliações do perfil da consultora, com conquistas e feedback de clientes" />
+                  </div>
+                  <p class="case__figure-caption">Perfil de consultora: aba Avaliações, com conquistas e feedback de quem já usou o serviço.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--prev" data-carousel-prev aria-label="Tela anterior">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button type="button" class="stage-carousel__arrow stage-carousel__arrow--next" data-carousel-next aria-label="Próxima tela">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+          <div class="stage-carousel__dots">
+            <button type="button" class="stage-carousel__dot is-active" data-carousel-dot="0" aria-label="Ir para o grupo 1"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="1" aria-label="Ir para o grupo 2"></button>
+            <button type="button" class="stage-carousel__dot" data-carousel-dot="2" aria-label="Ir para a tela 5"></button>
+          </div>
+        </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 8 · RESULTADO ===================== -->
+    <section class="slide" id="slide-8">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">06 · Resultado</span>
+          <h2 class="case__section-title">Do sprint ao produto</h2>
+          <p class="case__section-lead">
+            O sprint (4 dias) cobriu as dinâmicas de descoberta: benchmarking, personas e roadmap.
+            Desenhar as 88 telas e fechar o protótipo levou mais tempo que isso. Já o produto,
+            lançado nas lojas 9 meses depois do início do projeto, teve um resultado maior, mas não
+            pode ser atribuído só a esse trabalho.
+          </p>
+          <p class="case__note" style="margin-top:1.5rem;">
+            Os números do produto abaixo (usuárias cadastradas, investimento captado e a loja
+            parceira que teve +350% de tráfego e +50% em vendas no período) vêm de reportagens da
+            época, não de métrica interna. O app foi descontinuado em abril de 2025: o time optou
+            por focar só na newsletter que tinha nascido junto com o produto.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <p class="case__text"><strong>Entrega do projeto:</strong></p>
+        <div class="case__stats">
+          <div class="case__stat reveal">
+            <div class="case__stat-value"><span data-countup="82">0</span></div>
+            <p class="case__stat-label">funcionalidades mapeadas</p>
+          </div>
+          <div class="case__stat reveal">
+            <div class="case__stat-value"><span data-countup="88">0</span></div>
+            <p class="case__stat-label">telas desenhadas</p>
+          </div>
+          <div class="case__stat reveal">
+            <div class="case__stat-value"><span data-countup="136">0</span></div>
+            <p class="case__stat-label">horas trabalhadas</p>
+          </div>
+        </div>
+
+        <p class="case__text" style="margin-top:2.5rem;"><strong>O produto, depois de lançado:</strong></p>
+        <div class="case__stats">
+          <div class="case__stat case__stat--positive reveal">
+            <div class="case__stat-value"><span data-countup="50">0</span>mil+</div>
+            <p class="case__stat-label">usuárias cadastradas</p>
+          </div>
+          <div class="case__stat case__stat--positive reveal">
+            <div class="case__stat-value">R$<span data-countup="1.2" data-decimals="1">0</span>mi</div>
+            <p class="case__stat-label">captados em investimento</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 9 · APRENDIZADOS ===================== -->
+    <section class="slide case__section--dark" id="slide-9">
+      <div class="slide__panel">
+        <a href="index.html#cases" class="case__back">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+          Voltar para os cases
+        </a>
+        <div class="slide__panel-inner">
+          <span class="case__section-num">07 · Aprendizados</span>
+          <h2 class="case__section-title">O que ficou do projeto</h2>
+          <p class="case__section-lead">
+            Um sprint de 4 dias ensina tanto sobre o produto quanto sobre trabalhar dentro de um time
+            multidisciplinar com prazo curto.
+          </p>
+        </div>
+      </div>
+
+      <div class="slide__stage">
+        <div class="case__cards case__cards--frentes">
+          <div class="case__card reveal">
+            <h4>Nem toda descontinuação é fracasso de design</h4>
+            <p>O app saiu do ar em 2025, mas porque o time decidiu focar só na newsletter que nasceu junto com ele, não por rejeição do produto. Vale separar o destino do negócio do valor do trabalho de design feito.</p>
+          </div>
+          <div class="case__card reveal">
+            <h4>A cliente chegou com a pesquisa pronta</h4>
+            <p>Boa parte da base de pesquisa, incluindo o material que virou as personas, já vinha de um trabalho que a própria cliente tinha feito antes do sprint. Essa proatividade deixou mais espaço pro time focar energia no layout e na experiência, em vez de construir essa base do zero em 4 dias.</p>
+          </div>
+          <div class="case__card reveal">
+            <h4>Uma ideia validada, anos depois</h4>
+            <p>Em 2025, o Google lançou o Guarda-roupa do Google Fotos: cataloga peças de roupa automaticamente a partir das fotos da pessoa e monta looks com até seis itens, usando IA de verdade. Ver essa mesma ideia funcionando em outro lugar, anos depois, com decisões de experiência parecidas com as que o time já tinha levantado, foi uma confirmação de que a direção que tomamos fazia sentido.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SLIDE 10 · CTA FINAL ===================== -->
+    <section class="slide slide--cta case__section--dark" id="slide-10">
+      <div class="case__next">
+        <img src="assets/icons/brands/jv-logo.svg" alt="" class="case__next-logo reveal" />
+        <h2 class="case__next-title reveal">Quer ver mais algum outro case ou trocar uma ideia?</h2>
+        <div class="case__next-actions">
+          <a href="index.html#cases" class="btn btn--ghost">Ver outros cases</a>
+          <a href="index.html#contato" class="btn btn--primary">Falar comigo</a>
+        </div>
+      </div>
+    </section>
+
+    </div><!-- /.deck -->
+
+    <!-- Botão "voltar" fixo, só visível na pilha mobile (ver CSS
+         @media max-width:900px) — substitui os links repetidos em cada
+         painel, que só fazem sentido no deck de slides do desktop. -->
+    <a href="index.html#cases" class="case-back-btn" aria-label="Voltar para os cases">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.71,6.7a1,1,0,0,0-1.41,0L8,12l5.3,5.3a1,1,0,0,0,1.41-1.41L10.83,12l3.88-3.89A1,1,0,0,0,14.71,6.7Z"/></svg>
+    </a>
+
+    <!-- Botão de sumário fixo no topo direito da tela. Abre a gaveta
+         (.deck-drawer), que entra pela direita e comprime o slide
+         enquanto está aberta. Handler no fim de js/case-split.js. -->
+    <button type="button" class="deck-summary-btn" id="slideNavSummaryBtn" aria-label="Abrir o sumário do case" aria-haspopup="true" aria-expanded="false" aria-controls="deckDrawer">
+      <svg class="deck-summary-btn__ico deck-summary-btn__ico--open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+      <svg class="deck-summary-btn__ico deck-summary-btn__ico--close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+
+    <aside class="deck-drawer" id="deckDrawer" aria-label="Sumário do case" aria-hidden="true">
+      <p class="deck-drawer__title">Sumário</p>
+      <nav class="deck-drawer__list" aria-label="Etapas do case">
+        <button type="button" data-target="slide-0"><span class="deck-drawer__num">—</span>Início</button>
+        <button type="button" data-target="slide-1"><span class="deck-drawer__num">01</span>Contexto</button>
+        <button type="button" data-target="slide-2"><span class="deck-drawer__num">02</span>Processo</button>
+        <button type="button" data-target="slide-3"><span class="deck-drawer__num">03</span>Descoberta</button>
+        <button type="button" data-target="slide-5"><span class="deck-drawer__num">04</span>Definir</button>
+        <button type="button" data-target="slide-7"><span class="deck-drawer__num">05</span>Design</button>
+        <button type="button" data-target="slide-8"><span class="deck-drawer__num">06</span>Resultado</button>
+        <button type="button" data-target="slide-9"><span class="deck-drawer__num">07</span>Aprendizados</button>
+      </nav>
+    </aside>
+
+    <div class="slide-nav" id="slideNav">
+      <button type="button" class="slide-nav__btn" data-dir="up" aria-label="Seção anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+      </button>
+      <span class="slide-nav__counter" id="slideNavCounter" aria-hidden="true">01 / 11</span>
+      <button type="button" class="slide-nav__btn" data-dir="down" aria-label="Próxima seção">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14"/><path d="M5 12l7 7 7-7"/></svg>
+      </button>
+    </div>
+
+  </main>
+
+  <div class="lightbox" id="lightbox">
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Fechar imagem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+    </button>
+    <button type="button" class="lightbox__arrow lightbox__arrow--prev" id="lightboxPrev" aria-label="Imagem anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button type="button" class="lightbox__arrow lightbox__arrow--next" id="lightboxNext" aria-label="Próxima imagem">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+  </div>
+
+  <script src="js/main.js"></script>
+  <script src="js/case-split.js"></script>
+  <script src="js/case-lightbox.js"></script>
+</body>
+</html>

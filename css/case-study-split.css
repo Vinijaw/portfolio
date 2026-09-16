@@ -523,6 +523,39 @@ body.case-split-page .header {
   background: transparent;
 }
 
+/* Uma .flow-carousel sem paginação (só 1 tela naquele fluxo, ex.: "Chat
+   com consultora") não pode usar o mesmo "width:auto + margin-inline:
+   auto" acima: a .case__figure em volta continua display:block (largura
+   cheia), então o fundo branco inline (style="background:#fff") dela
+   sobrava como uma moldura vazia ao redor da imagem, bem menor. Aqui a
+   .case__figure encolhe pro tamanho real da própria imagem
+   (inline-flex) e só ela é centralizada — o fundo branco passa a
+   abraçar só a foto. */
+.flow-carousel > .case__figure {
+  display: inline-flex;
+  align-self: center;
+  max-width: 100%;
+  border: none;
+  background: transparent;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.flow-carousel > .case__figure img {
+  display: block;
+  max-height: 68vh;
+  width: auto;
+  max-width: 100%;
+  border-radius: var(--radius);
+}
+
+/* Trava em ch (não em %): sem isso a legenda, como bloco solto, cresce
+   pro tamanho natural do próprio texto (que costuma passar da largura
+   de uma tela de celular) em vez de respeitar a foto ao lado dela. */
+.flow-carousel > .case__figure-caption {
+  max-width: 32ch;
+}
+
 /* Imagem de destaque do palco (capa) — ocupa 100% da área de conteúdo. */
 .slide__stage-img {
   width: 100%;
@@ -905,11 +938,85 @@ body.case-split-page .header {
   text-align: center;
 }
 
+/* Variante "dupla": 2 telas por página do carrossel em vez de 3, cada
+   uma com a própria legenda embaixo (não uma legenda só pro grupo). É o
+   padrão pra telas de celular estreitas e retrato: a largura de 84% da
+   janela sobra demais pra uma tela só (fica um vão vazio no meio antes
+   da prévia da próxima), mas cabem exatamente 2 lado a lado, com a
+   terceira já sangrando na borda direita como prévia.
+
+   Regras próprias (não reaproveita as do grupo "clássico" acima): a
+   .case__figure aqui precisa ENCOLHER pro tamanho real da imagem
+   (display:inline-flex, sem width:100%) — se ela ficasse esticada pra
+   preencher a coluna, o fundo branco inline (style="background:#fff")
+   sobraria como uma moldura vazia em volta da foto, em vez de abraçar
+   só ela. minmax(0, 1fr) nas colunas evita que uma legenda comprida
+   estoure a grade — o texto quebra dentro da largura da coluna, que é
+   quem manda no tamanho, nunca o contrário. Fica antes da media query
+   de 900px de propósito: no mobile ela precisa vencer e empilhar em 1
+   coluna (mesma regra de baixo), então tem que vir depois no CSS. */
+.stage-carousel--duo .stage-carousel__screens,
+.stage-carousel__screens--duo {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* start (herdado do grid clássico) alinhava as duas telas pelo topo —
+     com alturas diferentes ficava torto. Centralizado fica parelho. */
+  align-items: center;
+}
+
+/* .stage-carousel__screen-item repetido de propósito: sobe a
+   especificidade pra (0,3,0), empatando com ".stage-carousel--screens
+   .stage-carousel__slide .case__figure" do grupo clássico logo acima —
+   sem isso, aquela regra (que estica a figura pra width:100%) ganhava
+   por ter uma classe a mais no seletor, e a --duo nunca encolhia de
+   verdade por baixo dos panos. */
+.stage-carousel__screen-item.stage-carousel__screen-item {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stage-carousel__screen-item.stage-carousel__screen-item .case__figure {
+  display: inline-flex;
+  width: auto;
+  max-width: 100%;
+  max-height: none;
+  background: transparent;
+  border: none;
+  /* Arredonda (e corta) aqui na moldura, não só na <img>: mais robusto
+     contra qualquer regra concorrente que zere o radius só da imagem. */
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.stage-carousel__screen-item.stage-carousel__screen-item .case__figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 56vh;
+  border-radius: var(--radius);
+}
+
+/* max-width em ch (não só 100%): a coluna do grid pode ficar bem mais
+   larga que a foto em si (foto estreita de celular numa coluna de
+   ~40% da tela) — sem essa trava, a legenda usa o texto pra decidir a
+   própria largura e passa por cima da foto, em vez do contrário. */
+.stage-carousel__screen-item.stage-carousel__screen-item .case__figure-caption {
+  margin-top: 0.85rem;
+  max-width: min(100%, 30ch);
+  text-align: center;
+}
+
 @media (max-width: 900px) {
   /* Lado a lado, 2-3 telas de celular ficam pequenas demais pra
      comparar em 320-414px — empilha (o "antes/depois" tem sua própria
-     regra mais abaixo, na pilha mobile). */
-  .stage-carousel__screens {
+     regra mais abaixo, na pilha mobile). Vale pra --duo também: a regra
+     de 2 colunas acima é mais específica só por causa do nome duplo do
+     seletor, então essa daqui precisa vir depois pra ganhar no mobile. */
+  .stage-carousel__screens,
+  .stage-carousel--duo .stage-carousel__screens,
+  .stage-carousel__screens--duo {
     grid-template-columns: 1fr;
   }
 }
@@ -1100,6 +1207,20 @@ body.case-split-page .header {
   width: 100%;
   display: flex;
   flex-direction: column;
+  /* justify-content:center cobre o caso em que o filho não preenche a
+     altura toda (ex.: no mobile o .stage-carousel vira height:auto e
+     fica menor que o bloco) — sem isso ele ficava colado no topo, com
+     um vão vazio embaixo. align-items:center: idem, mas centraliza uma
+     figura solta (ex.: aba "Chat com consultora", que não tem
+     carrossel de verdade, só 1 imagem). Quando o filho é um
+     .stage-carousel de verdade, a regra logo abaixo devolve pra
+     stretch — ele precisa da largura cheia pra o mecanismo de "peek". */
+  justify-content: center;
+  align-items: center;
+}
+
+.flow-carousel:has(> .stage-carousel) {
+  align-items: stretch;
 }
 
 .flow-carousel[hidden] {

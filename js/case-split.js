@@ -293,13 +293,15 @@
   const CAROUSEL_GAP = 3;
   const CAROUSEL_PEEK = (100 - CAROUSEL_SLIDE_WIDTH) / 2;
 
-  // No mobile, o carrossel de "grupos de telas" (--screens) passa a
-  // andar tela por tela em vez de empilhar as 2-3 telas do grupo numa
-  // janela só (o que gerava um scroll enorme). O --pairs (antes/depois)
-  // fica de fora: ali as duas telas precisam aparecer juntas pra
-  // comparar. Cada imagem vira sua própria parada do carrossel; a
-  // legenda do grupo se repete em todas as telas dele, só troca ao
-  // entrar no próximo grupo.
+  // No mobile, o carrossel de "grupos de telas" (--screens, incluindo a
+  // variante --duo de 2 telas) passa a andar tela por tela em vez de
+  // empilhar as telas do grupo numa janela só (o que gerava um scroll
+  // enorme). O --pairs (antes/depois) fica de fora: ali as duas telas
+  // precisam aparecer juntas pra comparar. Cada imagem vira sua própria
+  // parada do carrossel. Dois formatos de legenda: no grupo "clássico"
+  // (--screens de 3) a legenda é uma só pro grupo inteiro e se repete em
+  // cada tela flattened; no --duo cada tela já carrega a própria legenda
+  // dentro de .stage-carousel__screen-item, então só precisa "desempacotar".
   if (window.matchMedia("(max-width: 900px)").matches) {
     document.querySelectorAll(".stage-carousel--screens[data-carousel]:not(.stage-carousel--pairs)").forEach((carousel) => {
       const track = carousel.querySelector("[data-carousel-track]");
@@ -308,13 +310,28 @@
       const groups = Array.from(track.querySelectorAll(":scope > .stage-carousel__slide"));
       const flatSlides = [];
       groups.forEach((group) => {
-        const caption = group.querySelector(".case__figure-caption");
-        const figures = Array.from(group.querySelectorAll(".stage-carousel__screens > .case__figure"));
-        figures.forEach((figure) => {
+        const screensWrap = group.querySelector(".stage-carousel__screens");
+        if (!screensWrap) {
+          // Já é uma tela avulsa (sem grupo) — sobra assim mesmo numa
+          // janela de --duo/--screens, ex.: a última tela de um grupo
+          // ímpar. Mantém como está.
+          flatSlides.push(group);
+          return;
+        }
+        const items = Array.from(screensWrap.children);
+        const groupCaption = group.querySelector(":scope > .case__figure-caption");
+        items.forEach((item) => {
           const slide = document.createElement("div");
           slide.className = "stage-carousel__slide";
-          slide.appendChild(figure);
-          if (caption) slide.appendChild(caption.cloneNode(true));
+          if (item.classList.contains("stage-carousel__screen-item")) {
+            // --duo: o item já tem a própria imagem + legenda, só move os dois.
+            Array.from(item.children).forEach((child) => slide.appendChild(child));
+          } else {
+            // --screens clássico: item é a própria .case__figure, legenda
+            // do grupo é clonada em cada tela flattened.
+            slide.appendChild(item);
+            if (groupCaption) slide.appendChild(groupCaption.cloneNode(true));
+          }
           flatSlides.push(slide);
         });
       });
@@ -449,11 +466,18 @@
     );
   });
 
-  // Slide "As três frentes que priorizamos": os botões no painel trocam
-  // qual descrição (.flow-text) e qual carrossel (.flow-carousel) aparece.
-  // Cada carrossel já foi inicializado acima pelo loop [data-carousel].
-  const flowSlide = document.getElementById("slide-9");
-  if (flowSlide) {
+  // Slides tipo "As três frentes que priorizamos": os botões no painel
+  // trocam qual descrição (.flow-text) e qual carrossel (.flow-carousel)
+  // aparece. Cada carrossel já foi inicializado acima pelo loop
+  // [data-carousel]. Um mesmo case pode ter mais de um slide desse tipo,
+  // então percorre todos os .flow-tabs e escopa cada um ao seu slide.
+  const flowSlides = new Set(
+    Array.from(document.querySelectorAll(".flow-tabs")).map((el) =>
+      el.closest(".slide")
+    )
+  );
+  flowSlides.forEach((flowSlide) => {
+    if (!flowSlide) return;
     const flowTabs = Array.from(flowSlide.querySelectorAll(".flow-tab"));
     const flowTexts = Array.from(flowSlide.querySelectorAll(".flow-text"));
     const flowCarousels = Array.from(flowSlide.querySelectorAll(".flow-carousel"));
@@ -475,5 +499,5 @@
     flowTabs.forEach((tab) => {
       tab.addEventListener("click", () => setFlow(tab.dataset.flow));
     });
-  }
+  });
 }
